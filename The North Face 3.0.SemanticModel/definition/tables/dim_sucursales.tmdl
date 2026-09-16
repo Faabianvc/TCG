@@ -1,0 +1,358 @@
+table dim_sucursales
+	lineageTag: 014481eb-007f-4b40-be44-bab5496c1a0c
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 63edfc3e-d216-423d-ad38-a30844573e0e
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column internal_code
+		dataType: string
+		lineageTag: bd9a0f3f-8eff-4ccb-a6b3-34a88a914eb0
+		summarizeBy: none
+		sourceColumn: internal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: bdd07129-a639-4250-be9c-1a78b9d5fec8
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column chain
+		dataType: string
+		lineageTag: 20caf2d3-3986-420e-8a80-56c397facc31
+		summarizeBy: none
+		sourceColumn: chain
+
+		annotation SummarizationSetBy = Automatic
+
+	column chain_sub_category
+		dataType: string
+		lineageTag: 55dd9123-c630-44d9-b53c-4983d20d37bd
+		summarizeBy: none
+		sourceColumn: chain_sub_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 2585eec3-3016-4ede-81d7-e3149c1dff5e
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 79d28b44-3545-4739-8bbb-dc79c742116a
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 95e0a89e-e46a-4fed-9100-385318e9f324
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column sector
+		dataType: string
+		lineageTag: 54d140c2-bf9e-4384-bf49-1ba06efc76ed
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone
+		dataType: string
+		lineageTag: 61932dec-d435-4804-b9b4-f5a322a3172b
+		summarizeBy: none
+		sourceColumn: zone
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b7f3a740-3825-4c33-a6b4-c73f23adb985
+		summarizeBy: sum
+		sourceColumn: company_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: c203de8a-673d-47d8-a591-314f3a57af05
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: f700c66b-d77a-4463-a823-50142fd6e186
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 5a4fdd42-8940-4b49-abdb-fefdfe2d55e1
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column portrait_image
+		dataType: string
+		lineageTag: 3befe3cb-0492-4519-9dce-82f75a962007
+		summarizeBy: none
+		sourceColumn: portrait_image
+
+		annotation SummarizationSetBy = Automatic
+
+	column sucursal =
+			
+			VAR Texto = dim_sucursales[name]
+			VAR Largo = LEN(Texto)
+			
+			----------------------------------
+			-- CONFIGURACIÓN
+			----------------------------------
+			
+			VAR Limite2Lineas = 8
+			VAR Limite3Lineas = 14
+			
+			----------------------------------
+			-- ESPACIOS
+			----------------------------------
+			
+			VAR E1 = SEARCH(" ", Texto, 1, 0)
+			VAR E2 = SEARCH(" ", Texto, E1 + 1, 0)
+			VAR E3 = SEARCH(" ", Texto, E2 + 1, 0)
+			VAR E4 = SEARCH(" ", Texto, E3 + 1, 0)
+			
+			----------------------------------
+			-- CASO 2 LINEAS
+			----------------------------------
+			
+			VAR Centro = Largo / 2
+			
+			VAR D1 = IF(E1 > 0, ABS(E1 - Centro), 999)
+			VAR D2 = IF(E2 > 0, ABS(E2 - Centro), 999)
+			VAR D3 = IF(E3 > 0, ABS(E3 - Centro), 999)
+			VAR D4 = IF(E4 > 0, ABS(E4 - Centro), 999)
+			
+			VAR Salto2 =
+			    SWITCH(
+			        TRUE(),
+			        D1 <= D2 && D1 <= D3 && D1 <= D4, E1,
+			        D2 <= D3 && D2 <= D4, E2,
+			        D3 <= D4, E3,
+			        E4
+			    )
+			
+			VAR Resultado2 =
+			    IF(
+			        Salto2 > 0,
+			        REPLACE(Texto, Salto2, 1, UNICHAR(10)),
+			        Texto
+			    )
+			
+			----------------------------------
+			-- COMBINACION E1-E2
+			----------------------------------
+			
+			VAR M12 =
+			    IF(
+			        E1 > 0 && E2 > 0,
+			        MAX(
+			            E1 - 1,
+			            MAX(
+			                E2 - E1 - 1,
+			                Largo - E2
+			            )
+			        ),
+			        999
+			    )
+			
+			----------------------------------
+			-- COMBINACION E1-E3
+			----------------------------------
+			
+			VAR M13 =
+			    IF(
+			        E1 > 0 && E3 > 0,
+			        MAX(
+			            E1 - 1,
+			            MAX(
+			                E3 - E1 - 1,
+			                Largo - E3
+			            )
+			        ),
+			        999
+			    )
+			
+			----------------------------------
+			-- COMBINACION E1-E4
+			----------------------------------
+			
+			VAR M14 =
+			    IF(
+			        E1 > 0 && E4 > 0,
+			        MAX(
+			            E1 - 1,
+			            MAX(
+			                E4 - E1 - 1,
+			                Largo - E4
+			            )
+			        ),
+			        999
+			    )
+			
+			----------------------------------
+			-- COMBINACION E2-E3
+			----------------------------------
+			
+			VAR M23 =
+			    IF(
+			        E2 > 0 && E3 > 0,
+			        MAX(
+			            E2 - 1,
+			            MAX(
+			                E3 - E2 - 1,
+			                Largo - E3
+			            )
+			        ),
+			        999
+			    )
+			
+			----------------------------------
+			-- COMBINACION E2-E4
+			----------------------------------
+			
+			VAR M24 =
+			    IF(
+			        E2 > 0 && E4 > 0,
+			        MAX(
+			            E2 - 1,
+			            MAX(
+			                E4 - E2 - 1,
+			                Largo - E4
+			            )
+			        ),
+			        999
+			    )
+			
+			----------------------------------
+			-- COMBINACION E3-E4
+			----------------------------------
+			
+			VAR M34 =
+			    IF(
+			        E3 > 0 && E4 > 0,
+			        MAX(
+			            E3 - 1,
+			            MAX(
+			                E4 - E3 - 1,
+			                Largo - E4
+			            )
+			        ),
+			        999
+			    )
+			
+			VAR Mejor =
+			    MIN(
+			        M12,
+			        MIN(
+			            M13,
+			            MIN(
+			                M14,
+			                MIN(
+			                    M23,
+			                    MIN(M24, M34)
+			                )
+			            )
+			        )
+			    )
+			
+			VAR P1 =
+			    SWITCH(
+			        TRUE(),
+			        Mejor = M12, E1,
+			        Mejor = M13, E1,
+			        Mejor = M14, E1,
+			        Mejor = M23, E2,
+			        Mejor = M24, E2,
+			        E3
+			    )
+			
+			VAR P2 =
+			    SWITCH(
+			        TRUE(),
+			        Mejor = M12, E2,
+			        Mejor = M13, E3,
+			        Mejor = M14, E4,
+			        Mejor = M23, E3,
+			        Mejor = M24, E4,
+			        E4
+			    )
+			
+			----------------------------------
+			-- 3 LINEAS
+			----------------------------------
+			
+			VAR Texto1 =
+			    REPLACE(Texto, P2, 1, "|")
+			
+			VAR Texto2 =
+			    REPLACE(Texto1, P1, 1, "|")
+			
+			VAR Resultado3 =
+			    SUBSTITUTE(Texto2, "|", UNICHAR(10))
+			
+			----------------------------------
+			-- RESULTADO
+			----------------------------------
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        Largo >= Limite3Lineas && P2 > 0, Resultado3,
+			        Largo >= Limite2Lineas && Salto2 > 0, Resultado2,
+			        Texto
+			    )
+		lineageTag: 79c6e392-33e2-4448-946e-60813daeac68
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_sucursales = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "SELECT id, internal_code, ""name"", ""chain"", chain_sub_category, country, city, region, sector, ""zone"", company_id, address, latitude, longitude, portrait_image#(lf)FROM northface.vw_branches", null, [EnableFolding=true])
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,140 @@
+table Gap
+	lineageTag: 72eded5d-28ce-4b65-9c7d-6a341d942f8f
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: bbc97fc0-1747-4d3f-b421-81eb2130e90c
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: ab92326c-28c0-4733-8fab-981a5a380ac6
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 707485c8-53fc-407c-86e0-5493914000ab
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: b82bc329-7a5b-4841-9836-34a2c17700c2
+			defaultHierarchy: LocalDateTable_b862f3a4-449f-4bb4-a11a-03616218b59f.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column response_id
+		dataType: string
+		lineageTag: 1e849b49-fb19-45d8-aa2a-6af2a88c847d
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 809f1a45-f970-471a-be3c-a1666ef5f202
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d881c09d-2983-43c3-b0ca-6bb1d9923e7c
+		summarizeBy: sum
+		sourceColumn: quiz_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a5e54e28-9ab1-44a9-9ba4-267f7a650447
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: ccad798f-0263-418a-88d5-23442dd43179
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8934423e-4531-4869-a8c0-7bf881e817de
+		summarizeBy: sum
+		sourceColumn: question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: 5ceb1cc3-338a-499b-b080-fa90ec4e7abb
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: int64
+		formatString: 0
+		lineageTag: f26a19e7-f4d3-455e-8d04-c7528d7ceddf
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tabla.qc_value'
+		dataType: string
+		lineageTag: eea7e31a-055c-4467-93f7-6fc1d3c70622
+		summarizeBy: none
+		sourceColumn: Tabla.qc_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre del mes'
+		dataType: string
+		lineageTag: d087e8dc-7218-4e9d-9833-f92bb08a9944
+		summarizeBy: none
+		sourceColumn: Nombre del mes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Gap = m
+		mode: import
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)qr.branch_id,#(lf)br.name,#(lf)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id  as response_id,#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id,#(lf)-- CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at) as salida,#(lf)qr.quiz_id,#(lf)qr.user_id,#(lf)q.title,#(lf)q.id as question_id,#(lf)case #(lf)#(tab)when q.""type"" = 'choices_multiple' then 'razon'#(lf)#(tab)else 'Comentario'#(lf)end as kpi,#(lf)qra.value#(lf)from tcg_scout_v2.quiz_responses qr #(lf)LEFT JOIN tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id =qr.id #(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.question_choices qc on qc.question_id ||qc.value = qra.question_id ||qra.value #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)where qr.quiz_id in (6370)#(lf)and q.id = 298350#(lf)and qr.approved is not false#(lf)#(lf)#(lf)order by qr.id desc", null, [EnableFolding=true]),
+				    #"Dividir columna por delimitador" = Table.ExpandListColumn(Table.TransformColumns(Origen, {{"value", Splitter.SplitTextByDelimiter("-", QuoteStyle.Csv), let itemType = (type nullable text) meta [Serialized.Text = true] in type {itemType}}}), "value"),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Dividir columna por delimitador",{{"value", Int64.Type}}),
+				    #"Consultas combinadas" = Table.NestedJoin(#"Tipo cambiado", {"value"}, Tabla, {"qc_id"}, "Tabla", JoinKind.LeftOuter),
+				    #"Se expandió Tabla" = Table.ExpandTableColumn(#"Consultas combinadas", "Tabla", {"qc_value"}, {"Tabla.qc_value"}),
+				    #"Nombre del mes insertado" = Table.AddColumn(#"Se expandió Tabla", "Nombre del mes", each Date.MonthName([fecha]), type text)
+				in
+				    #"Nombre del mes insertado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

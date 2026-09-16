@@ -1,0 +1,37 @@
+table dim_clasificacion
+	lineageTag: d95ec8dd-bf35-46a8-838a-7bf0e2163923
+
+	column clasificacion
+		dataType: string
+		lineageTag: c7e429bc-3fd6-4c40-b92b-b972bf4fb1b0
+		summarizeBy: none
+		sourceColumn: clasificacion
+		sortByColumn: orden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: string
+		lineageTag: 48f143c7-8c21-473b-89b1-358de947cab3
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_clasificacion = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcipNzUssVtJRMlaK1YlW8k1NyUyECBiBBQLyk4pSQVxDCDe1KC01uQSswEQpNhYA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [clasificacion = _t, orden = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"clasificacion", type text}}),
+				    #"Sorted Rows" = Table.Sort(#"Tipo cambiado",{{"orden", Order.Ascending}})
+				in
+				    #"Sorted Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

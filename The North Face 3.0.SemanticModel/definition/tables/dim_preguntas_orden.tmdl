@@ -1,0 +1,49 @@
+table dim_preguntas_orden
+	lineageTag: 3ac4c28e-a8b9-48bb-9df9-d50d8acbf9e0
+
+	column question_short
+		dataType: string
+		lineageTag: bf7c2d6f-165e-4110-b49b-4abc2a664caa
+		summarizeBy: none
+		sourceColumn: question_short
+		sortByColumn: orden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: double
+		lineageTag: 015cf7e7-f329-4c09-b1b1-1af65b90a8fc
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dim_preguntas_orden = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Source = dim_preguntas,
+				    #"Filtered Rows1" = Table.SelectRows(Source, each [question_short] <> null and [question_short] <> ""),
+				    #"Filtered Rows" = Table.SelectRows(#"Filtered Rows1", each [kpi_id] <> null and [kpi_id] <> ""),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"order", "question_short", "quiz_id"}),
+				    #"Grouped Rows" = Table.Group(
+				        #"Removed Other Columns",
+				        {"question_short"},
+				        {
+				            {"orden", each List.Min([order]), type nullable number},
+				            {"esta_en_ambas_aud", each "Sí" , type text}
+				        }
+				    ),
+				    #"Removed Columns" = Table.RemoveColumns(#"Grouped Rows",{"esta_en_ambas_aud"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

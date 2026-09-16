@@ -1,0 +1,129 @@
+relationship AutoDetected_c8be6a8b-5bae-4c1c-8a57-ec2202edbe85
+	fromColumn: dim_preguntas.question_short
+	toColumn: dim_preguntas_orden.question_short
+
+relationship eb0f8cdc-1588-463a-9761-e753e2ff8884
+	fromColumn: fct_respuestas.fecha
+	toColumn: dim_dates.date
+
+relationship 9e73412e-d9a0-7435-550b-e938777c47ca
+	fromColumn: fct_respuestas.branch_id
+	toColumn: dim_sucursales.id
+
+relationship 1229c8f9-a479-132b-011b-badf385c2035
+	fromColumn: fct_respuestas.kpi_id
+	toColumn: dim_kpi.id
+
+relationship c175aa68-d58a-9005-dcd0-ffd7f6817274
+	crossFilteringBehavior: bothDirections
+	fromColumn: fct_respuestas.key
+	toColumn: 'Perfect Stores'.key
+
+relationship 996c7823-e20a-4a6b-e180-905feacd4485
+	fromColumn: 'Perfect Stores'.clasificacion
+	toColumn: dim_clasificacion.clasificacion
+
+relationship 44d7584f-c39d-a3d5-9be6-b04472e5409c
+	crossFilteringBehavior: bothDirections
+	fromColumn: fct_respuestas.keytarget
+	toColumn: dim_target.Keytarget
+
+relationship c3cfd70d-bd2b-6cbc-7600-b4036ecd8c7a
+	toCardinality: many
+	fromColumn: fct_videos.key_video
+	toColumn: fct_respuestas.key_video
+
+relationship 19ecd4b9-460f-71d4-b21a-5df6394d7e64
+	fromColumn: fct_respuestas.question_id
+	toColumn: dim_preguntas.id
+
+relationship 5dd97685-d6b4-546f-f388-4ef68de4c165
+	fromColumn: fct_respuestas.medicion
+	toColumn: dimMedicion.medicion
+
+relationship 9484b143-a631-844e-d4f1-599e1e920035
+	toCardinality: many
+	fromColumn: fct_comentarios.key_comentario
+	toColumn: fct_respuestas.key_comentario
+
+relationship 5e925da0-ef3e-97d4-6c0e-14fb5ead8885
+	fromColumn: dim_preguntas.quiz_id
+	toColumn: dim_encuestas.id
+
+relationship 53d3d7eb-5891-bc85-497a-89bcdaef9030
+	toCardinality: many
+	fromColumn: fct_asignaciones.mes
+	toColumn: dim_dates.periodo
+
+relationship 68f4e0b0-9370-32fc-b13a-d197a1b61954
+	fromColumn: fct_asignaciones.survey_id
+	toColumn: dim_encuestas.id
+
+relationship 1007b441-2e5f-876b-a5ba-ca9dee43acd0
+	fromColumn: fct_asignaciones.branch_id
+	toColumn: dim_sucursales.id
+
+relationship AutoDetected_8662e7aa-e166-4a57-83a5-7e02e506e289
+	fromColumn: fct_asignaciones.user_id
+	toColumn: dim_usuarios.user_id
+
+relationship daf2d3e9-f621-78a3-5fe0-ab869ae8aac7
+	crossFilteringBehavior: bothDirections
+	fromColumn: dim_usuarios.name
+	toColumn: dimFotosUsuario.name
+
+relationship 5cf70ee6-1328-5a9b-b2f4-dd9fb21556ae
+	fromColumn: fct_respuestas.user_id
+	toColumn: dim_usuarios.user_id
+
+relationship AutoDetected_f2958e04-1fd1-4a45-aac2-bfb6cccbdd64
+	fromColumn: fct_antes.user_id
+	toColumn: dim_usuarios.user_id
+
+relationship 3b9d51ac-fcda-beeb-2012-3cbea2b6a284
+	fromColumn: fct_antes.branch_id
+	toColumn: dim_sucursales.id
+
+relationship 19c9a699-72dd-8358-57e4-35d7e9be00c7
+	fromColumn: fct_antes.question_id
+	toColumn: dim_preguntas.id
+
+relationship a9399f20-59d8-5bbb-4b68-092e713a1f8d
+	toCardinality: many
+	fromColumn: fct_despues.survey_response_id
+	toColumn: fct_antes.survey_response_id
+
+relationship e06f5d7c-400c-86e5-6fd2-219adb777b56
+	fromColumn: fct_antes.survey_response_review
+	toColumn: fct_review.survey_response_id
+
+relationship c99fa04c-cddb-118c-76b5-9e00cfbdda95
+	toCardinality: many
+	fromColumn: fct_pbi_comments.key_cta
+	toColumn: fct_respuestas.key_cta
+
+relationship 46982055-c1c0-bd30-c84b-f4fedbb5329a
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: fct_fotos.key_foto
+	toColumn: fct_respuestas.key_foto
+
+relationship 216d879c-3dca-1b00-81a9-6209d34bb9ce
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: preguntas_ambas_aud.short_question
+	toColumn: dim_preguntas_orden.question_short
+
+relationship a6026fb8-84f5-a041-bac8-c6601eaea807
+	toCardinality: many
+	fromColumn: fct_comentario_general_ia.survey_response_id
+	toColumn: fct_respuestas.survey_response_id
+
+relationship 972e3698-7ddb-273a-8a51-2a39ce0e6502
+	fromColumn: Marcaje.branch_id
+	toColumn: dim_sucursales.id
+
+relationship 220194f5-18fa-5349-1c36-650133f20f7d
+	fromColumn: Marcaje.user_id
+	toColumn: dim_usuarios.user_id
+

@@ -1,0 +1,492 @@
+table fct_respuestas
+	lineageTag: f1b504c1-6218-4850-9ee8-061ada214d8a
+
+	column survey_response_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c6e8e9b6-ce6e-4167-82d9-8d8be6dd2dc2
+		summarizeBy: none
+		sourceColumn: survey_response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_hora
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d465b2e3-9d02-494f-a3ab-6c5318c46bcb
+		summarizeBy: none
+		sourceColumn: fecha_hora
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_hora_fin
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9601170f-dc98-4435-b5d0-8dc30d0ebe7c
+		summarizeBy: none
+		sourceColumn: fecha_hora_fin
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7dd19e5b-41cf-426b-8885-a4f1fc5bc64a
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d8694f5-f1cf-481d-a818-81f40838f23f
+		summarizeBy: none
+		sourceColumn: question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column depends_on_question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 66437721-a8bd-455e-ae19-8b65718d5f50
+		summarizeBy: sum
+		sourceColumn: depends_on_question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0517310b-033a-4b06-92d2-ce28ab10ea14
+		summarizeBy: sum
+		sourceColumn: quiz_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 31a52b67-499a-4530-94c1-eda7acabdfa5
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c6b75df-a899-497e-92a5-88d288f2c760
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column answer
+		dataType: string
+		lineageTag: 75cbb746-73a5-4546-8b4c-bbf489df7aa5
+		summarizeBy: none
+		sourceColumn: answer
+
+		annotation SummarizationSetBy = Automatic
+
+	column answer_integer
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ce3fdfa-4889-43ac-ba7d-3136e8bd99c5
+		summarizeBy: sum
+		sourceColumn: answer_integer
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 76772caa-3fa7-422a-8f39-997c66e59541
+		summarizeBy: sum
+		sourceColumn: has_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column obtained_score
+		dataType: double
+		lineageTag: 4411f944-e715-45d7-99dc-622c90c314e1
+		summarizeBy: sum
+		sourceColumn: obtained_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column question_total_score
+		dataType: double
+		lineageTag: 42c90361-4d53-43f6-a67b-c781f5677be0
+		summarizeBy: sum
+		sourceColumn: question_total_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column category
+		dataType: string
+		lineageTag: 2de371f9-faca-478b-8f03-83a2063abfda
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column sub_category
+		dataType: string
+		lineageTag: 56987f42-b7fe-46d3-8999-357825de1f62
+		summarizeBy: none
+		sourceColumn: sub_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_response_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d166a629-3f15-4baa-beb8-f03b932a51fe
+		summarizeBy: sum
+		sourceColumn: question_response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_is_approved
+		dataType: int64
+		formatString: 0
+		lineageTag: f2745ca3-6c0e-4bfe-9a3a-ac337fc23d72
+		summarizeBy: sum
+		sourceColumn: response_is_approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 35b31e16-d452-4721-8fbf-434e92e696be
+		summarizeBy: none
+		sourceColumn: kpi_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_image
+		dataType: int64
+		formatString: 0
+		lineageTag: 271cb0b0-97b3-4150-bc2c-79311a2a2d94
+		summarizeBy: sum
+		sourceColumn: is_image
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden_foto_question
+		dataType: int64
+		formatString: 0
+		lineageTag: 13ec83dd-71f4-4d17-9d5c-9d0233a303eb
+		summarizeBy: sum
+		sourceColumn: orden_foto_question
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_video
+		dataType: int64
+		formatString: 0
+		lineageTag: b2416daa-adff-4dca-a4e7-ddd1c3c90449
+		summarizeBy: sum
+		sourceColumn: is_video
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kpi = RELATED(dim_kpi[KPI])
+		lineageTag: c75b0db0-f48e-49ce-aec0-84c20ce825dd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column keytarget = fct_respuestas[Kpi]
+		lineageTag: debaf76b-1ec3-453e-a3d9-028481cbcaad
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periodo = FORMAT(fct_respuestas[fecha],"yyyy-mm")
+		lineageTag: ad0e7bc8-99ef-4d9f-a133-06731b837135
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal = RELATED(dim_sucursales[name])
+		lineageTag: b3cb7f1a-fa29-4f1f-b136-db895663f6a1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column key = fct_respuestas[branch_id]&fct_respuestas[Periodo]
+		lineageTag: c77bc34e-c84e-48f4-a92c-f9ed1538469a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column clasificacion = RELATED('Perfect Stores'[clasificacion])
+		lineageTag: 67c1d235-3811-4fec-a19a-ff251d83ffed
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pregunta = RELATED(dim_preguntas[title])
+		lineageTag: 8b4f0598-92f3-4f54-a367-bffa8b9aeabc
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column short_question = RELATED(dim_preguntas[question_short])
+		lineageTag: bb28f59d-0c22-442f-b22e-bd736a4e1400
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column key_video = FORMAT([fecha], "YYYY-MM-DD") & "|" & [branch_id]
+		lineageTag: 4fb45190-341e-403f-9ae7-b4b2fd3080d1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column entidad_sugerida =
+			
+			CALCULATE(
+			    MAX(fct_respuestas[answer]),
+			    FILTER(
+			        fct_respuestas,
+			        fct_respuestas[survey_response_id] = EARLIER(fct_respuestas[survey_response_id])
+			            && fct_respuestas[question_category] = "Entidad-Sugerida"
+			    )
+			)
+		lineageTag: b6463203-2c28-4523-8bd8-1b2c3bb07e40
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3774ee9a-df5f-4ab2-bad5-a41905206673
+		summarizeBy: sum
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column modulo
+		dataType: int64
+		formatString: 0
+		lineageTag: b651dada-5e35-48b2-8fd7-71c27f9ba03a
+		summarizeBy: sum
+		sourceColumn: modulo
+
+		annotation SummarizationSetBy = Automatic
+
+	column comment_teleaudit
+		dataType: string
+		lineageTag: e1a8df00-3330-494a-ae6a-b16dd95989d5
+		summarizeBy: none
+		sourceColumn: comment_teleaudit
+
+		annotation SummarizationSetBy = Automatic
+
+	column app
+		dataType: string
+		lineageTag: 2d00ac30-be8d-47b7-814f-00ac6e48c049
+		summarizeBy: none
+		sourceColumn: app
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_audio
+		dataType: int64
+		formatString: 0
+		lineageTag: ab8c54b0-5e7c-42c8-ba0e-4f3dabe81fb6
+		summarizeBy: sum
+		sourceColumn: is_audio
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_comment
+		dataType: int64
+		formatString: 0
+		lineageTag: 5245ab59-e6b5-4a09-bc3a-ff3e70e4839e
+		summarizeBy: sum
+		sourceColumn: is_comment
+
+		annotation SummarizationSetBy = Automatic
+
+	column medicion
+		dataType: int64
+		formatString: 0
+		lineageTag: 8448b361-353c-4f1b-9b47-6a103e102f67
+		summarizeBy: none
+		sourceColumn: medicion
+
+		annotation SummarizationSetBy = Automatic
+
+	column key_foto =
+			IF([quiz_category] = "Auditoría",
+			 FORMAT([survey_response_id]&[question_id],0),
+			 FORMAT([survey_response_id],0))
+		lineageTag: d3455396-4679-4bb7-9440-2dcc6ada2a74
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column photo_question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5bc7cf83-051a-4c29-a97e-f4b031a7918f
+		summarizeBy: sum
+		sourceColumn: photo_question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column key_comentario = ```
+			[survey_response_id] & "|" & [question_id]
+			
+			```
+		lineageTag: f14b0b70-ec93-4960-b83a-1049f06967d0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_category
+		dataType: string
+		lineageTag: 90930f10-c767-44ed-8a90-bb2cb4985dee
+		summarizeBy: none
+		sourceColumn: question_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_category
+		dataType: string
+		lineageTag: e3b9adc0-4e16-46ef-b0a1-9075404607b8
+		summarizeBy: none
+		sourceColumn: quiz_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column comentario_general =
+			
+			CALCULATE(
+			    MAX(fct_respuestas[answer]),
+			    FILTER(
+			        fct_respuestas,
+			        fct_respuestas[survey_response_id] = EARLIER(fct_respuestas[survey_response_id])
+			            && fct_respuestas[question_category] = "Comentario-General"
+			    )
+			)
+		lineageTag: 77c837ea-e78b-44a5-bbe7-f01b4e21fc52
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periodo_m =
+			
+			VAR periodo = fct_respuestas[Periodo]
+			VAR medicion = CONCATENATE("Med 0",fct_respuestas[medicion])
+			RETURN
+			medicion
+		lineageTag: 2d72c4ca-c01f-4c0f-8c7a-99ad1618d3ec
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Usuario = RELATED(dim_usuarios[name])
+		lineageTag: 961bfa92-3e7c-44e8-9666-98cb2a31e1e2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_response_despues
+		dataType: int64
+		formatString: 0
+		lineageTag: 85a7e891-9509-4b1b-a12f-1bdd78fe64d5
+		summarizeBy: sum
+		sourceColumn: survey_response_despues
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_response_review
+		dataType: int64
+		formatString: 0
+		lineageTag: 155cf172-85ed-45e9-842b-b7fd96c817cb
+		summarizeBy: sum
+		sourceColumn: survey_response_review
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_type = RELATED(dim_preguntas[type])
+		lineageTag: 083eb96f-f256-451a-8d89-cf121dd58bf6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column key_cta = [page_pbi_comments] & "|" & [periodo_pbi_comments] & "|" & [Sucursal] & "|" & [short_question]  & "|" & [Kpi] & "|" & [medicion] & "|" & [quiz_type_pbi_comments]    /*question_short - periodo - name - medicion*/
+		lineageTag: 2b01837d-539a-4374-bec9-3ece076a91e1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column page_pbi_comments =
+			
+			SWITCH(
+			    [quiz_category],
+			    "Auditoría", "Detalle AUD",
+			    "Mystery Shopper", "Detalle MS",
+			    BLANK()
+			)
+		lineageTag: b6bbe3f8-5710-4178-99f3-74288ae6579c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodo_pbi_comments = RELATED(dim_dates[periodo])
+		lineageTag: 3b238063-79bf-43ea-b749-86c8a71716cc
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiene_cta =
+			
+			IF(
+			    COUNTROWS(RELATEDTABLE(fct_pbi_comments)) > 0,
+			    "Ver sólo comentarios CTA",
+			    "No"
+			)
+		lineageTag: 9075ba2b-4159-4ae7-9884-b56e6ebdcd73
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_type_pbi_comments =
+			
+			SWITCH(
+			    RELATED(dim_encuestas[quiz_type]),"Mystery Shopper", "Detalle MS", RELATED(dim_encuestas[quiz_type])
+			)
+		lineageTag: dac70ea6-1ae4-4832-a121-cd2551e1d24f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_respuestas = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "SELECT a.survey_response_id, fecha_hora, fecha_hora_fin, fecha, question_id, depends_on_question_id, photo_question_id, quiz_id, user_id#(lf)#(tab), branch_id, answer, answer_integer, product_id, has_score, obtained_score, question_total_score, category#(lf)#(tab), sub_category, modulo, question_response_id, comment_teleaudit, response_is_approved#(lf)#(tab), app, kpi_id, is_image, is_video, is_audio, is_comment, orden_foto_question, question_category, quiz_category, m.medicion,ad.survey_response_despues#(lf),ad.survey_response_review#(lf)FROM northface.vw_answers_v3 a#(lf)LEFT JOIN northface.vw_mediciones m ON a.survey_response_id = m.survey_response_id#(lf)LEFT JOIN northface.vw_responses_antes_despues ad#(lf)ON a.survey_response_id = ad.survey_response_antes", null, [EnableFolding=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"fecha", type date}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

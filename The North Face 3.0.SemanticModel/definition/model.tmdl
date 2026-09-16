@@ -1,0 +1,51 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CL
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Fcts
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Dims
+
+	annotation PBI_QueryGroupOrder = 1
+
+annotation PBI_QueryOrder = ["fct_respuestas","fct_fotos","fct_videos","dim_dates","dim_usuarios","dim_preguntas","dim_target","dim_kpi","dim_sucursales","dim_clasificacion","dim_encuestas","dim_preguntas_orden","Actualización","1Medidas","fct_comentarios","fct_pbi_comments","fct_asignaciones","fct_antes","fct_despues","fct_review","fct_comentario_general_ia","Marcaje"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fct_respuestas
+ref table fct_fotos
+ref table fct_videos
+ref table dim_dates
+ref table dim_usuarios
+ref table dim_preguntas
+ref table dim_target
+ref table dim_kpi
+ref table dim_sucursales
+ref table dim_clasificacion
+ref table dim_encuestas
+ref table dim_preguntas_orden
+ref table Actualización
+ref table 'Perfect Stores'
+ref table 1Medidas
+ref table dimMedicion
+ref table fct_comentarios
+ref table fct_pbi_comments
+ref table fct_asignaciones
+ref table dimFotosUsuario
+ref table fct_antes
+ref table fct_despues
+ref table preguntas_ambas_aud
+ref table fct_review
+ref table fct_comentario_general_ia
+ref table Marcaje
+
+ref cultureInfo es-MX
+

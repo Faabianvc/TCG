@@ -1,0 +1,615 @@
+table Marcaje
+	lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+
+	column survey_response_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678901
+		summarizeBy: sum
+		sourceColumn: survey_response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c2d3e4f5-a6b7-8901-cdef-123456789012
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d3e4f5a6-b7c8-9012-defa-234567890123
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e4f5a6b7-c8d9-0123-efab-345678901234
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column añomes
+		dataType: string
+		lineageTag: f5a6b7c8-d9e0-1234-fabc-456789012345
+		summarizeBy: none
+		sourceColumn: añomes
+
+		annotation SummarizationSetBy = Automatic
+
+	column entrada
+		dataType: dateTime
+		formatString: dd-mm-yyyy hh:nn:ss
+		lineageTag: a6b7c8d9-e0f1-2345-abcd-567890123456
+		summarizeBy: none
+		sourceColumn: entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column salida
+		dataType: dateTime
+		formatString: dd-mm-yyyy hh:nn:ss
+		lineageTag: b7c8d9e0-f1a2-3456-bcde-678901234567
+		summarizeBy: none
+		sourceColumn: salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column ropa_depor_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: c8d9e0f1-a2b3-4567-cdef-789012345678
+		summarizeBy: none
+		sourceColumn: ropa_depor_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column ropa_depor_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: d9e0f1a2-b3c4-5678-defa-890123456789
+		summarizeBy: none
+		sourceColumn: ropa_depor_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column calzado_depor_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: e0f1a2b3-c4d5-6789-efab-901234567890
+		summarizeBy: none
+		sourceColumn: calzado_depor_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column calzado_depor_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: f1a2b3c4-d5e6-7890-fabc-012345678901
+		summarizeBy: none
+		sourceColumn: calzado_depor_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column accesorio_depor_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: a2b3c4d5-e6f7-8901-abcd-123456789012
+		summarizeBy: none
+		sourceColumn: accesorio_depor_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column accesorio_depor_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: b3c4d5e6-f7a8-9012-bcde-234567890123
+		summarizeBy: none
+		sourceColumn: accesorio_depor_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column calzado_dama_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: c4d5e6f7-a8b9-0123-cdef-345678901234
+		summarizeBy: none
+		sourceColumn: calzado_dama_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column calzado_dama_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: d5e6f7a8-b9c0-1234-defa-456789012345
+		summarizeBy: none
+		sourceColumn: calzado_dama_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column calzado_caballero_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: e6f7a8b9-c0d1-2345-efab-567890123456
+		summarizeBy: none
+		sourceColumn: calzado_caballero_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column calzado_caballero_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: f7a8b9c0-d1e2-3456-fabc-678901234567
+		summarizeBy: none
+		sourceColumn: calzado_caballero_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column dama_lifestyle_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: a8b9c0d1-e2f3-4567-abcd-789012345678
+		summarizeBy: none
+		sourceColumn: dama_lifestyle_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column dama_lifestyle_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: b9c0d1e2-f3a4-5678-bcde-890123456789
+		summarizeBy: none
+		sourceColumn: dama_lifestyle_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column caballero_lifestyle_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: c0d1e2f3-a4b5-6789-cdef-901234567890
+		summarizeBy: none
+		sourceColumn: caballero_lifestyle_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column caballero_lifestyle_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: d1e2f3a4-b5c6-7890-defa-012345678901
+		summarizeBy: none
+		sourceColumn: caballero_lifestyle_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column kids_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: e2f3a4b5-c6d7-8901-efab-123456789012
+		summarizeBy: none
+		sourceColumn: kids_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column kids_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: f3a4b5c6-d7e8-9012-fabc-234567890123
+		summarizeBy: none
+		sourceColumn: kids_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column tiempo_efectivo_tarea =
+			VAR ropa_min        = ABS(DATEDIFF(Marcaje[ropa_depor_entrada],        Marcaje[ropa_depor_salida],        MINUTE))
+			VAR calzado_dep_min = ABS(DATEDIFF(Marcaje[calzado_depor_entrada],     Marcaje[calzado_depor_salida],     MINUTE))
+			VAR accesorio_min   = ABS(DATEDIFF(Marcaje[accesorio_depor_entrada],   Marcaje[accesorio_depor_salida],   MINUTE))
+			VAR calzado_dam_min = ABS(DATEDIFF(Marcaje[calzado_dama_entrada],      Marcaje[calzado_dama_salida],      MINUTE))
+			VAR calzado_cab_min = ABS(DATEDIFF(Marcaje[calzado_caballero_entrada], Marcaje[calzado_caballero_salida], MINUTE))
+			VAR dama_min        = ABS(DATEDIFF(Marcaje[dama_lifestyle_entrada],    Marcaje[dama_lifestyle_salida],    MINUTE))
+			VAR cab_min         = ABS(DATEDIFF(Marcaje[caballero_lifestyle_entrada], Marcaje[caballero_lifestyle_salida], MINUTE))
+			VAR kids_min        = ABS(DATEDIFF(Marcaje[kids_entrada],              Marcaje[kids_salida],              MINUTE))
+			RETURN ropa_min + calzado_dep_min + accesorio_min + calzado_dam_min + calzado_cab_min + dama_min + cab_min + kids_min
+		formatString: 0
+		lineageTag: b5c6d7e8-f9a0-1234-bcde-456789012345
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conteo_tareas =
+			VAR t1 = IF(NOT(ISBLANK(Marcaje[ropa_depor_entrada]))        && NOT(ISBLANK(Marcaje[ropa_depor_salida])),        1, 0)
+			VAR t2 = IF(NOT(ISBLANK(Marcaje[calzado_depor_entrada]))     && NOT(ISBLANK(Marcaje[calzado_depor_salida])),     1, 0)
+			VAR t3 = IF(NOT(ISBLANK(Marcaje[accesorio_depor_entrada]))   && NOT(ISBLANK(Marcaje[accesorio_depor_salida])),   1, 0)
+			VAR t4 = IF(NOT(ISBLANK(Marcaje[calzado_dama_entrada]))      && NOT(ISBLANK(Marcaje[calzado_dama_salida])),      1, 0)
+			VAR t5 = IF(NOT(ISBLANK(Marcaje[calzado_caballero_entrada])) && NOT(ISBLANK(Marcaje[calzado_caballero_salida])), 1, 0)
+			VAR t6 = IF(NOT(ISBLANK(Marcaje[dama_lifestyle_entrada]))    && NOT(ISBLANK(Marcaje[dama_lifestyle_salida])),    1, 0)
+			VAR t7 = IF(NOT(ISBLANK(Marcaje[caballero_lifestyle_entrada])) && NOT(ISBLANK(Marcaje[caballero_lifestyle_salida])), 1, 0)
+			VAR t8 = IF(NOT(ISBLANK(Marcaje[kids_entrada]))              && NOT(ISBLANK(Marcaje[kids_salida])),              1, 0)
+			RETURN t1 + t2 + t3 + t4 + t5 + t6 + t7 + t8
+		formatString: 0
+		lineageTag: c6d7e8f9-a0b1-2345-cdef-567890123456
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiferenciaHoras =
+			VAR diff_seg  = IF(ISBLANK(Marcaje[salida]), BLANK(), ABS(DATEDIFF(Marcaje[entrada], Marcaje[salida], SECOND)) / 3600)
+			VAR horas     = INT(diff_seg)
+			VAR minutos   = INT(MOD(diff_seg * 60, 60))
+			VAR segundos  = INT(MOD(diff_seg * 3600, 60))
+			RETURN IF(ISBLANK(Marcaje[salida]), BLANK(), FORMAT(horas, "00") & ":" & FORMAT(minutos, "00") & ":" & FORMAT(segundos, "00"))
+		lineageTag: d7e8f9a0-b1c2-3456-defa-678901234567
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column firma
+		dataType: string
+		lineageTag: g1a2b3c4-d5e6-7890-abcd-ef1234567891
+		summarizeBy: none
+		sourceColumn: firma
+
+		annotation SummarizationSetBy = Automatic
+
+	column foto_salida
+		dataType: string
+		lineageTag: g4d5e6f7-a8b9-0123-defa-234567890124
+		summarizeBy: none
+		sourceColumn: foto_salida
+
+		annotation SummarizationSetBy = Automatic
+
+	column foto_al_entrada
+		dataType: string
+		lineageTag: g2b3c4d5-e6f7-8901-bcde-f12345678902
+		summarizeBy: none
+		sourceColumn: foto_al_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+	column foto_al_salida
+		dataType: string
+		lineageTag: g3c4d5e6-f7a8-9012-cdef-123456789013
+		summarizeBy: none
+		sourceColumn: foto_al_salida
+
+		annotation SummarizationSetBy = Automatic
+
+	column almuerzo_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: g5e6f7a8-b9c0-1234-efab-345678901235
+		summarizeBy: none
+		sourceColumn: almuerzo_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column almuerzo_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: g6f7a8b9-c0d1-2345-fabc-456789012346
+		summarizeBy: none
+		sourceColumn: almuerzo_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column totalmin
+		dataType: int64
+		formatString: 0
+		lineageTag: c97b7036-2f0c-4e97-8c57-80aeecec21de
+		summarizeBy: sum
+		sourceColumn: totalmin
+
+		annotation SummarizationSetBy = Automatic
+
+	column Usuario = RELATED(dim_usuarios[name])
+		lineageTag: 25434c53-f753-470c-b7fc-1abbd4e37628
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Marcaje = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				SELECT
+				    cin.survey_response_id,
+				    cin.branch_id,
+				    cin.user_id,
+				    LEFT(CAST(cin.response_started_at AS VARCHAR), 7)  AS añomes,
+				    CAST(cin.response_started_at AS DATE)              AS fecha,
+				    cin.response_started_at                            AS entrada,
+				    cout.response_finished_at                          AS salida,
+				    DATEDIFF('minute', cin.response_started_at,
+				             cout.response_finished_at)                AS totalMin,
+				
+				    cin.answer                                         AS firma,
+				    cout.answer                                        AS foto_salida,
+				
+				    al_in.response_started_at                          AS almuerzo_entrada,
+				    al_in.answer                                       AS foto_al_entrada,
+				    al_out.response_finished_at                        AS almuerzo_salida,
+				    al_out.answer                                      AS foto_al_salida,
+				
+				    ropa.response_started_at                           AS ropa_depor_entrada,
+				    ropa.response_finished_at                          AS ropa_depor_salida,
+				
+				    calzado_dep.response_started_at                    AS calzado_depor_entrada,
+				    calzado_dep.response_finished_at                   AS calzado_depor_salida,
+				
+				    accesorios.response_started_at                     AS accesorio_depor_entrada,
+				    accesorios.response_finished_at                    AS accesorio_depor_salida,
+				
+				    calzado_dam.response_started_at                    AS calzado_dama_entrada,
+				    calzado_dam.response_finished_at                   AS calzado_dama_salida,
+				
+				    calzado_cab.response_started_at                    AS calzado_caballero_entrada,
+				    calzado_cab.response_finished_at                   AS calzado_caballero_salida,
+				
+				    damas_life.response_started_at                     AS dama_lifestyle_entrada,
+				    damas_life.response_finished_at                    AS dama_lifestyle_salida,
+				
+				    cab_life.response_started_at                       AS caballero_lifestyle_entrada,
+				    cab_life.response_finished_at                      AS caballero_lifestyle_salida,
+				
+				    kids.response_started_at                           AS kids_entrada,
+				    kids.response_finished_at                          AS kids_salida
+				
+				FROM (
+				    SELECT survey_response_id, branch_id, user_id,
+				           MIN(response_started_at)                               AS response_started_at,
+				           MAX(CASE WHEN question_type = 'image' THEN answer END) AS answer
+				    FROM tcg_l1_v3.answers
+				    WHERE survey_id = 1610
+				      AND response_is_approved = 1
+				      AND answer_is_deleted = false
+				    GROUP BY survey_response_id, branch_id, user_id
+				) cin
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE)                      AS fecha,
+				           MAX(response_finished_at)                              AS response_finished_at,
+				           MAX(CASE WHEN question_type = 'image' THEN answer END) AS answer
+				    FROM tcg_l1_v3.answers
+				    WHERE survey_id = 1611
+				      AND response_is_approved = 1
+				      AND answer_is_deleted = false
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) cout
+				    ON cout.branch_id = cin.branch_id
+				   AND cout.user_id   = cin.user_id
+				   AND cout.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE)                      AS fecha,
+				           MIN(response_started_at)                               AS response_started_at,
+				           MAX(CASE WHEN question_type = 'image' THEN answer END) AS answer
+				    FROM tcg_l1_v3.answers
+				    WHERE survey_id = 1612
+				      AND response_is_approved = 1
+				      AND answer_is_deleted = false
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) al_in
+				    ON al_in.branch_id = cin.branch_id
+				   AND al_in.user_id   = cin.user_id
+				   AND al_in.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE)                      AS fecha,
+				           MAX(response_finished_at)                              AS response_finished_at,
+				           MAX(CASE WHEN question_type = 'image' THEN answer END) AS answer
+				    FROM tcg_l1_v3.answers
+				    WHERE survey_id = 1613
+				      AND response_is_approved = 1
+				      AND answer_is_deleted = false
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) al_out
+				    ON al_out.branch_id = cin.branch_id
+				   AND al_out.user_id   = cin.user_id
+				   AND al_out.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(response_finished_at)         AS response_finished_at
+				    FROM tcg_l1_v3.answers
+				    WHERE task_category_name = 'Ropa Deportiva'
+				      AND response_is_approved = 1
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) ropa
+				    ON ropa.branch_id = cin.branch_id
+				   AND ropa.user_id   = cin.user_id
+				   AND ropa.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(response_finished_at)         AS response_finished_at
+				    FROM tcg_l1_v3.answers
+				    WHERE task_category_name = 'Calzado Deportivo'
+				      AND response_is_approved = 1
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) calzado_dep
+				    ON calzado_dep.branch_id = cin.branch_id
+				   AND calzado_dep.user_id   = cin.user_id
+				   AND calzado_dep.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(response_finished_at)         AS response_finished_at
+				    FROM tcg_l1_v3.answers
+				    WHERE task_category_name = 'Accesorios Deportivos'
+				      AND response_is_approved = 1
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) accesorios
+				    ON accesorios.branch_id = cin.branch_id
+				   AND accesorios.user_id   = cin.user_id
+				   AND accesorios.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(response_finished_at)         AS response_finished_at
+				    FROM tcg_l1_v3.answers
+				    WHERE task_category_name = 'Calzado Damas Lifestyle'
+				      AND response_is_approved = 1
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) calzado_dam
+				    ON calzado_dam.branch_id = cin.branch_id
+				   AND calzado_dam.user_id   = cin.user_id
+				   AND calzado_dam.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(response_finished_at)         AS response_finished_at
+				    FROM tcg_l1_v3.answers
+				    WHERE task_category_name = 'Calzado Caballero Lifestyle'
+				      AND response_is_approved = 1
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) calzado_cab
+				    ON calzado_cab.branch_id = cin.branch_id
+				   AND calzado_cab.user_id   = cin.user_id
+				   AND calzado_cab.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(response_finished_at)         AS response_finished_at
+				    FROM tcg_l1_v3.answers
+				    WHERE task_category_name = 'Damas Lifestyle'
+				      AND response_is_approved = 1
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) damas_life
+				    ON damas_life.branch_id = cin.branch_id
+				   AND damas_life.user_id   = cin.user_id
+				   AND damas_life.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(response_finished_at)         AS response_finished_at
+				    FROM tcg_l1_v3.answers
+				    WHERE task_category_name = 'Caballero Lifestyle'
+				      AND response_is_approved = 1
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) cab_life
+				    ON cab_life.branch_id = cin.branch_id
+				   AND cab_life.user_id   = cin.user_id
+				   AND cab_life.fecha     = CAST(cin.response_started_at AS DATE)
+				
+				LEFT JOIN (
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(response_finished_at)         AS response_finished_at
+				    FROM tcg_l1_v3.answers
+				    WHERE task_category_name = 'Kids'
+				      AND response_is_approved = 1
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
+				) kids
+				    ON kids.branch_id = cin.branch_id
+				   AND kids.user_id   = cin.user_id
+				   AND kids.fecha     = CAST(cin.response_started_at AS DATE)
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha",                       type date},
+				        {"entrada",                     type datetime},
+				        {"salida",                      type datetime},
+				        {"firma",                       type text},
+				        {"foto_salida",                 type text},
+				        {"foto_al_entrada",             type text},
+				        {"foto_al_salida",              type text},
+				        {"almuerzo_entrada",            type datetime},
+				        {"almuerzo_salida",             type datetime},
+				        {"ropa_depor_entrada",          type datetime},
+				        {"ropa_depor_salida",           type datetime},
+				        {"calzado_depor_entrada",       type datetime},
+				        {"calzado_depor_salida",        type datetime},
+				        {"accesorio_depor_entrada",     type datetime},
+				        {"accesorio_depor_salida",      type datetime},
+				        {"calzado_dama_entrada",        type datetime},
+				        {"calzado_dama_salida",         type datetime},
+				        {"calzado_caballero_entrada",   type datetime},
+				        {"calzado_caballero_salida",    type datetime},
+				        {"dama_lifestyle_entrada",      type datetime},
+				        {"dama_lifestyle_salida",       type datetime},
+				        {"caballero_lifestyle_entrada", type datetime},
+				        {"caballero_lifestyle_salida",  type datetime},
+				        {"kids_entrada",                type datetime},
+				        {"kids_salida",                 type datetime}
+				    })
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

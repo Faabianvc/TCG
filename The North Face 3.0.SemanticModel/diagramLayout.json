@@ -1,0 +1,371 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 401.14588360365,
+        "y": 3351.3453566887215
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 2371.1370366078281,
+            "y": 3696.4315339220802
+          },
+          "nodeIndex": "Actualización",
+          "nodeLineageTag": "73f69459-55d2-4021-a84e-e15e3b7fbeec",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 4597.4021082239915
+          },
+          "nodeIndex": "dim_clasificacion",
+          "nodeLineageTag": "d95ec8dd-bf35-46a8-838a-7bf0e2163923",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 8,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 766.75190601980444,
+            "y": 3323.5901294973128
+          },
+          "nodeIndex": "dim_dates",
+          "nodeLineageTag": "7428518c-3f37-42ec-9e8e-f5059a86fc6b",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 18,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 759.83443559250611,
+            "y": 4106.80114587897
+          },
+          "nodeIndex": "dim_encuestas",
+          "nodeLineageTag": "e2d2719c-1be7-4023-8b9d-2144719e707a",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 21,
+          "expandedHeight": 253.2259970331454
+        },
+        {
+          "location": {
+            "x": 766.67988173866422,
+            "y": 4436.3288429799813
+          },
+          "nodeIndex": "dim_kpi",
+          "nodeLineageTag": "f877887c-2c8f-488d-85b6-13dfbf221c90",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 23,
+          "expandedHeight": 200
+        },
+        {
+          "location": {
+            "x": 751.14021654639873,
+            "y": 3924.333380649553
+          },
+          "nodeIndex": "dim_preguntas",
+          "nodeLineageTag": "456648a1-48fc-41d1-8832-b5f14232bae7",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 9,
+          "expandedHeight": 296
+        },
+        {
+          "location": {
+            "x": 451.51434814464164,
+            "y": 4122.79460639231
+          },
+          "nodeIndex": "dim_preguntas_orden",
+          "nodeLineageTag": "3ac4c28e-a8b9-48bb-9df9-d50d8acbf9e0",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 750.2348451264761,
+            "y": 4257.2968273121405
+          },
+          "nodeIndex": "dim_sucursales",
+          "nodeLineageTag": "014481eb-007f-4b40-be44-bab5496c1a0c",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 11,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 763.51823354177645,
+            "y": 3729.0074214425113
+          },
+          "nodeIndex": "dim_target",
+          "nodeLineageTag": "888d21cc-8de8-47df-a66b-65580704c715",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 20,
+          "expandedHeight": 200
+        },
+        {
+          "location": {
+            "x": 772.1891445385703,
+            "y": 3502.4144350128472
+          },
+          "nodeIndex": "dim_usuarios",
+          "nodeLineageTag": "30c7a5c6-7539-45cb-a457-55ac9543d3f0",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 17.169572037860746,
+            "y": 3666.7392793577642
+          },
+          "nodeIndex": "fct_fotos",
+          "nodeLineageTag": "e07619eb-edac-4f08-8810-5880f6fbfbe8",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 16,
+          "expandedHeight": 272
+        },
+        {
+          "location": {
+            "x": 175.39114568061359,
+            "y": 3923.9327465038364
+          },
+          "nodeIndex": "fct_respuestas",
+          "nodeLineageTag": "f1b504c1-6218-4850-9ee8-061ada214d8a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 203.81379978149721,
+            "y": 3453.2036196162549
+          },
+          "nodeIndex": "fct_videos",
+          "nodeLineageTag": "813f1381-94ad-4e96-aca0-596f5ad3458c",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 15,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 4278.9207306052358
+          },
+          "nodeIndex": "Perfect Stores",
+          "nodeLineageTag": "decd659b-766f-42a1-913b-c4c2e306bf21",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 13,
+          "expandedHeight": 200
+        },
+        {
+          "location": {
+            "x": 759.77149979207115,
+            "y": 4616.6736636531086
+          },
+          "nodeIndex": "dimMedicion",
+          "nodeLineageTag": "9d66f7a8-6afd-4410-acb6-5fec3739482c",
+          "size": {
+            "height": 193.267419514347,
+            "width": 234
+          },
+          "zIndex": 22
+        },
+        {
+          "location": {
+            "x": 2370.3527779099081,
+            "y": 3468.1639853276765
+          },
+          "nodeIndex": "1Medidas",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 385.65831806256756,
+            "y": 4832.1934124870531
+          },
+          "nodeIndex": "fct_comentarios",
+          "nodeLineageTag": "f50c20e9-6396-4aca-a5f6-cd4318277b21",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 17,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 99.098092678738311,
+            "y": 3112.3214683806477
+          },
+          "nodeIndex": "fct_pbi_comments",
+          "nodeLineageTag": "024b3442-c627-45bc-903a-01c1bc146a18",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 26,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 1632.0830952157069,
+            "y": 3331.4256869116875
+          },
+          "nodeIndex": "fct_asignaciones",
+          "nodeLineageTag": "5e136de1-bab0-460a-93b8-afa931157719",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 24
+        },
+        {
+          "location": {
+            "x": 1161.9945591257519,
+            "y": 3319.2010086626524
+          },
+          "nodeIndex": "dimFotosUsuario",
+          "nodeLineageTag": "d98b2bc6-093a-4a57-a3bf-ae03918f6136",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1564.5389006931005,
+            "y": 3781.9463997993989
+          },
+          "nodeIndex": "fct_antes",
+          "nodeLineageTag": "d4e7e63e-b7ca-40a2-a8f8-698bb06b503d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 25
+        },
+        {
+          "location": {
+            "x": 1975.7903952964712,
+            "y": 4155.3087310047067
+          },
+          "nodeIndex": "fct_despues",
+          "nodeLineageTag": "05a92689-25ef-420b-89b0-55ccf8232e36",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 346.09275430424691,
+            "y": 4338.2430286003992
+          },
+          "nodeIndex": "preguntas_ambas_aud",
+          "nodeLineageTag": "5e2ce128-a928-4cca-8ab5-cd237e0c1b56",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1967.1774443850479,
+            "y": 3786.1947990233712
+          },
+          "nodeIndex": "fct_review",
+          "nodeLineageTag": "be32e4ea-7477-4a0b-996a-3a700e8201c1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 455.31316916667,
+            "y": 3658.0994209329965
+          },
+          "nodeIndex": "fct_comentario_general_ia",
+          "nodeLineageTag": "728e0abd-acac-4e73-b545-aa1c0380196c",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1490.8197956818833,
+            "y": 4319.0653065143415
+          },
+          "nodeIndex": "Marcaje",
+          "nodeLineageTag": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 59.080750840800491,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

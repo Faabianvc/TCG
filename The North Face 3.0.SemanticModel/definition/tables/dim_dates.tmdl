@@ -1,0 +1,192 @@
+table dim_dates
+	lineageTag: 7428518c-3f37-42ec-9e8e-f5059a86fc6b
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d9a64278-0def-4301-a4bb-504f9ae4bbcd
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column periodo
+		dataType: string
+		lineageTag: 234a9d4a-e054-47fa-9566-ec491e00a147
+		summarizeBy: none
+		sourceColumn: periodo
+		sortByColumn: month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_day_en
+		dataType: string
+		lineageTag: e63f6ac7-5726-49a0-9736-90579f079f13
+		summarizeBy: none
+		sourceColumn: week_day_en
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_day_es
+		dataType: string
+		lineageTag: 4c48d7e6-061f-4887-bf96-e2fa7a343d10
+		summarizeBy: none
+		sourceColumn: week_day_es
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_day_number
+		dataType: int64
+		formatString: 0
+		lineageTag: ea8098c0-a3b5-42c5-8ba7-5bf50e4942b0
+		summarizeBy: sum
+		sourceColumn: week_day_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column day
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b2ec7be-a7b3-40b9-a2d6-f0b753edeee1
+		summarizeBy: sum
+		sourceColumn: day
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 06427a51-a636-4083-b802-e95a040bebc6
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 23c9cb48-d689-46ea-ae4f-40dadd614f29
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 800d65bf-7027-4672-9acd-ac2ce68a23e3
+		summarizeBy: sum
+		sourceColumn: day_of_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: c1d69c22-8d1e-40b2-9c0d-4a2eecb4c4f8
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column semester
+		dataType: int64
+		formatString: 0
+		lineageTag: ba71827b-4a7c-4996-8cc6-3feaa3a950fa
+		summarizeBy: sum
+		sourceColumn: semester
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_year
+		dataType: int64
+		formatString: 0
+		lineageTag: d9b7ed43-2f58-45ca-998b-a12f2a339413
+		summarizeBy: sum
+		sourceColumn: iso_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_week
+		dataType: int64
+		formatString: 0
+		lineageTag: f9f8cc30-8570-4e18-ac6d-1a5a65805550
+		summarizeBy: sum
+		sourceColumn: iso_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_week_str
+		dataType: string
+		lineageTag: ac3287c8-4a9d-4352-8d0f-20fc21af695c
+		summarizeBy: none
+		sourceColumn: iso_week_str
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_week_year_str
+		dataType: string
+		lineageTag: 3c8b5479-fbc4-4500-838b-fad3cfdc004e
+		summarizeBy: none
+		sourceColumn: iso_week_year_str
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_last_day_of_month
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5ef20add-cef5-40ec-8592-0d001ffc875a
+		summarizeBy: none
+		sourceColumn: is_last_day_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: adf8341b-d24c-405f-96a0-576cd395a850
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes = FORMAT([Date], "mmm")
+		lineageTag: 155eaecf-4cc3-4879-9ae9-3c983c96346e
+		summarizeBy: none
+		sortByColumn: month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes = dim_dates[periodo]
+		lineageTag: d094d737-20db-4eaa-9657-f7ac80133194
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_of_month
+		dataType: string
+		lineageTag: c382cb93-58df-4c86-a277-3369db1dc6fe
+		summarizeBy: none
+		sourceColumn: week_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_dates = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "SELECT#(lf)    ""date"",#(lf)    periodo,#(lf)    week_day_en,#(lf)    week_day_es,#(lf)    week_day_number,#(lf)    ""day"",#(lf)    ""month"",#(lf)    ""year"",#(lf)    day_of_year,#(lf)    quarter,#(lf)    semester,#(lf)    iso_year,#(lf)    iso_week,#(lf)    iso_week_str,#(lf)    iso_week_year_str,#(lf)    is_last_day_of_month,#(lf)    is_weekend,#(lf)    TO_CHAR(""date"", 'YYYY-MM') || '/w' || CEIL(EXTRACT(DAY FROM ""date"") / 7.0)::INT AS week_of_month#(lf)FROM tcg_l2.vw_calendar c#(lf)WHERE c.""date"" >= (SELECT MIN(a.fecha) FROM northface.vw_answers_v3 a)#(lf)  AND c.""date"" <= (SELECT MAX(a.fecha) FROM northface.vw_answers_v3 a)", null, [EnableFolding=true])
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "The North Face 3.0"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d73c0adc-6e57-4580-ba4b-5bc73c1a3957"
+  }
+}

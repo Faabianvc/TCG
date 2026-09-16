@@ -1,0 +1,63 @@
+table dim_target
+	lineageTag: 888d21cc-8de8-47df-a66b-65580704c715
+
+	column KPI
+		dataType: string
+		lineageTag: 828f959d-c4fe-4a3b-b578-d259fae7d7ba
+		summarizeBy: none
+		sourceColumn: KPI
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoría
+		dataType: string
+		lineageTag: 74088825-0e82-475f-addd-efbbde60d60e
+		summarizeBy: none
+		sourceColumn: Categoría
+
+		annotation SummarizationSetBy = Automatic
+
+	column Target
+		dataType: double
+		lineageTag: bee6163d-2602-41db-a224-c2c5d4fec31e
+		summarizeBy: none
+		sourceColumn: Target
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Meta %'
+		dataType: double
+		lineageTag: 2ec85fbe-79d2-48a3-8e6d-bc77df2e2397
+		summarizeBy: none
+		sourceColumn: Meta %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Keytarget
+		dataType: string
+		lineageTag: 986c277b-cba9-4bc6-8adf-445833fa64fa
+		summarizeBy: none
+		sourceColumn: Keytarget
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_target = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45Wck/NSy1KzFHSUQIiAzCO1YlWcitNLapKVEhJVShLzStJRJf2zE1MT81DF/XJzC3ITK1K1PcvSsGUda3IyEzKTM48vBlVKhYA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [KPI = _t, Categoría = _t, Target = _t, #"Meta %" = _t]),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(Origen,{{"Meta %", Percentage.Type}}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Tipo cambiado1",{{"Target", type number}}),
+				    #"Personalizada agregada" = Table.AddColumn(#"Tipo cambiado", "Keytarget", each [KPI]&[Categoría])
+				in
+				    #"Personalizada agregada"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "338134a6ff5afdb4ac64",
+  "position": {
+    "x": 1892.09726443769,
+    "y": 267.85714285714289,
+    "z": 13000,
+    "height": 640.19756838905778,
+    "width": 569.90881458966567,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "pbiCollageE166DE34940E43CA8FC3A9C1A52231D4",
+    "query": {
+      "queryState": {
+        "postUrl": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_fotos"
+                    }
+                  },
+                  "Property": "answer"
+                }
+              },
+              "queryRef": "fct_fotos.answer",
+              "nativeQueryRef": "answer"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "displayOptions": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "columnCount": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

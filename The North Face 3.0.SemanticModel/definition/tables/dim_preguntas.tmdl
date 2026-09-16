@@ -1,0 +1,108 @@
+table dim_preguntas
+	lineageTag: 456648a1-48fc-41d1-8832-b5f14232bae7
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: b5ba82b8-bf62-4657-a75e-a1def14fc8bf
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 1e2a3fba-0781-4ab2-b47c-d80087c1a9fc
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: a87ac43d-e2ec-44c1-b5d5-3adb3f5df1c6
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column order
+		dataType: int64
+		formatString: 0
+		lineageTag: fd614583-5e71-4bd8-95a9-d221f03cba25
+		summarizeBy: sum
+		sourceColumn: order
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c89501a-f2e5-4eae-b6e1-cb1df2973650
+		summarizeBy: sum
+		sourceColumn: kpi_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 98402cfa-b345-4faf-9736-de792f19b7c9
+		summarizeBy: none
+		sourceColumn: quiz_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_score
+		dataType: int64
+		formatString: 0
+		lineageTag: e45db281-d5ad-4dc5-8ed4-30e84db30b92
+		summarizeBy: sum
+		sourceColumn: has_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_short
+		dataType: string
+		lineageTag: c1724a77-dd5d-4d5a-b816-510e2f422252
+		summarizeBy: none
+		sourceColumn: question_short
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_category
+		dataType: string
+		lineageTag: a867a43d-6ffb-4c4a-8300-5736cf298ad3
+		summarizeBy: none
+		sourceColumn: question_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoría = IF(AND(dim_preguntas[quiz_id] = 1013,dim_preguntas[type] = "yes/no question"),"Fuerza de Venta",dim_preguntas[question_category])
+		lineageTag: 09ea045d-2078-497b-b6ce-4eb2366988f0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column gap_cultural
+		dataType: int64
+		formatString: 0
+		lineageTag: d72b7241-01a7-4736-a41c-8d09021acae0
+		summarizeBy: sum
+		sourceColumn: gap_cultural
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_preguntas = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "SELECT id, title, ""type"", ""order"", kpi_id, quiz_id, has_score,question_short,question_category, gap_cultural#(lf)FROM northface.vw_questions", null, [EnableFolding=true])
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Clear filters - SOS",
+  "name": "c84ecc8c61529eb8c18d",
+  "options": {
+    "targetVisualNames": [
+      "91188da29eee2170dd97"
+    ]
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "cd227546910e29b99bd3",
+    "sections": {
+      "cd227546910e29b99bd3": {
+        "visualContainers": {}
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

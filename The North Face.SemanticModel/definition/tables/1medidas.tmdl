@@ -1,0 +1,468 @@
+table 1medidas
+	lineageTag: 313ad443-0790-43d0-a47c-388c7a18f9f5
+
+	measure 'calculo OKR' =
+			
+			var kpiCump = CALCULATE(DISTINCTCOUNT('Cumplimiento'[response_id_2]),'Cumplimiento'[cumplimiento]=1)
+			var total = CALCULATE(DISTINCTCOUNT('Cumplimiento'[response_id_2]))
+			return DIVIDE(kpiCump,total,0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 79f8a41b-6ddf-4383-bcb2-4aaf084240ad
+
+	measure 'calculo auditadas' = CALCULATE(DISTINCTCOUNT('Perfect Stores'[branch_id])+0)
+		formatString: 0
+		lineageTag: be6c800c-6c80-4145-a961-840fed038788
+
+	measure 'promedio cumplimiento' = CALCULATE(AVERAGE(Cumplimiento[cumplimiento]))
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 5678fc4d-37ba-483b-ac53-2345f36a75ea
+
+	measure 'distribucion promedio' = CALCULATE(AVERAGE(OSA[disponibilidad]))
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 43343a0e-784f-478b-830a-4b084b133203
+
+	measure 'Tiempo en Seg' = IF(ISBLANK(AVERAGE(Marcaje[totalSeg])),BLANK(),TIME(0,0,AVERAGE(Marcaje[totalSeg])))
+		formatString: General Date
+		lineageTag: 231e4aac-09e1-4c59-bc05-fe57260ce49c
+
+	measure 'fotourl Marcaje' =
+			
+			var foto = SELECTEDVALUE(Marcaje[firma])
+			var vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: 57a89ee5-885b-4774-aa54-dadf6e60cce9
+
+	measure 'precio moda' =
+			SWITCH(MAX(FiltroPrecio[ID]),
+			1,CALCULATE(MAX(Precios[precio_paquete]),
+			    TOPN(1,
+			        FILTER(VALUES(Precios[precio_paquete]),
+			         NOT(ISBLANK(Precios[precio_paquete]))),[conteo registros])
+			),
+			2,CALCULATE(MAX(Precios[precio_caja]),
+			    TOPN(1,
+			        FILTER(VALUES(Precios[precio_caja]),
+			         NOT(ISBLANK(Precios[precio_caja]))),[conteo registros])
+			))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: bfac732a-f09f-423a-9042-598825254b5e
+
+	measure 'Precio promedio' =
+			SWITCH(
+			    MAX(FiltroPrecio[ID]),
+			1,CALCULATE(AVERAGE(Precios[precio_paquete])),
+			2,CALCULATE(AVERAGE(Precios[precio_caja])))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 27ed0eac-08f9-494c-9b00-3f06343e665b
+
+	measure 'Precio max' =
+			SWITCH(MAX(FiltroPrecio[ID]),
+			1,CALCULATE(MAX(Precios[precio_paquete])),
+			2,CALCULATE(MAX(Precios[precio_caja])))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 42e6344f-9be9-4f87-8e05-ba058465286e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Precio min' =
+			SWITCH(MAX(FiltroPrecio[ID]),
+			1,CALCULATE(MIN(Precios[precio_paquete])),
+			2,CALCULATE(MIN(Precios[precio_caja])))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 489c9d89-c1d8-4bec-a3a7-fc9c1cd23a29
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'conteo registros' = COUNTROWS(Precios)
+		formatString: 0
+		lineageTag: 0adbe9cb-9deb-47c8-b319-ee89bdaa8737
+
+	measure target = 1
+		lineageTag: 305ee6fb-d320-4129-82d1-edc33f43281c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure TEST =
+			
+			var test = CALCULATE(SUM('Conteo Cara Competencia'[value]))
+			
+			var test2 = CALCULATE(SUM('Conteo Cara Competencia'[value]), ALLEXCEPT('Conteo Cara Competencia', 'Conteo Cara Competencia'[marca], 'Conteo Cara Competencia'[añomes], 'Conteo Cara Competencia'[semana], 'Conteo Cara Competencia'[ciudad],'Conteo Cara Competencia'[cadena],'Conteo Cara Competencia'[sucursal]))
+			
+			return DIVIDE(test,test2,0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: dfb5303a-5f95-44c8-be7c-15b4f6fd0e27
+
+	measure Medida
+		lineageTag: 4170b3fa-87ee-40db-ba5c-c2b181bb8ab8
+
+	measure 'disponible visibilidad' =
+			SUM(Exhibicion[disponibilidad])
+			
+			
+			//DIVIDE(SUM(Exhibicion[disponibilidad]), CALCULATE(SUM(Exhibicion[disponibilidad]), ALLEXCEPT(Exhibicion, Exhibicion[tipo], Exhibicion[añomes],Exhibicion[Semana],Exhibicion[ciudad],Exhibicion[cadena],Exhibicion[subcadena],Exhibicion[sucursal],Exhibicion[usuario])))
+		formatString: 0
+		lineageTag: 162d2fb0-7ed4-44c4-af2f-ffbbcb034dbb
+
+	measure 'sucursal visibilidad' =
+			
+			var branch = SELECTEDVALUE(Exhibicion[sucursal])
+			var vacio = "-"
+			return IF(ISBLANK(branch),vacio,branch)
+		lineageTag: 079f9bac-6413-47b9-87da-444ba2bb92e6
+
+	measure Foto =
+			
+			VAR FOTO = SELECTEDVALUE('Exhibicion Fotos'[foto])
+			VAR VACIO = "https://display-img.s3.sa-east-1.amazonaws.com/Preview.png"
+			RETURN IF(ISBLANK(FOTO),VACIO,FOTO)
+		lineageTag: 9e21a79b-9671-4b77-a09e-63f61b9719ba
+
+	measure 'promedio visibilidad' = DIVIDE( SUM(Exhibicion[disponibilidad]), COUNTROWS(Exhibicion),0)
+		lineageTag: 2454e05f-7199-4e39-ae45-2002802ee1ea
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'TEST 2' =
+			
+			var test = CALCULATE(SUM(Exhibicion[disponibilidad]))
+			
+			var test2 = CALCULATE(SUM(Exhibicion[disponibilidad]), ALLEXCEPT(Exhibicion,Exhibicion[añomes],Exhibicion[sucursal]))
+			
+			return DIVIDE(test,test2,0)
+		lineageTag: 0580097f-651e-48c2-a37c-03e3a0b19f77
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'ayuda distr' = "Promedio de la distribución por productos de Distribuidora Maravilla."
+		lineageTag: 77859f26-44f7-4d71-9784-075a347a98b1
+
+	measure 'disponible visibilidad Dona' = SUM(Exhibicion[disponibilidad])
+		lineageTag: 992626d9-d9a0-418f-8f3e-240b8837a39d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'calculo OKR TEST' = AVERAGE(Cumplimiento[value])
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: db3b8abf-34a3-47f1-ba85-3859378a3b83
+
+	measure 'Conteo Cadena' =
+			
+			var test = CALCULATE(SUM('Conteo Cara Competencia'[value]))
+			
+			var test2 = CALCULATE(SUM('Conteo Cara Competencia'[value]), ALLEXCEPT('Conteo Cara Competencia', 'Conteo Cara Competencia'[marca], 'Conteo Cara Competencia'[añomes], 'Conteo Cara Competencia'[semana], 'Conteo Cara Competencia'[ciudad],'Conteo Cara Competencia'[sucursal]))
+			
+			return DIVIDE(test,test2,0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: d22fc0e9-0e47-4ec1-b1a6-b7f98624e9d6
+
+	measure 'Foto Competencia' =
+			
+			var foto = SELECTEDVALUE('Competencia'[marca_comp3])
+			var vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: d7b13a43-e3e5-475d-a671-d4a23b50ecf0
+
+	measure 'title branch' =
+			var sucursal = SELECTEDVALUE('Exhibicion'[sucursal])
+			var vacio = "-"
+			return IF(ISBLANK(sucursal),vacio,CONCATENATE(sucursal, CONCATENATE(" Fecha: ", SELECTEDVALUE(Exhibicion[fecha]))))
+		lineageTag: 5195378d-0dcd-42bb-b77b-816fd0ac2497
+
+	measure 'Foto Antes' =
+			
+			var foto = SELECTEDVALUE('Exhibicion'[antes_impl])
+			var vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: 5de6858c-5426-421a-9026-d5df03febbe0
+
+	measure 'Foto Despues' =
+			
+			var foto = SELECTEDVALUE('Exhibicion'[despues_impl])
+			var vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: fd633de9-3d47-4d64-a83d-18eac3ab9c0b
+
+	measure 'title module antes' =
+			
+			var module = SELECTEDVALUE('Exhibicion'[marca])
+			
+			RETURN
+			    SWITCH(module,
+			            "DAMAS LIFESTYLE","Damas Lifestyle",
+			            "CALZADO DEPORTIVO","Calzado Deportivo",
+			            "CABALLEROS LIFESTYLE","Caballeros Lifestyle",
+			            "ROPA DEPORTIVA","Ropa Deportiva",
+			            "CALZADO CALLEROS LIFESTYLE","Calzado Caballeros",
+			            "CALZADO DAMAS LIFESTYLE", "Calzado Damas Lifestyle",
+			            "Not Found")
+		lineageTag: 3a158529-d214-46d9-be65-d589a5a28513
+
+	measure 'title module despues' =
+			
+			var module = SELECTEDVALUE('Exhibicion Despues'[modulo])
+			
+			RETURN
+			   SWITCH(module,
+			            "DAMAS LIFESTYLE","Damas Lifestyle",
+			            "CALZADO DEPORTIVO","Calzado Deportivo",
+			            "CABALLEROS LIFESTYLE","Caballeros Lifestyle",
+			            "ROPA DEPORTIVA","Ropa Deportiva",
+			            "CALZADO CALLEROS LIFESTYLE","Calzado Caballeros",
+			            "CALZADO DAMAS LIFESTYLE", "Calzado Damas Lifestyle",
+			            "Not Found")
+		lineageTag: 4c34fe40-4a92-459f-98db-8df90f310c25
+
+	measure 'title module antes 2' =
+			
+			var module = SELECTEDVALUE('Exhibicion'[marca])
+			
+			RETURN if (ISBLANK(module), "Not Found", module)
+		lineageTag: 8df09d83-551d-451c-9124-f8fe6dc5a7d7
+
+	measure 'Branches Cumplimiento 2' = ```
+			
+			
+			var tarea1 = [Tarea 1 (Check in)]
+			 
+			var tarea2 = [Tarea 2 Caballeros Lifestyle]
+			
+			var tarea3 = [Tarea 3 Calzado Caballeros]
+			
+			var tarea4 = [Tarea 4 Damas Lifestyle]
+			
+			var tarea5 = [Tarea 5 Calzado damas]
+			
+			var tarea6 = [Tarea 6 Ropa deportiva]
+			
+			var tarea7 = [Tarea 7 Calzado deportivo]
+			
+			var tarea8 = [Tarea 8 Kids]
+			
+			var tarea9 = [Tarea 10 (Check Out)]
+			
+			
+			var meadured = tarea1 + tarea2 + tarea3 + tarea4 + tarea5 + tarea6 + tarea7 + tarea8 + tarea9
+			var total = 9
+			Return  meadured / total
+			```
+		lineageTag: 3f7b91ce-97bd-43f7-a404-8f7776782b5f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Kpi = 1
+		formatString: 0
+		lineageTag: bfee2846-c98e-4d4c-ba9e-208b07691d10
+
+	measure 'Branches Cumplimiento 1' =
+			
+			var meadured = IF(ISBLANK(CALCULATE(DISTINCTCOUNT(Marcaje[branch_id]),Marcaje[Cumplimiento]=1)),0,CALCULATE(DISTINCTCOUNT(Marcaje[branch_id]),Marcaje[Cumplimiento]=1))
+			var total = IF(ISBLANK(DISTINCTCOUNT('Marcaje'[id_encuesta])),0,DISTINCTCOUNT('Marcaje'[branch_id]))
+			Return  meadured / total
+		lineageTag: aedb580c-bf82-43df-b288-364441df0d61
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promedio Tiempo' = AVERAGE(Marcaje[totalMin])
+		formatString: #,0
+		lineageTag: b225ace6-fe71-4002-af23-c55f094991a4
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure '% Avance' =
+			
+			VAR completadas = [Tareas]
+			var total = [Tareas2]
+			 return IF(DIVIDE(completadas, total,0)>0, DIVIDE(completadas, total,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 545aab37-3abe-470f-9b70-791d92798949
+
+	measure 'Branches Cumplimiento 1 texto' =
+			
+			var meadured = IF(ISBLANK(CALCULATE(DISTINCTCOUNT(Marcaje[branch_id]),Marcaje[Cumplimiento]=1)),0,CALCULATE(DISTINCTCOUNT(Marcaje[branch_id]),Marcaje[Cumplimiento]=1))
+			var total = IF(ISBLANK(DISTINCTCOUNT('Marcaje'[id_encuesta])),0,DISTINCTCOUNT('Marcaje'[branch_id]))
+			Return  meadured & " / " & total
+		lineageTag: e6ed3739-5df2-4776-9680-21155a3d5cca
+
+	measure 'Branches Cumplimiento 2  Texto' = ```
+			
+			
+			var tarea1 = [Tarea 1 (Check in)]
+			 
+			var tarea2 = [Tarea 2 Caballeros Lifestyle]
+			
+			var tarea3 = [Tarea 3 Calzado Caballeros]
+			
+			var tarea4 = [Tarea 4 Damas Lifestyle]
+			
+			var tarea5 = [Tarea 5 Calzado damas]
+			
+			var tarea6 = [Tarea 6 Ropa deportiva]
+			
+			var tarea7 = [Tarea 7 Calzado deportivo]
+			
+			var tarea8 = [Tarea 8 Kids]
+			
+			var tarea9 = [Tarea 10 (Check Out)]
+			
+			
+			var meadured = tarea1 + tarea2 + tarea3 + tarea4 + tarea5 + tarea6 + tarea7 + tarea8 + tarea9
+			var total = 9
+			Return  meadured & " / " &total
+			```
+		lineageTag: 8e2fddf4-ac58-4dd7-b4d1-6aee461c5189
+
+	measure 'Foto antes y desp' =
+			
+			VAR foto_antes = SELECTEDVALUE('Exhibicion'[antes_impl])
+			VAR foto_despues = SELECTEDVALUE('Exhibicion'[despues_impl])
+			VAR  vacio = "https://display-img.s3.sa-east-1.amazonaws.com/Preview.png"
+			RETURN IF(ISBLANK(foto_antes),vacio,foto_antes)
+		lineageTag: d2ba7ac3-dd52-4e04-94a3-e6115c45b2bf
+
+	measure tiendas_medidas =
+			
+			var tiendasMedidas = DISTINCTCOUNT(Marcaje[branch_id])
+			var tiendasTotales = DISTINCTCOUNT(Sucursales[branch_id])
+			
+			RETURN IF(ISBLANK(DIVIDE(tiendasMedidas, tiendasTotales,0)), 0, DIVIDE(tiendasMedidas, tiendasTotales,0))
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 02018043-6ce5-444b-b7a7-5e31306b2f57
+
+	measure tiendas_medidas_texto =
+			
+			var tiendasMedidas = IF(ISBLANK(DISTINCTCOUNT(Cumplimiento[branch_id])), 0, DISTINCTCOUNT(Cumplimiento[branch_id]))
+			var tiendasTotales = DISTINCTCOUNT(Sucursales[branch_id])
+			
+			RETURN tiendasMedidas & "/" & tiendasTotales
+		lineageTag: 7b747dea-bd8a-4406-825c-ab7552553d32
+
+	measure tiempo_efectvo_text = ```
+			
+			var minutosEfectivos = IF(ISBLANK(AVERAGE(Marcaje[tiempo_efectivo_tarea])), 0, ROUND(AVERAGE(Marcaje[tiempo_efectivo_tarea]),0))
+			var minutosTotales = ROUND(AVERAGE(Marcaje[totalMin]), 0)
+			
+			RETURN ROUND(minutosEfectivos,0) 
+			```
+		formatString: 0
+		lineageTag: da8440b5-7f13-49e0-8411-2870c2805dab
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure tiempo_muerto_text = ```
+			
+			var minutosEfectivos = IF(ISBLANK(SUM(Marcaje[tiempo_efectivo_tarea])), 0, ROUND(SUM(Marcaje[tiempo_efectivo_tarea]),0))
+			var minutosTotales = ROUND(SUM(Marcaje[totalMin]), 0)
+			
+			var resta = minutosTotales - minutosEfectivos & UNICHAR(10) 
+			
+			RETURN IF(ISBLANK(SUM(Marcaje[tiempo_efectivo_tarea])), 0 , resta)
+			```
+		lineageTag: c4a1db49-6c2c-4fb2-a6ba-ca0f14b35d5b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure tiempo_efectivo =
+			
+			var minutosEfectivos = IF(ISBLANK(AVERAGE(Marcaje[tiempo_efectivo_tarea])), 0, ROUND(AVERAGE(Marcaje[tiempo_efectivo_tarea]),0))
+			var minutosTotales = ROUND(AVERAGE(Marcaje[totalMin]), 0)
+			
+			RETURN DIVIDE(minutosEfectivos, minutosTotales, 0)
+		lineageTag: 6c5c6111-c2d0-4635-818e-86363a478109
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure tiempo_muerto =
+			
+			var minutosEfectivos = IF(ISBLANK(SUM(Marcaje[tiempo_efectivo_tarea])), 0, ROUND(SUM(Marcaje[tiempo_efectivo_tarea]),0))
+			var minutosTotales = ROUND(SUM(Marcaje[totalMin]), 0)
+			
+			RETURN DIVIDE(minutosEfectivos, minutosTotales, 0)
+		lineageTag: 38205074-c420-4b0f-99b2-df69bb1be2ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure tareas_vs_tareas_totales_text =
+			
+			var tareasMedidas = [Tareas]
+			var tareasTotales = DISTINCTCOUNT(Calendario_Dim[fecha]) * 11 * DISTINCTCOUNT(Sucursales[branch_id])
+			RETURN tareasMedidas & " / " & tareasTotales
+		lineageTag: cd77bedd-cca1-448b-b465-dd4c2b3f17c8
+
+	measure 'Circulo tareas' =
+			
+			var tareasMedidas = SUM(Marcaje[Conteo tareas])
+			var tareasTotales = COUNTROWS(Marcaje)* 9
+			RETURN DIVIDE(tareasMedidas, tareasTotales,0)
+		lineageTag: 3390962e-6c96-4087-8ef0-5320f34c7ed7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CONTEO TAREA1'
+		lineageTag: a209c390-15b8-4f5a-9eeb-eb529be5508c
+
+	measure 'Medida 2'
+		lineageTag: 6ff0c993-dbd8-4fed-a9c2-d0aefd31a355
+
+		annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":null}
+
+		annotation 277cc1b9-af89-4597-8e15-cacc25c0886b = Para usar caracteres especiales en un nombre de medida, incluya el nombre completo entre corchetes ([]) y agregue un ] a cualquier corchete de cierre en el nombre.
+
+	measure 'Medida 3'
+		lineageTag: 400b5720-a07a-4c6d-86eb-59ec85d7bf67
+
+		annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":null}
+
+		annotation 277cc1b9-af89-4597-8e15-cacc25c0886b = Para usar caracteres especiales en un nombre de medida, incluya el nombre completo entre corchetes ([]) y agregue un ] a cualquier corchete de cierre en el nombre.
+
+	measure '% Tareas' =
+			
+			var tareasMedidas = SUM(Marcaje[Conteo tareas])
+			var tareasTotales = COUNTROWS(Marcaje)* 9
+			RETURN DIVIDE(tareasMedidas,tareasTotales,0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 56d51bcd-d8e4-4d9c-982f-3a81cc4c95d5
+
+	measure 'Foto Mantenimiento' =
+			
+			var foto = SELECTEDVALUE('Mantenimiento Fotos'[respuesta])
+			var vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: b16234f2-ff97-40a4-8a09-086e1d29da5d
+
+	measure 'fotourl Almuerzo_salida' =
+			
+			var foto = SELECTEDVALUE(Marcaje[foto_al_salida])
+			var vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: 60ec75b8-7526-4b53-a899-65b7c16cea15
+
+	measure 'fotourl Almuerzo entrada' =
+			
+			var foto = SELECTEDVALUE(Marcaje[foto_al_entrada])
+			var vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: 03b9d53d-3e0e-4651-bc70-7ca97840e67a
+
+	measure 'fotourl Marcaje salida' =
+			var foto = SELECTEDVALUE(Marcaje[foto_salida])
+			var vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: 21fc50a6-3842-4bfa-b391-06ffed8af2ec
+
+	column Column
+		formatString: 0
+		lineageTag: d1ad6150-bffd-434a-8d5b-cf1b27174702
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 1medidas = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 4cf8600db3ab4925b2a64f825a15b9e6
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

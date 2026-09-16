@@ -1,0 +1,340 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "f0a83ed1d03bade6500d",
+  "position": {
+    "x": 346.212700841622,
+    "y": 135.8071920428462,
+    "z": 21000,
+    "height": 952.56312165263955,
+    "width": 2153.7872991583777,
+    "tabOrder": 21000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Cumplimiento"
+                        }
+                      },
+                      "Property": "user_id"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Cumplimiento.user_id)",
+              "nativeQueryRef": "user_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Usuarios_Dim"
+                    }
+                  },
+                  "Property": "user_name"
+                }
+              },
+              "queryRef": "Usuarios_Dim.user_name",
+              "nativeQueryRef": "Nombre",
+              "displayName": "Nombre"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cumplimiento"
+                    }
+                  },
+                  "Property": "name"
+                }
+              },
+              "queryRef": "Cumplimiento.name",
+              "nativeQueryRef": "Sucursal",
+              "displayName": "Sucursal"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cumplimiento"
+                    }
+                  },
+                  "Property": "departamento"
+                }
+              },
+              "queryRef": "Cumplimiento.departamento",
+              "nativeQueryRef": "departamento"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cumplimiento"
+                    }
+                  },
+                  "Property": "fecha_entrada"
+                }
+              },
+              "queryRef": "Cumplimiento.fecha_entrada",
+              "nativeQueryRef": "Entrada",
+              "displayName": "Entrada"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cumplimiento"
+                    }
+                  },
+                  "Property": "fecha_salida"
+                }
+              },
+              "queryRef": "Cumplimiento.fecha_salida",
+              "nativeQueryRef": "Salida",
+              "displayName": "Salida"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Cumplimiento"
+                  }
+                },
+                "Property": "fecha_entrada"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "15D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "248D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Cumplimiento.fecha_entrada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "220D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Cumplimiento.fecha_salida"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "600.7035409503426D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Cumplimiento.name"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "351.4474381704506D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Cumplimiento.departamento"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "15D"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Left'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9729b510aa49785d1e13",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "fecha_salida"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8d274eeb0e67b3d31769",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "fecha_entrada"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e24edc51a5b063e814a4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "departamento"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bd63a5d80144304c066b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bb66c2fe614301c0eca7",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Cumplimiento"
+                  }
+                },
+                "Property": "user_id"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ed4bdc0746a37d4a6057",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Usuarios_Dim"
+              }
+            },
+            "Property": "user_name"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

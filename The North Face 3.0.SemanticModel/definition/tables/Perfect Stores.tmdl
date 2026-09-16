@@ -1,0 +1,81 @@
+table 'Perfect Stores'
+	lineageTag: decd659b-766f-42a1-913b-c4c2e306bf21
+
+	column Sucursal
+		lineageTag: a56c5926-26bc-476e-9666-fd787ddc178c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fct_respuestas[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		lineageTag: 9a02ae12-12d6-4d66-9602-901aafdf6dfd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: fct_respuestas[branch_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periodo
+		lineageTag: 99d2f61d-a52a-4e96-a7db-a8bb690b20e6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fct_respuestas[Periodo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column KBD
+		lineageTag: cce0b711-114f-4239-8b7e-4291321ee221
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [KBD]
+
+		annotation SummarizationSetBy = Automatic
+
+	column key = 'Perfect Stores'[branch_id]& 'Perfect Stores'[Periodo]
+		lineageTag: daa8be33-248d-4655-a9e5-6f915215cef5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column clasificacion =
+			IF(ISBLANK('Perfect Stores'[KBD]),BLANK(),
+			    IF('Perfect Stores'[KBD] < 0.5, "Pobres",
+			    IF('Perfect Stores'[KBD] < 0.7, "Medianas",
+			        IF('Perfect Stores'[KBD] < 0.9, "Buenas",
+			             "Perfectas"))))
+		lineageTag: 6f0d5b61-50a7-4602-acf5-57f2a7f492f1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden = RELATED(dim_Clasificacion[orden])
+		lineageTag: e77176f2-f713-4835-9a6a-0ad0f65a663b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Perfect Stores' = calculated
+		mode: import
+		source =
+				
+				VAR TablaFiltrada =
+				    FILTER(
+				        fct_respuestas,
+				        NOT(ISBLANK(fct_respuestas[KPI]))
+				        && fct_respuestas[has_score] = 1)
+				RETURN
+				    ADDCOLUMNS(
+				        SUMMARIZE(
+				            TablaFiltrada,
+				            fct_respuestas[Sucursal],
+				            fct_respuestas[branch_id],
+				            fct_respuestas[periodo]
+				        ),
+				        "KBD",
+				        [1_ nota ponderada]
+				    )
+
+	annotation PBI_Id = 1315b6fe53e94a31910bbe1c8caf1884
+

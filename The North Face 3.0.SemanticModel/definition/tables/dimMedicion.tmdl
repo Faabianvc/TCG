@@ -1,0 +1,18 @@
+table dimMedicion
+	lineageTag: 9d66f7a8-6afd-4410-acb6-5fec3739482c
+
+	column medicion
+		formatString: 0
+		lineageTag: 810911a9-c1d0-4fd9-b2c9-b0aa52318664
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fct_respuestas[medicion]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimMedicion = calculated
+		mode: import
+		source = SUMMARIZE(FILTER(fct_respuestas, NOT(ISBLANK(fct_respuestas[medicion]))), fct_respuestas[medicion])
+
+	annotation PBI_Id = 764111b9b1e7420181b21b0cf575d18b
+

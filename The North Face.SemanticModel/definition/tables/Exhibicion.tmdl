@@ -1,0 +1,195 @@
+table Exhibicion
+	lineageTag: 4dc46910-b9a3-4604-94dd-66fdc774a9d5
+
+	column añomes
+		dataType: string
+		lineageTag: 8b97a931-1fff-4db3-aad2-707c9bde53c1
+		summarizeBy: none
+		sourceColumn: añomes
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id
+		dataType: string
+		lineageTag: 09bcd29a-6be4-47a0-961f-381ab43b1991
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id_2
+		dataType: string
+		lineageTag: 505a958e-e45c-4eda-a8f1-16ccb67a7d51
+		summarizeBy: none
+		sourceColumn: response_id_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 01e34373-663d-4e8f-b62a-22971f8d8e39
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 776a1c47-85a4-4275-b046-7d2e5a2a360a
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: d9f7a193-7d21-4cb6-9a93-6f1203bb07be
+			defaultHierarchy: LocalDateTable_5a8bf99b-3a52-48f5-a52c-c51792b7fbd7.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column categoria
+		dataType: string
+		lineageTag: df587619-1ef5-4a2b-97e6-ae9429a5e61d
+		summarizeBy: none
+		sourceColumn: categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: 6142a195-ae8b-49ed-92f0-e8c02d6ba987
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column ciudad
+		dataType: string
+		lineageTag: 42bb1cfc-1faa-4639-ab5d-a8ddeffa2691
+		summarizeBy: none
+		sourceColumn: ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column cadena
+		dataType: string
+		lineageTag: cd203669-2806-4131-ba3e-8cb73a9c9974
+		summarizeBy: none
+		sourceColumn: cadena
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcadena
+		dataType: string
+		lineageTag: 5c491829-e79e-4844-86db-e3a464a2c754
+		summarizeBy: none
+		sourceColumn: subcadena
+
+		annotation SummarizationSetBy = Automatic
+
+	column sucursal
+		dataType: string
+		lineageTag: 743cdad3-44f7-4d0f-81ab-d3258d6e6cca
+		summarizeBy: none
+		sourceColumn: sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column usuario
+		dataType: string
+		lineageTag: e700c934-d768-4e21-9f42-c7a03c6ff83b
+		summarizeBy: none
+		sourceColumn: usuario
+
+		annotation SummarizationSetBy = Automatic
+
+	column marca
+		dataType: string
+		lineageTag: 5c1aca01-64ea-4968-96c0-7c94e3f97556
+		summarizeBy: none
+		sourceColumn: marca
+
+		annotation SummarizationSetBy = Automatic
+
+	column disponibilidad = 1
+		formatString: 0
+		lineageTag: cd339347-9016-49ac-9346-551e60703856
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semana = WEEKNUM(Exhibicion[fecha],2)
+		formatString: 0
+		lineageTag: bde66204-4118-4f74-a733-23f023b80d86
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column antes_impl
+		dataType: string
+		lineageTag: 86151fac-d89e-4656-9f67-8ba301ff4a52
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: antes_impl
+
+		annotation SummarizationSetBy = Automatic
+
+	column despues_impl
+		dataType: string
+		lineageTag: 2575cbdb-8166-4452-9071-d082412180be
+		summarizeBy: none
+		sourceColumn: despues_impl
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha antes'
+		type: calculated
+		lineageTag: 761c5def-9224-41f4-be11-47e30a9218ac
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column depends_on_value
+		dataType: string
+		lineageTag: c9e6e1b5-b173-4768-a3d5-c2f853c0a5ab
+		summarizeBy: none
+		sourceColumn: depends_on_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column pregunta_corta
+		dataType: string
+		lineageTag: d632ab3c-a23b-44d0-9332-330a38e58538
+		summarizeBy: none
+		sourceColumn: pregunta_corta
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a6f7a894-438b-4c0f-905a-02f246418eea
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Exhibicion = m
+		mode: import
+		queryGroup: Exhibiciones
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)#(tab)left(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at),7) as añomes,#(lf)#(tab)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||b2.id as response_id,#(lf)#(tab)qr.branch_id||'|'||left(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at),7) as response_id_2,#(lf)#(tab)qr.branch_id,#(lf)#(tab)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)#(tab)initcap(c.""name"") as categoria,#(lf)#(tab)'SOD' as kpi,#(lf)#(tab)case#(lf)#(tab)#(tab)when b.province is null then initcap(b.zone)#(lf)#(tab)#(tab)else initcap(b.province)#(lf)#(tab)end as ciudad,#(lf)#(tab)initcap(b.chain_name) as cadena,#(lf)#(tab)initcap(b.chain_store) as subcadena,#(lf)#(tab)initcap(b.""name"") as sucursal,#(lf)#(tab)case#(lf)#(tab)when u.last_name is null then initcap(u.""name"") #(lf)#(tab)else initcap(u.""name"")|| ' ' || initcap(u.last_name)#(lf)#(tab)end as usuario,#(lf)        u.id as user_id,#(lf)#(tab)initcap(b2.""name"") as marca,#(lf)    case#(lf)    #(tab)when q.title like '%Captura foto del espacio como lo encontraste%' then 'antes_impl'#(lf)    #(tab)when q.title like '%Captura foto del espacio implementado%' then 'despues_impl' #(lf)    #(tab)else null#(lf)    end as pregunta_corta,#(lf)    q.depends_on_value, #(lf)    case#(lf)#(tab)when q.""type"" = 'photo' then 'https://tcgscout.com/storage/'||qra.value#(lf)#(tab)else qra.value end as antes_impl,#(lf)#(tab)desp.value as despues_impl#(lf)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)left join tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id = qr.id #(lf)#(tab)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)#(tab)left join tcg_scout_v2.products p on p.id = qra.product_id #(lf)#(tab)left join tcg_scout_v2.branches b on b.id = qr.branch_id #(lf)#(tab)left join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id #(lf)#(tab)left join tcg_scout_v2.categories c on c.id = bq.category_id #(lf)#(tab)left join tcg_scout_v2.brands b2 on b2.id = bq.brand_id #(lf)#(tab)left join tcg_scout_v2.users u on u.id = qr.user_id #(lf)#(tab)left join tcg_scout_v2.question_choices qc on qc.question_id ||qc.value = q.id ||qra.value #(lf)#(tab)left join (#(lf)#(tab)select qra.quiz_response_id,'https://tcgscout.com/storage/'||qra.value as value, q.depends_on_value, qr.branch_id, qr.user_id, trunc(CONVERT_TIMEZONE('GMT','GMT+5',qr.started_at)) as fecha, bq.brand_id #(lf)#(tab)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_response_answers qra#(lf)#(tab)#(tab)#(tab)#(tab)join tcg_scout_v2.quiz_responses qr on qra.quiz_response_id = qr.id and qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)#(tab)join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)#(tab)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)#(tab)) as desp on desp.branch_id = qr.branch_id and desp.depends_on_value = q.depends_on_value and desp.user_id = qr.user_id and desp.fecha = trunc(CONVERT_TIMEZONE('GMT','GMT+5',qr.started_at)) and desp.brand_id = b2.id#(lf)where qr.quiz_id  = 6264#(lf)#(tab)and qr.deleted_at is null#(lf)#(tab)and qr.approved is not false#(lf)#(tab)and qra.deleted_at is null#(lf)#(tab)and q.deleted_at is null #(lf)#(tab)and b.deleted_at is null#(lf)#(tab)and q.""type"" = 'photo' #(lf)#(tab)and (qr.approved is null or qr.approved = 1)", null, [EnableFolding=true]),
+				    #"Valor reemplazado" = Table.ReplaceValue(Origen,"Calzado Calleros Lifestyle","Calzado Caballeros",Replacer.ReplaceText,{"marca"}),
+				    #"Valor reemplazado1" = Table.ReplaceValue(#"Valor reemplazado","Calzado Damas Lifestyle","Calzado Damas",Replacer.ReplaceText,{"marca"}),
+				    #"Texto en minúsculas" = Table.TransformColumns(#"Valor reemplazado1",{{"marca", Text.Upper, type text}})
+				in
+				    #"Texto en minúsculas"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

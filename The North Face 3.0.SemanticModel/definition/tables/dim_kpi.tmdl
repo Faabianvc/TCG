@@ -1,0 +1,63 @@
+table dim_kpi
+	lineageTag: f877887c-2c8f-488d-85b6-13dfbf221c90
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: b1f6f752-26a2-42cc-af91-4af3aa101f62
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI
+		dataType: string
+		lineageTag: 7e65ca66-d81a-412f-baf7-02cc0407152d
+		summarizeBy: none
+		sourceColumn: KPI
+		sortByColumn: orden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column peso
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: 59f5e87f-9acf-41ac-b06f-8ff19a2bde2d
+		summarizeBy: none
+		sourceColumn: peso
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: int64
+		formatString: 0
+		lineageTag: cfdab65b-ca2f-4bcd-bc99-2ccbe3626775
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column long_name
+		dataType: string
+		lineageTag: 527939f8-7680-4d9d-b931-d3612f9a6de0
+		summarizeBy: none
+		sourceColumn: long_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_kpi = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "SELECT id, kpi_name, peso, orden, long_name #(lf)FROM nike.csv_kpis", null, [EnableFolding=true]),
+				    #"Renamed Columns" = Table.RenameColumns(Origen,{{"kpi_name", "KPI"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

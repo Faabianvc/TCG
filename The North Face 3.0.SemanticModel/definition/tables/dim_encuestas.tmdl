@@ -1,0 +1,57 @@
+table dim_encuestas
+	lineageTag: e2d2719c-1be7-4023-8b9d-2144719e707a
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: ad3c4393-7676-405e-9d18-3fd3355dcb2b
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 300e65c5-e2cd-4814-847e-0e4039126a8c
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_category
+		dataType: string
+		lineageTag: b56b44ed-2892-45e4-8ab0-a1fa36c0c5f4
+		summarizeBy: none
+		sourceColumn: quiz_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_type
+		dataType: string
+		lineageTag: 4bca9d42-e648-4b33-a018-cb74e7eca33f
+		summarizeBy: none
+		sourceColumn: quiz_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column app
+		dataType: string
+		lineageTag: 3a3b3541-60d4-4bb3-8785-838344458f42
+		summarizeBy: none
+		sourceColumn: app
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_encuestas = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "SELECT quiz_id as id, title, quiz_category, quiz_type, app #(lf)FROM northface.vw_quizzes", null, [EnableFolding=true])
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

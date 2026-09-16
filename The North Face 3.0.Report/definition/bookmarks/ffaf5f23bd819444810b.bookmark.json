@@ -1,0 +1,72 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Tottus 1",
+  "name": "ffaf5f23bd819444810b",
+  "options": {
+    "applyOnlyToTargetVisuals": true,
+    "targetVisualNames": [
+      "b6baf4d7c96c1458f4d7",
+      "fe88ace96d939301e45c",
+      "5ece56852f65ac0f1f3c",
+      "dc817c6e24bd1a3a3f23",
+      "7919ac06ce49c614b447",
+      "6f6a8258fc4029fd9eec",
+      "aa3ca60971603feb0d76",
+      "d80a1558c12c8a8e2331",
+      "cab31a5e5bae919ede1d",
+      "31614ce28d3fc0194d0f",
+      "e5835592f3cb3f63292b",
+      "aaf91939f023f0484a79",
+      "00a1c0280237a2cf9f97",
+      "e6a2468c838587a530d9",
+      "6ebb82c5a9280c735971",
+      "888671dd5eccd5502c3c",
+      "84cc0cc6e75790d1efbe",
+      "238ef0f92cff18886805",
+      "08350805cf8584e7a4df",
+      "5a6d9046f2b6f72bb936",
+      "a03818e072fd0de58e52",
+      "f74be066001daf61cefb",
+      "dcdad6f4d058cdff13b0",
+      "44fc7577b219e373d89c",
+      "20b793d2d8b276900805",
+      "158b8554c5902e186913",
+      "56786b4fe23da6583de6",
+      "46d89795b24e1140ae3b",
+      "aa594b8406d43c7afcb7",
+      "336d3d6cab548cc7f7c5",
+      "c476a7217e44a80a2a2a",
+      "9b77768d1831b5de7573",
+      "46e5ae5844884636edda",
+      "4c4d896af6cea306c990",
+      "8cab392b8f2fc3dda048",
+      "aa68964559686bc61f43"
+    ]
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "7fdf1019a51db2c47134",
+    "sections": {
+      "7fdf1019a51db2c47134": {
+        "visualContainers": {}
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "true"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

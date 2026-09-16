@@ -1,0 +1,143 @@
+table 'Mantenimiento Fotos'
+	lineageTag: cccf83cb-86e7-4ccf-b1f0-0f4fedb2327f
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2857c125-dc19-46c5-8871-f7aa18d98061
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: f5604b9d-8189-4788-bdb4-782f003bcffb
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 33ee0143-bf81-48ee-b475-1e4aef942569
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: 31df1bac-7f11-4bf1-b310-567ecdc91d4a
+			defaultHierarchy: LocalDateTable_62fc1bc2-0087-4184-9a37-908501748b9a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column response_id
+		dataType: string
+		lineageTag: c4577638-331e-4bf3-a5a9-5ce68654c791
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 56c62b32-027a-4f85-a571-5df2a75fbad9
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 06313c15-65af-431b-b6cc-f0e7b566de9f
+		summarizeBy: sum
+		sourceColumn: quiz_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 11d4cf18-b80c-4dca-8366-8a612b825c1c
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 42d0b545-25d2-41e9-9a4f-fc637239155d
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 61318e40-ebb8-4288-b586-837a20e074e9
+		summarizeBy: sum
+		sourceColumn: question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: int64
+		formatString: 0
+		lineageTag: 709c65a6-42af-4be0-851d-3b946bb72ab2
+		summarizeBy: sum
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: 6d24e39a-8a68-4fcc-a812-dc9b201a5e8e
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: string
+		lineageTag: 1df980d6-c1a2-46ef-a95d-b2c7324ec705
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+	column respuesta
+		dataType: string
+		lineageTag: db20d0f3-b051-4b7d-9596-65eb95a6d806
+		summarizeBy: none
+		sourceColumn: respuesta
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: 2b0b2328-41a7-4194-9c9e-7ff1b0b702b2
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento Fotos' = m
+		mode: import
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)qr.branch_id,#(lf)br.name,#(lf)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id  as response_id,#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id,#(lf)-- CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at) as salida,#(lf)qr.quiz_id,#(lf)qr.user_id,#(lf)q.title,#(lf)q.id as question_id,#(lf)case #(lf)#(tab)when q.id in (298352,298353,298354,298357,298356,298358) then 1#(lf)#(tab)when q.id in (298355,300674,300675,300684,298359,300685) then 2#(lf)#(tab)when q.id in (300676,300677,300678,300687,300686,300688) then 3#(lf)#(tab)when q.id in (300679300680,300681,300690,300689,300691) then 4#(lf)#(tab)when q.id in (300682,300683,300693,300692) then 5#(lf)end as orden,#(lf)case #(lf)#(tab)when q.title ilike '%¿En qué área tienes necesidad de mantenimiento?%' then 'Area'#(lf)#(tab)when q.""type"" = 'photo' then 'Foto'#(lf)#(tab)else qra.value#(lf)end as kpi,#(lf)qra.value,#(lf)case #(lf)#(tab)when q.""type"" = 'choices_single' then qc.title#(lf)#(tab)when q.""type"" = 'photo' then 'https://tcgscout.com/storage/'||qra.value#(lf)#(tab)else qra.value#(lf)end as respuesta,#(lf)q.""type""#(lf)from tcg_scout_v2.quiz_responses qr #(lf)LEFT JOIN tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id =qr.id #(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.question_choices qc on qc.question_id ||qc.value = qra.question_id ||qra.value #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)where qr.quiz_id in (6371, 6381)#(lf)and qr.approved is not false#(lf)and q.id in (298357,300684,300687,300690,300693,298353,300674,300677,300680,300683)#(lf)order by qr.id desc", null, [EnableFolding=true])
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

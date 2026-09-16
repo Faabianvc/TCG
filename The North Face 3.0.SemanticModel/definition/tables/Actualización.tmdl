@@ -1,0 +1,24 @@
+table Actualización
+	lineageTag: 73f69459-55d2-4021-a84e-e15e3b7fbeec
+
+	column Actualización
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 05680f07-2321-4c65-9892-6b9d386e8404
+		summarizeBy: none
+		sourceColumn: Actualización
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Actualización = m
+		mode: import
+		source =
+				let
+				    Origen = DateTimeZone.SwitchZone(DateTimeZone.LocalNow(),-6)
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTimeZone
+

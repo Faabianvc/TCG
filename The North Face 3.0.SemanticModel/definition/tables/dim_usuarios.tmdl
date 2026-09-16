@@ -1,0 +1,67 @@
+table dim_usuarios
+	lineageTag: 30c7a5c6-7539-45cb-a457-55ac9543d3f0
+
+	column email
+		dataType: string
+		lineageTag: fc09e58d-a21c-4045-b118-b716e481bfea
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d1ab21da-ea5f-4427-babd-0e94e8a302cf
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: bdc90da0-f728-4f64-a732-90f9c126f0fb
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column app
+		dataType: string
+		lineageTag: 2181bc08-b33f-4d7d-bac9-94ced060135e
+		summarizeBy: none
+		sourceColumn: app
+
+		annotation SummarizationSetBy = Automatic
+
+	column avatar
+		dataType: string
+		lineageTag: 80742355-45da-416d-8323-2a1262bb613f
+		summarizeBy: none
+		sourceColumn: avatar
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_ms
+		dataType: int64
+		formatString: 0
+		lineageTag: 20c02899-2e6d-4755-a139-9a45fd38ec5c
+		summarizeBy: sum
+		sourceColumn: is_ms
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_usuarios = m
+		mode: import
+		queryGroup: Dims
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select #(lf)#(tab)u.id AS user_id,#(lf)#(tab)CASE#(lf)#(tab)#(tab)WHEN initcap(u.last_name) is null THEN initcap(u.""full_name"")#(lf)#(tab)#(tab)ELSE initcap(u.full_name)|| ' ' || initcap(u.last_name)#(lf)#(tab)END AS nombre,#(lf)#(tab)u.""email"",#(lf)#(tab)'v3' AS app,#(lf)#(tab)u.avatar, #(lf)#(tab)MAX(CASE WHEN cqz.quiz_category IN ('Mystery Shopper', 'MS') THEN 1 ELSE 0 END) AS is_ms#(lf)from tcg_l1_v3.answers qr #(lf)join tcg_l0_v3.users u on u.id = qr.user_id#(lf)JOIN northface.csv_quizzes cqz ON qr.survey_id = cqz.quiz_id #(lf) #(tab)AND cqz.app = 'v3' #(lf)where u.deleted = 0#(lf)#(tab)and qr.response_is_approved = 1#(lf)#(tab)AND qr.response_started_at >= '2025-10-01' --Encuesta v3 parte en Oct2025#(lf)GROUP BY 1,2,3,4,5", null, [EnableFolding=true]),
+				    #"Renamed Columns" = Table.RenameColumns(Origen,{{"nombre", "name"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

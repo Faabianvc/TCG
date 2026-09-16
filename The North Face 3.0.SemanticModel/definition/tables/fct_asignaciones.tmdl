@@ -1,0 +1,231 @@
+table fct_asignaciones
+	lineageTag: 5e136de1-bab0-460a-93b8-afa931157719
+
+	column id_asignacion
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c38c76b-2cb6-467b-9154-3be18b4f8a3b
+		summarizeBy: sum
+		sourceColumn: id_asignacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c893ddd-7989-4586-a1dd-55573ccd1426
+		summarizeBy: sum
+		sourceColumn: company_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_type
+		dataType: string
+		lineageTag: 1b19bfff-690b-45e5-b78b-5e8de58a4950
+		summarizeBy: none
+		sourceColumn: period_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: string
+		lineageTag: 8e4a7949-3c6a-4645-866d-c9a28ebee191
+		summarizeBy: none
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 012fbb95-f8c9-47e3-b0d4-5f75360459ca
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b6e704f2-d7b3-494f-ba35-c90c81fe5749
+		summarizeBy: none
+		sourceColumn: survey_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: fa71f9f8-b15b-4b14-aafd-b1586fd201b0
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignments
+		dataType: int64
+		formatString: 0
+		lineageTag: a28df266-f8e6-469e-b6a9-a6fa1d0d5f7a
+		summarizeBy: sum
+		sourceColumn: assignments
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_name
+		dataType: string
+		lineageTag: 1a90dfb3-e67e-43f4-9e75-ec79ccff6343
+		summarizeBy: none
+		sourceColumn: period_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_last_day
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 938254f6-0b7c-4ffe-a0da-c3f54a59c652
+		summarizeBy: none
+		sourceColumn: period_last_day
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column assignment_number
+		dataType: int64
+		formatString: 0
+		lineageTag: f077c5eb-e7c9-48cf-8517-c6afb42ee7a8
+		summarizeBy: sum
+		sourceColumn: assignment_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_response_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0432704d-c80c-485c-b23d-48cb7b130315
+		summarizeBy: sum
+		sourceColumn: survey_response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column load_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a3b4703-c68c-432d-959a-152b19d8a656
+		summarizeBy: sum
+		sourceColumn: load_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column started_at
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: d925ef67-6450-4199-9942-3e20e2b61766
+		summarizeBy: none
+		sourceColumn: started_at
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column finished_at
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: ad6a67e1-a663-476f-a384-3df053f3a252
+		summarizeBy: none
+		sourceColumn: finished_at
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column fecha
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: a9f3ea39-5983-4a3b-b504-1814e550c2ae
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column cumplimiento
+		dataType: int64
+		formatString: 0
+		lineageTag: b53b5c99-d48d-429e-a353-406b49779094
+		summarizeBy: sum
+		sourceColumn: cumplimiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: dde5ecba-a436-40b6-aa4a-4d77f0ee32f1
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cumplimiento_texto = IF(fct_asignaciones[cumplimiento] = 1, "Realizada", "No Realizada")
+		lineageTag: eae0c9b5-e89e-4ed8-9359-a9b312540c9d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tarea = RELATED(dim_Encuestas[title])
+		lineageTag: 0a05eebe-05fc-452e-9b6f-48797255dd37
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Usuario = RELATED(dim_usuarios[name])
+		lineageTag: 04b009d6-b8a6-46bd-a187-9418f1e61a66
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal = RELATED(dim_sucursales[name])
+		lineageTag: 8fa25ccd-a26b-461d-a720-e0e4141bb4a4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciudad = RELATED(dim_sucursales[city])
+		lineageTag: 9a51bf1b-09f7-4637-b2f6-9fb815bb4cfd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodo_label = ```
+			
+			SWITCH(
+			    fct_asignaciones[period_type],
+			    "monthly", FORMAT(fct_asignaciones[period_last_day], "yyyy-MM"),
+			    "weekly", FORMAT(fct_asignaciones[period_last_day], "yyyy-MM") & "/w" &
+			              CEILING(DAY(fct_asignaciones[period_last_day]) / 7, 1),
+			    "daily", FORMAT(fct_asignaciones[fecha], "yyyy-MM-DD"),
+			    fct_asignaciones[period_name]
+			)
+			
+			```
+		lineageTag: 50a604fa-6aea-4e9b-a17f-42116736fdbe
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_asignaciones = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "SELECT aa.id as id_asignacion, aa.company_id, aa.period_type, aa.mes, aa.branch_id, aa.survey_id, aa.user_id#(lf)#(tab), aa.assignments, aa.period_name, aa.period_last_day::date, aa.assignment_number#(lf)#(tab), aa.survey_response_id, aa.load_id#(lf)#(tab), sr.started_at, sr.finished_at, cast(sr.started_at AS date) AS fecha#(lf)#(tab), CASE WHEN aa.survey_response_id IS NOT NULL THEN 1 ELSE 0 END AS cumplimiento#(lf),row_number() OVER(PARTITION BY aa.mes, aa.user_id ORDER BY aa.branch_id, sr.started_at) as id#(lf)FROM tcg_l1_v3.assignments_answers aa#(lf)LEFT JOIN tcg_l0_v3.survey_responses sr ON aa.survey_response_id = sr.id#(lf)WHERE aa.company_id = 119", null, [EnableFolding=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"started_at", type time}, {"finished_at", type time}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

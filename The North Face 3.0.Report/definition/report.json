@@ -1,0 +1,147 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY26SU05",
+      "reportVersionAtImport": {
+        "visual": "2.9.0",
+        "report": "3.3.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "AccessibleCityPark",
+      "reportVersionAtImport": {
+        "visual": "2.10.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "filterConfig": {
+    "filterSortOrder": "Custom"
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "advanceCardE03760C5AB684758B56AA29F9E6C257B",
+    "advancedPieDonut812F760774854B428BA58A87279F6AF6",
+    "bciCalendarCC0FA2BFE4B54EE1ACCFE383B9B1DE61",
+    "calendarVisual74934D05B71F4C31B0F79D925EE89638",
+    "ChicletSlicer1448559807354",
+    "D3JsTree2F7A67F154D04FA3A4CA3E01DE5AE54B",
+    "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "htmlContent443BE3AD55E043BF878BED274D3A6855",
+    "ImageGrid_FC5183B9_926C_45E0_B5F7_0CE9EAF1DA9B",
+    "multiKpiEA8DA325489E436991F0E411F2D85FF3",
+    "payPalKPIDonutChart55A431AB15A540ED924ACD72ED8D259F",
+    "PBI_CV_81BBAD08_3ADD_466C_8819_9FACA21A6B8F",
+    "PBI_CV_FFFE680D_D220_4F62_B16C_C7B5C5732654",
+    "pbiCollageE166DE34940E43CA8FC3A9C1A52231D4",
+    "powerKPI462CE5C2666F4EC8A8BDD7E5587320A3",
+    "powerKPIMatrixEB2381CC88A8425FBEB1B07FF57784E6",
+    "Sunburst1445472000808",
+    "Tachometer1474636471549",
+    "Timeline1447991079100"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "AccessibleCityPark",
+          "path": "BuiltInThemes/AccessibleCityPark.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "CY26SU05",
+          "path": "BaseThemes/CY26SU05.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "icono_filtro_blanco21486223582569808.png",
+          "path": "icono_filtro_blanco21486223582569808.png",
+          "type": "Image"
+        },
+        {
+          "name": "icono-candado-blanco-png-trans9520802882351738.png",
+          "path": "icono-candado-blanco-png-trans9520802882351738.png",
+          "type": "Image"
+        },
+        {
+          "name": "leyenda_general_fondogris22386869432154144.png",
+          "path": "leyenda_general_fondogris22386869432154144.png",
+          "type": "Image"
+        },
+        {
+          "name": "LOGO_TCG_WHITE7238964780486117.png",
+          "path": "LOGO_TCG_WHITE7238964780486117.png",
+          "type": "Image"
+        },
+        {
+          "name": "nf_logo27028647754484283.PNG",
+          "path": "nf_logo27028647754484283.PNG",
+          "type": "Image"
+        },
+        {
+          "name": "white-nike-logos-on-black-back5444274087841725.png",
+          "path": "white-nike-logos-on-black-back5444274087841725.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultFilterActionIsDataFilter": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "queryLimitOption": "None",
+    "customMemoryLimit": "1048576",
+    "customTimeoutLimit": "225"
+  },
+  "slowDataSourceSettings": {
+    "isCrossHighlightingDisabled": false,
+    "isSlicerSelectionsButtonEnabled": false,
+    "isFilterSelectionsButtonEnabled": false,
+    "isFieldWellButtonEnabled": false,
+    "isApplyAllButtonEnabled": false
+  }
+}
