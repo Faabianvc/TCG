@@ -1,0 +1,144 @@
+table Gap_comentarios
+	lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670001
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670002
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670003
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670004
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column response_id
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670005
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670006
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670007
+		summarizeBy: none
+		sourceColumn: survey_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670008
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670009
+		summarizeBy: none
+		sourceColumn: question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670010
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670011
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+	column task_category_name
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345670012
+		summarizeBy: none
+		sourceColumn: task_category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Gap_comentarios = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				        SELECT DISTINCT
+				            a.branch_id,
+				            b.name,
+				            CAST(a.response_started_at AS DATE)                                                         AS fecha,
+				            CAST(a.branch_id AS VARCHAR) || '|' || CAST(a.response_started_at AS DATE) || '|' || CAST(a.user_id AS VARCHAR) || '|' || a.task_category_name AS response_id,
+				            a.survey_response_id                                                                        AS id,
+				            a.survey_id,
+				            a.user_id,
+				            a.question_id,
+				            a.task_category_name,
+				            'Comentario'                                                                                AS kpi,
+				            a.answer                                                                                    AS value
+				        FROM tcg_l1_v3.answers a
+				        JOIN northface.vw_branches b ON b.id = a.branch_id
+				        WHERE a.survey_id    = 1621
+				          AND a.question_id  = 52465
+				          AND a.answer IS NOT NULL
+				          AND a.response_is_approved = 1
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha",       type date},
+				        {"branch_id",   Int64.Type},
+				        {"user_id",     Int64.Type},
+				        {"id",          Int64.Type},
+				        {"survey_id",   Int64.Type},
+				        {"question_id", Int64.Type}
+				    })
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

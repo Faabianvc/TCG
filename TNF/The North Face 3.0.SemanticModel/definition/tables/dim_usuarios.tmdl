@@ -51,12 +51,20 @@ table dim_usuarios
 
 		annotation SummarizationSetBy = Automatic
 
+	column cargo
+		dataType: string
+		lineageTag: 93a4fe53-c013-4384-b3e2-93dbe1177086
+		summarizeBy: none
+		sourceColumn: cargo
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_usuarios = m
 		mode: import
 		queryGroup: Dims
 		source =
 				let
-				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select #(lf)#(tab)u.id AS user_id,#(lf)#(tab)CASE#(lf)#(tab)#(tab)WHEN initcap(u.last_name) is null THEN initcap(u.""full_name"")#(lf)#(tab)#(tab)ELSE initcap(u.full_name)|| ' ' || initcap(u.last_name)#(lf)#(tab)END AS nombre,#(lf)#(tab)u.""email"",#(lf)#(tab)'v3' AS app,#(lf)#(tab)u.avatar, #(lf)#(tab)MAX(CASE WHEN cqz.quiz_category IN ('Mystery Shopper', 'MS') THEN 1 ELSE 0 END) AS is_ms#(lf)from tcg_l1_v3.answers qr #(lf)join tcg_l0_v3.users u on u.id = qr.user_id#(lf)JOIN northface.csv_quizzes cqz ON qr.survey_id = cqz.quiz_id #(lf) #(tab)AND cqz.app = 'v3' #(lf)where u.deleted = 0#(lf)#(tab)and qr.response_is_approved = 1#(lf)#(tab)AND qr.response_started_at >= '2025-10-01' --Encuesta v3 parte en Oct2025#(lf)GROUP BY 1,2,3,4,5", null, [EnableFolding=true]),
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select #(lf)#(tab)u.id AS user_id,#(lf)#(tab)CASE#(lf)#(tab)#(tab)WHEN initcap(u.last_name) is null THEN initcap(u.""full_name"")#(lf)#(tab)#(tab)ELSE initcap(u.full_name)|| ' ' || initcap(u.last_name)#(lf)#(tab)END AS nombre,#(lf)case #(lf)#(tab)when u.email like '%visual%' then 'Visual'#(lf)#(tab)when u.email like '%promotor%' then 'Promotor'#(lf)end as cargo,#(lf)#(tab)u.""email"",#(lf)#(tab)'v3' AS app,#(lf)#(tab)u.avatar, #(lf)#(tab)MAX(CASE WHEN cqz.quiz_category IN ('Mystery Shopper', 'MS') THEN 1 ELSE 0 END) AS is_ms#(lf)from tcg_l1_v3.answers qr #(lf)join tcg_l0_v3.users u on u.id = qr.user_id#(lf)JOIN northface.csv_quizzes cqz ON qr.survey_id = cqz.quiz_id #(lf) #(tab)AND cqz.app = 'v3' #(lf)where u.deleted = 0#(lf)#(tab)and qr.response_is_approved = 1#(lf)#(tab)AND qr.response_started_at >= '2025-10-01' --Encuesta v3 parte en Oct2025#(lf)GROUP BY 1,2,3,4,5,6", null, [EnableFolding=true]),
 				    #"Renamed Columns" = Table.RenameColumns(Origen,{{"nombre", "name"}})
 				in
 				    #"Renamed Columns"

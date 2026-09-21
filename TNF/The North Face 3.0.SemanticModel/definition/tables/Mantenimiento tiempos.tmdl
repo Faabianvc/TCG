@@ -1,0 +1,59 @@
+table 'Mantenimiento tiempos'
+	lineageTag: a5b6c7d8-e9f0-1234-abcd-567890100001
+
+	column alerta_id
+		dataType: string
+		lineageTag: a5b6c7d8-e9f0-1234-abcd-567890100002
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [alerta_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_inicio
+		lineageTag: a5b6c7d8-e9f0-1234-abcd-567890100003
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [fecha_inicio]
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodo
+		lineageTag: a5b6c7d8-e9f0-1234-abcd-567890100004
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [periodo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiasTranscurridos =
+			
+			VAR FechaFin =
+			    CALCULATE(
+			        MAX('Mantenimiento Status'[fecha]),
+			        FILTER(
+			            'Mantenimiento Status',
+			            'Mantenimiento Status'[ID solicitud] = 'Mantenimiento tiempos'[alerta_id]
+			                && 'Mantenimiento Status'[Status] = "Finalizado"
+			        )
+			    )
+			VAR FechaEvaluada = IF(ISBLANK(FechaFin), TODAY(), FechaFin)
+			RETURN DATEDIFF('Mantenimiento tiempos'[fecha_inicio], FechaEvaluada, DAY)
+		formatString: 0
+		lineageTag: a5b6c7d8-e9f0-1234-abcd-567890100005
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento tiempos' = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS(
+				    Mantenimiento,
+				    "alerta_id",    Mantenimiento[alerta_id],
+				    "fecha_inicio", Mantenimiento[fecha],
+				    "periodo",      Mantenimiento[periodo]
+				)
+
+	annotation PBI_ResultType = Table
+

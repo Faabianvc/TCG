@@ -855,34 +855,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "b70d0ab388b2a6833162",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "1Medidas"
-              }
-            },
-            "Property": "1_ nota por kpi y peso"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "28ba3b1097d9eb2558ec",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "1Medidas"
-              }
-            },
-            "Property": "1_ diff peso y nota"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

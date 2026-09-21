@@ -644,51 +644,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "02b4b22ee71da846d60b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "1Medidas"
-              }
-            },
-            "Property": "1_ nota ponderada"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "a9c7362f0896b5601440",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_encuestas"
-              }
-            },
-            "Property": "quiz_type"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "416c0c6f7b803d268dec",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fct_respuestas"
-              }
-            },
-            "Property": "Periodo"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

@@ -239,49 +239,6 @@ table 1Medidas
 			```
 		lineageTag: c93495f6-2d73-4577-b405-266fc8f47e84
 
-	measure video_url =
-			
-			VAR response_id = FIRSTNONBLANK(fct_videos[survey_response_id], 0)
-			VAR question_response_id = FIRSTNONBLANK(fct_videos[question_response_id], 0)
-			VAR branch_id = SELECTEDVALUE(fct_respuestas[branch_id])
-			VAR medicion = SELECTEDVALUE(fct_respuestas[medicion])
-			
-			VAR is_valid = IF(ISBLANK(response_id) || ISBLANK(question_response_id) || ISBLANK(branch_id) || ISBLANK(medicion), 0, 1)
-			VAR url_ = "https://portal.tcgscout.com/public-videos/" & response_id & "/" & question_response_id
-			
-			RETURN IF(is_valid = 1, url_, BLANK())
-		lineageTag: 4cce1f24-056f-4122-938f-70164e508b8b
-
-	measure video_url_html = ```
-			
-			 VAR video_url = [video_url]
-			 VAR mensaje_vacio = "-"
-			 VAR mensaje_video = "Click para ver el video..."
-			
-			 VAR video_url_o_mensaje = IF(ISBLANK(video_url)
-			    , "<span class=""fs"">" & mensaje_vacio & "</span>"
-			    , "<a class=""fs"" href='" & video_url & "'>" & mensaje_video & "</a>"
-			    )
-			
-			 VAR estilo = "<style>
-			      .grid-centro {
-			        display: grid;
-			        place-items: center;
-			        height: 40px;
-			      }
-			      .fs {font-size: 25px; }
-			    </style>
-			    "
-			
-			 VAR html_ = estilo
-			    & "<div class=""grid-centro"">"
-			    & video_url_o_mensaje
-			    & "</div>"
-			
-			RETURN html_
-			```
-		lineageTag: 0d57e0e6-7eef-4cdc-a810-813339bf8f5d
-
 	measure '1_ texto actualizacion' = "Actualizado : "& SELECTEDVALUE('Actualización'[Actualización])
 		lineageTag: dfe2709f-4de4-4861-861a-36e20c1a94d4
 
@@ -356,82 +313,6 @@ table 1Medidas
 			)
 		formatString: 0
 		lineageTag: ac956b50-0758-416c-9359-552ca6465de4
-
-	measure cta_detalle_aud =
-			
-			var comentario = CALCULATE(MAX(fct_pbi_comments[comment]), fct_pbi_comments[page] = "Detalle AUD")
-			RETURN IF(ISBLANK(comentario), BLANK(), 1)
-		formatString: 0
-		lineageTag: 15fba676-dfa0-41c8-822b-b4e40c71c79b
-
-	measure cta_detalle_ms =
-			
-			var comentario = CALCULATE(MAX(fct_pbi_comments[comment]), fct_pbi_comments[page] = "Detalle MS")
-			RETURN IF(ISBLANK(comentario), BLANK(), 1)
-		formatString: 0
-		lineageTag: 11e52335-845a-44f4-8c5e-6897ba1a37f1
-
-	measure 'texto pbi comments' = ```
-			
-			VAR sucursal = SELECTEDVALUE(dim_sucursales[name])
-			VAR pregunta = SELECTEDVALUE(dim_preguntas[question_short])
-			var medicion = SELECTEDVALUE(dimMedicion[medicion])
-			
-			VAR is_valid = NOT(ISBLANK(sucursal) || ISBLANK(pregunta) || ISBLANK(medicion))
-			
-			VAR comentarios = COUNTROWS(fct_pbi_comments)
-			VAR tab_ = ""
-			
-			VAR estilo =
-			    "<style>
-			      div, b, i, u, span {
-			        font-family: 'DIN', 'wf_standard-font', sans-serif;
-			        font-size: 28px;
-			      }
-			    </style>"
-			
-			VAR texto =
-			    estilo &
-			    "<div>" &
-			    CONCATENATEX(
-			        fct_pbi_comments,
-			        "<b>" 
-			            & fct_pbi_comments[name] 
-			            & "<i> (" & FORMAT(fct_pbi_comments[updated_at], "DD-MMM-YYYY hh:mm") & " UTC)</i>:" &
-			        "</b>" 
-			            & "<br>"
-			            & fct_pbi_comments[comment]
-			            & "<br>"
-			            & tab_ & "<u>Deadline: " & FORMAT(fct_pbi_comments[deadline], "DD-MMM-YYYY") & "</u>"
-			            & "<br><br>"
-			        ,"",fct_pbi_comments[updated_at], ASC
-			    ) &
-			    "</div>"
-			
-			VAR mensaje_defecto =
-			    "<style>
-			      .grid-centro {
-			        display: grid;
-			        place-items: center;
-			        height: 1px;
-			      }
-			      .fs {
-			        font-size: 28px;
-			        font-family: 'DIN', 'wf_standard-font', sans-serif;
-			        font-style: italic;
-			      }
-			    </style>
-			    <div class=""grid-centro""><span class=""fs"">Seleccione una evaluación para ver los comentarios Call To Action...</span></div>"
-			
-			RETURN 
-			    IF(is_valid, 
-			        IF(comentarios > 0, texto, 
-			            estilo & "<div>No hay comentarios aún</div>"
-			        ), 
-			        mensaje_defecto
-			    )
-			```
-		lineageTag: 9200478f-ebbb-42e3-ab6f-e37abf48ce81
 
 	measure texto_comentario_general =
 			
@@ -623,139 +504,6 @@ table 1Medidas
 			```
 		lineageTag: 485af56b-0f41-40c9-acfe-a95438e3c8eb
 
-	measure foto_antes_fecha = ```
-			
-			var vacio = if([foto_antes] = "https://tcgscout.com/images/tcg-select-item-preview.png", true, false) 
-			var fecha = SELECTEDVALUE(fct_antes[fecha_hora])
-			var fecha_formateada = IF(ISBLANK(fecha), "", FORMAT(fecha, "YYYY-MM-DD hh:mm:ss"))
-			
-			return IF(vacio, "", fecha_formateada)
-			```
-		lineageTag: 4d5666af-d990-49f8-a323-a0f839406d1a
-
-	measure foto_antes =
-			
-			VAR vacio = "https://tcg-public.s3.sa-east-1.amazonaws.com/tcg-select-item-preview-2026.png"
-			VAR foto_antes = SELECTEDVALUE(fct_antes[imagen])
-			
-			RETURN COALESCE(foto_antes, vacio)
-		lineageTag: 3f539948-59ca-4bed-83f1-996c1dd12e0d
-
-	measure foto_despues =
-			
-			VAR vacio = "https://tcg-public.s3.sa-east-1.amazonaws.com/tcg-select-item-preview-2026.png"
-			VAR antes = SELECTEDVALUE(fct_despues[imagen])
-			
-			RETURN IF(ISBLANK(antes),vacio,antes)
-		lineageTag: 48a42741-a275-49b7-8ea1-9672ea2a1efa
-
-	measure foto_despues_fecha = ```
-			
-			var vacio = if([foto_despues] = "https://tcgscout.com/images/tcg-select-item-preview.png", true, false) 
-			var fecha = SELECTEDVALUE(fct_despues[fecha_hora])
-			var fecha_formateada = IF(ISBLANK(fecha), "", FORMAT(fecha, "YYYY-MM-DD hh:mm:ss"))
-			
-			return IF(vacio, "", fecha_formateada)
-			```
-		lineageTag: 0a910fe9-4fab-406d-9545-f2509475347b
-
-	measure texto_comentario_antes =
-			
-			VAR pre_comentario = CALCULATE(SELECTEDVALUE(fct_antes[descripcion]))
-			VAR comentario_ajustado = UPPER(LEFT(pre_comentario,1)) & LOWER(MID(pre_comentario,2,LEN(pre_comentario))) //Cambia a mayuscula la primera letra de la primerea palabra
-			
-			var id_antes = SELECTEDVALUE(fct_antes[survey_response_id])
-			VAR sin_comentario = ""
-			var is_valid = NOT(ISBLANK(id_antes))
-			
-			var mensaje_defecto = "Seleccione una oportunidad para ver el comentario del 'Antes'..."
-			
-			VAR estilo =
-			    "<style>
-			      div, span {
-			        font-family: 'DIN', 'wf_standard-font', sans-serif;
-			        font-size: 28px;
-			      }
-			    </style>"
-			
-			VAR mensaje_defecto_estilo =
-			    "<style>
-			      .grid-centro {
-			        display: grid;
-			        place-items: center;
-			        height: 1px;
-			      }
-			      .fs {
-			        font-size: 28px;
-			        font-family: 'DIN', 'wf_standard-font', sans-serif;
-			        font-style: italic;
-			      }
-			    </style>
-			    <div class=""grid-centro""><span class=""fs"">" & mensaje_defecto & "</span></div>"
-			
-			VAR resultado = COALESCE(comentario_ajustado, sin_comentario)
-			
-			RETURN
-			    IF(is_valid, estilo & "<div>" & resultado & "</div>", mensaje_defecto_estilo)
-		lineageTag: cd97a3d9-79bf-4f3c-887c-893a1916f914
-
-	measure texto_comentario_despues =
-			
-			VAR pre_comentario = CALCULATE(SELECTEDVALUE(fct_despues[descripcion]))
-			VAR comentario_ajustado = UPPER(LEFT(pre_comentario,1)) & LOWER(MID(pre_comentario,2,LEN(pre_comentario))) //Cambia a mayuscula la primera letra de la primerea palabra
-			
-			var id_antes = SELECTEDVALUE(fct_antes[survey_response_id])
-			var id_despues = SELECTEDVALUE(fct_despues[survey_response_id])
-			VAR sin_comentario = "(Registro 'Después' no disponible aún)"
-			var is_valid = NOT(ISBLANK(id_antes))
-			
-			var mensaje_defecto = IF(is_valid
-			    , IF(ISBLANK(id_despues)
-			        , sin_comentario
-			        , "")
-			    , "Seleccione una oportunidad para ver el comentario del 'Después'..."
-			    )
-			
-			VAR estilo =
-			    "<style>
-			      div, span {
-			        font-family: 'DIN', 'wf_standard-font', sans-serif;
-			        font-size: 28px;
-			      }
-			    </style>"
-			
-			VAR mensaje_defecto_estilo =
-			    "<style>
-			      .grid-centro {
-			        display: grid;
-			        place-items: center;
-			        height: 1px;
-			      }
-			      .fs {
-			        font-size: 28px;
-			        font-family: 'DIN', 'wf_standard-font', sans-serif;
-			        font-style: italic;
-			      }
-			    </style>
-			    <div class=""grid-centro""><span class=""fs"">" & mensaje_defecto & "</span></div>"
-			
-			RETURN  IF(is_valid, estilo & "<div>" & comentario_ajustado & "</div>", mensaje_defecto_estilo)
-		lineageTag: 9ec6fb6f-8c04-4bea-b48c-17122c43fdfc
-
-	measure estado_solucion =
-			
-			VAR _key = SELECTEDVALUE ( fct_antes[survey_response_review] )
-			VAR _solucion =
-			    LOOKUPVALUE (
-			        fct_review[answer_integer],
-			        fct_review[survey_response_id], _key
-			    )
-			VAR _resultado =
-			    IF ( ISBLANK ( _solucion ), "Pend.", IF ( _solucion = 1, "Sí", "No" ) )
-			RETURN
-			    IF ( NOT ISEMPTY ( fct_antes ), _resultado )
-		lineageTag: d1d0e996-ced0-40bc-a545-0505db14821d
-
 	measure texto_comentario_especifico =
 			
 			VAR comentario_pregunta = CONCATENATEX(
@@ -825,51 +573,6 @@ table 1Medidas
 		lineageTag: ab43f262-b9eb-4888-934b-c2d0d605fbec
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	measure '1_ texto comentario ia' = ```
-			
-			VAR survey_response_id = SELECTEDVALUE(fct_respuestas[survey_response_id])
-			VAR comentario = SELECTEDVALUE(fct_comentario_general_ia[comentario_general_ia])
-			
-			VAR estilo =
-			    "<style>
-			      div, span {
-			        font-family: 'DIN', 'wf_standard-font', sans-serif;
-			        font-size: 28px;
-			      }
-			    </style>"
-			
-			VAR texto =
-			    estilo &
-			    "<div>" & comentario & "</div>"
-			
-			VAR mensaje_defecto =
-			    "<style>
-			      .grid-centro {
-			        display: grid;
-			        place-items: center;
-			        height: 1px;
-			      }
-			      .fs {
-			        font-size: 28px;
-			        font-family: 'DIN', 'wf_standard-font', sans-serif;
-			        font-style: italic;
-			      }
-			    </style>
-			    <div class=""grid-centro""><span class=""fs"">Seleccione una evaluación para ver el resumen de la visita...</span></div>"
-			RETURN
-			    IF(
-			        COUNTROWS(fct_comentario_general_ia) = 0 && NOT(ISBLANK(survey_response_id)),
-			        estilo & "<div>Resumen no disponible aún...</div>",
-			        IF(
-			            ISBLANK(comentario),
-			            mensaje_defecto,
-			            texto
-			        )
-			    )
-			
-			```
-		lineageTag: b1553c5f-a6d9-4e6b-a752-2438a759172d
 
 	measure marcaje_tiempo_efectivo =
 			
@@ -1053,6 +756,245 @@ table 1Medidas
 			var vacio = "https://tcg-public.s3.sa-east-1.amazonaws.com/tcg-select-item-preview-2026.png"
 			return IF(ISBLANK(foto),vacio,foto)
 		lineageTag: 7df48fef-2de5-4a04-b94d-27d256768099
+
+	measure cum_Tareas2 = DISTINCTCOUNT(dim_dates[fecha]) * 11
+		formatString: 0
+		lineageTag: cc001aaa-0001-4000-a000-000000000003
+
+	measure 'Branches Cumplimiento 1' =
+			
+			VAR meadured = IF(ISBLANK(CALCULATE(DISTINCTCOUNT(Marcaje[branch_id]), Marcaje[Cumplimiento] = 1)), 0, CALCULATE(DISTINCTCOUNT(Marcaje[branch_id]), Marcaje[Cumplimiento] = 1))
+			VAR total   = IF(ISBLANK(DISTINCTCOUNT(Marcaje[branch_id])), 0, DISTINCTCOUNT(Marcaje[branch_id]))
+			RETURN DIVIDE(meadured, total, 0)
+		lineageTag: cc001aaa-0001-4000-a000-000000000004
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Branches Cumplimiento 1 texto' =
+			
+			VAR meadured = IF(ISBLANK(CALCULATE(DISTINCTCOUNT(Marcaje[branch_id]), Marcaje[Cumplimiento] = 1)), 0, CALCULATE(DISTINCTCOUNT(Marcaje[branch_id]), Marcaje[Cumplimiento] = 1))
+			VAR total   = IF(ISBLANK(DISTINCTCOUNT(Marcaje[branch_id])), 0, DISTINCTCOUNT(Marcaje[branch_id]))
+			RETURN meadured & " / " & total
+		lineageTag: cc001aaa-0001-4000-a000-000000000005
+
+	measure 'Branches Cumplimiento 2' =
+			
+			VAR tarea1  = [Tarea 1 (Check in)]
+			VAR tarea2  = [Tarea 2 Caballeros Lifestyle]
+			VAR tarea3  = [Tarea 3 Calzado Caballeros]
+			VAR tarea4  = [Tarea 4 Damas Lifestyle]
+			VAR tarea5  = [Tarea 5 Calzado damas]
+			VAR tarea6  = [Tarea 6 Ropa deportiva]
+			VAR tarea7  = [Tarea 7 Calzado deportivo]
+			VAR tarea8  = [Tarea 8 Kids]
+			VAR tarea9  = [Tarea 10 (Check Out)]
+			VAR meadured = tarea1 + tarea2 + tarea3 + tarea4 + tarea5 + tarea6 + tarea7 + tarea8 + tarea9
+			VAR total    = 9
+			RETURN meadured / total
+		lineageTag: cc001aaa-0001-4000-a000-000000000006
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Branches Cumplimiento 2 Texto' =
+			
+			VAR tarea1  = [Tarea 1 (Check in)]
+			VAR tarea2  = [Tarea 2 Caballeros Lifestyle]
+			VAR tarea3  = [Tarea 3 Calzado Caballeros]
+			VAR tarea4  = [Tarea 4 Damas Lifestyle]
+			VAR tarea5  = [Tarea 5 Calzado damas]
+			VAR tarea6  = [Tarea 6 Ropa deportiva]
+			VAR tarea7  = [Tarea 7 Calzado deportivo]
+			VAR tarea8  = [Tarea 8 Kids]
+			VAR tarea9  = [Tarea 10 (Check Out)]
+			VAR meadured = tarea1 + tarea2 + tarea3 + tarea4 + tarea5 + tarea6 + tarea7 + tarea8 + tarea9
+			VAR total    = 9
+			RETURN meadured & " / " & total
+		lineageTag: cc001aaa-0001-4000-a000-000000000007
+
+	measure 'cum_% Avance' =
+			
+			VAR completadas = [cum_Tareas]
+			VAR total       = [cum_Tareas2]
+			RETURN IF(DIVIDE(completadas, total, 0) > 0, DIVIDE(completadas, total, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: cc001aaa-0001-4000-a000-000000000008
+
+	measure cum_Tareas =
+			
+			VAR tareas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[branch_id])
+			VAR cin    = CALCULATE(COUNTROWS(Marcaje), NOT(ISBLANK(Marcaje[entrada_])), Marcaje[branch_id])
+			VAR cout   = CALCULATE(COUNTROWS(Marcaje), NOT(ISBLANK(Marcaje[salida])),   Marcaje[branch_id])
+			RETURN IF(tareas + cin + cout > 0, tareas + cin + cout, 0)
+		formatString: 0
+		lineageTag: cc001aaa-0001-4000-a000-000000000009
+
+	measure cum_tiendas_medidas =
+			
+			VAR tiendasMedidas = DISTINCTCOUNT(Cumplimiento[branch_id])
+			VAR tiendasTotales = DISTINCTCOUNT(dim_sucursales[id])
+			RETURN IF(ISBLANK(DIVIDE(tiendasMedidas, tiendasTotales, 0)), 0, DIVIDE(tiendasMedidas, tiendasTotales, 0))
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: cc001aaa-0001-4000-a000-000000000010
+
+	measure cum_tiendas_medidas_texto =
+			
+			VAR tiendasMedidas = IF(ISBLANK(DISTINCTCOUNT(Cumplimiento[branch_id])), 0, DISTINCTCOUNT(Cumplimiento[branch_id]))
+			VAR tiendasTotales = DISTINCTCOUNT(dim_sucursales[id])
+			RETURN tiendasMedidas & "/" & tiendasTotales
+		lineageTag: cc001aaa-0001-4000-a000-000000000011
+
+	measure cum_PorcentajeCumplimiento =
+			
+			VAR TotalTareas  = [cum_Tareas2] * DISTINCTCOUNT(dim_sucursales[id])
+			VAR TareasCumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1)
+			RETURN CALCULATE(DIVIDE(TareasCumplidas, TotalTareas, 0), Cumplimiento[departamento])
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: cc001aaa-0001-4000-a000-000000000012
+
+	measure 'cum_Circulo tareas' =
+			
+			VAR tareasMedidas = SUM(Marcaje[Conteo_tareas])
+			VAR tareasTotales = COUNTROWS(Marcaje) * 9
+			RETURN DIVIDE(tareasMedidas, tareasTotales, 0)
+		lineageTag: cc001aaa-0001-4000-a000-000000000013
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'cum_% Tareas' =
+			
+			VAR tareasMedidas = SUM(Marcaje[Conteo_tareas])
+			VAR tareasTotales = COUNTROWS(Marcaje) * 9
+			RETURN DIVIDE(tareasMedidas, tareasTotales, 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: cc001aaa-0001-4000-a000-000000000014
+
+	measure '% Avance' =
+			
+			VAR completadas = [Tareas]
+			var total = [Tareas2]
+			 return IF(DIVIDE(completadas, total,0)>0, DIVIDE(completadas, total,0), 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c66764f1-fcc9-475d-b5ca-477a4f90fb33
+
+	measure 'disponible visibilidad' = SUM(Exhibicion[disponibilidad])
+		formatString: 0
+		lineageTag: ex001aaa-0001-4000-a000-000000000001
+
+	measure 'sucursal visibilidad' =
+			
+			VAR branch = SELECTEDVALUE(Exhibicion[sucursal])
+			VAR vacio  = "-"
+			RETURN IF(ISBLANK(branch), vacio, branch)
+		lineageTag: ex001aaa-0001-4000-a000-000000000002
+
+	measure 'promedio visibilidad' = DIVIDE(SUM(Exhibicion[disponibilidad]), COUNTROWS(Exhibicion), 0)
+		lineageTag: ex001aaa-0001-4000-a000-000000000003
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Foto Antes' =
+			
+			VAR foto  = SELECTEDVALUE(Exhibicion[antes_impl])
+			VAR vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			RETURN IF(ISBLANK(foto), vacio, foto)
+		lineageTag: ex001aaa-0001-4000-a000-000000000004
+
+	measure 'Foto Despues' =
+			
+			VAR foto  = SELECTEDVALUE(Exhibicion[despues_impl])
+			VAR vacio = "https://tcg-public.s3.sa-east-1.amazonaws.com/tcg-select-item-preview-2026.png"
+			RETURN IF(ISBLANK(foto), vacio, foto)
+		lineageTag: ex001aaa-0001-4000-a000-000000000005
+
+	measure 'Foto antes y desp_antes' =
+			
+			VAR foto_antes  = SELECTEDVALUE(Exhibicion[antes_impl])
+			VAR vacio       = "https://display-img.s3.sa-east-1.amazonaws.com/Preview.png"
+			RETURN IF(ISBLANK(foto_antes), vacio, foto_antes)
+		lineageTag: ex001aaa-0001-4000-a000-000000000006
+
+	measure 'title branch' =
+			
+			VAR sucursal = SELECTEDVALUE(Exhibicion[sucursal])
+			VAR vacio    = "-"
+			RETURN IF(ISBLANK(sucursal), vacio, CONCATENATE(sucursal, CONCATENATE(" Fecha: ", SELECTEDVALUE(Exhibicion[fecha]))))
+		lineageTag: ex001aaa-0001-4000-a000-000000000007
+
+	measure 'title module antes' =
+			
+			VAR module = SELECTEDVALUE(Exhibicion[marca])
+			RETURN
+			    SWITCH(module,
+			        "DAMAS LIFESTYLE",          "Damas Lifestyle",
+			        "CALZADO DEPORTIVO",        "Calzado Deportivo",
+			        "CABALLERO LIFESTYLE",      "Caballero Lifestyle",
+			        "ROPA DEPORTIVA",           "Ropa Deportiva",
+			        "CALZADO CABALLERO LIFESTYLE", "Calzado Caballeros",
+			        "CALZADO DAMAS LIFESTYLE",  "Calzado Damas Lifestyle",
+			        "ACCESORIOS DEPORTIVOS",    "Accesorios Deportivos",
+			        "KIDS",                     "Kids",
+			        "Not Found")
+		lineageTag: ex001aaa-0001-4000-a000-000000000008
+
+	measure 'title module antes 2' =
+			
+			VAR module = SELECTEDVALUE(Exhibicion[marca])
+			RETURN IF(ISBLANK(module), "Not Found", module)
+		lineageTag: ex001aaa-0001-4000-a000-000000000009
+
+	measure Medida
+		lineageTag: e54606c7-ca4e-453a-936c-ed0f3f28237e
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Foto antes y desp' =
+			
+			VAR foto_antes = SELECTEDVALUE('Exhibicion'[antes_impl])
+			VAR foto_despues = SELECTEDVALUE('Exhibicion'[despues_impl])
+			VAR  vacio = "https://tcg-public.s3.sa-east-1.amazonaws.com/tcg-select-item-preview-2026.png"
+			RETURN IF(ISBLANK(foto_antes),vacio,foto_antes)
+		lineageTag: 33363dec-91fa-4744-aed0-fa6d283b3979
+
+	measure 'Foto Mantenimiento' =
+			
+			VAR foto  = SELECTEDVALUE('Mantenimiento Fotos'[foto 1])
+			VAR vacio = "https://tcg-public.s3.sa-east-1.amazonaws.com/tcg-select-item-preview-2026.png"
+			RETURN IF(ISBLANK(foto), vacio, foto)
+		lineageTag: mt001aaa-0001-4000-a000-000000000001
+
+	measure 'Foto Mantenimiento Status' =
+			
+			VAR foto  = SELECTEDVALUE('Mantenimiento Status'[Foto])
+			VAR vacio = "https://tcgscout.com/images/tcg-select-item-preview.png"
+			RETURN IF(ISBLANK(foto), vacio, foto)
+		lineageTag: mt001aaa-0001-4000-a000-000000000002
+
+	measure DiferenciaDias =
+			
+			VAR FechaMantenimiento = LOOKUPVALUE(Mantenimiento[fecha], Mantenimiento[alerta_id], 'Mantenimiento Status'[ID solicitud])
+			VAR FechaStatus        = 'Mantenimiento Status'[fecha]
+			RETURN
+			    IF(
+			        NOT(ISBLANK(FechaMantenimiento)) && NOT(ISBLANK(FechaStatus)),
+			        DATEDIFF(FechaMantenimiento, FechaStatus, DAY),
+			        BLANK()
+			    )
+		lineageTag: mt001aaa-0001-4000-a000-000000000003
+
+	measure DiasDesdeMantenimiento =
+			
+			VAR FechaMantenimiento = Mantenimiento[fecha]
+			VAR FechaRespuesta     = LOOKUPVALUE('Mantenimiento Status'[fecha], 'Mantenimiento Status'[ID solicitud], Mantenimiento[alerta_id])
+			VAR FechaFinal         = IF(ISBLANK(FechaRespuesta), TODAY(), FechaRespuesta)
+			RETURN DATEDIFF(FechaMantenimiento, FechaFinal, DAY)
+		lineageTag: mt001aaa-0001-4000-a000-000000000004
+
+	measure 'Foto Despue_mante' =
+			
+			var foto = SELECTEDVALUE('Mantenimiento Status'[Foto])
+			var vacio = "https://tcg-public.s3.sa-east-1.amazonaws.com/tcg-select-item-preview-2026.png"
+			return IF(ISBLANK(foto),vacio,foto)
+		lineageTag: da02b8c8-2102-4106-9ace-fa7b160f5c3d
 
 	partition 1Medidas = m
 		mode: import

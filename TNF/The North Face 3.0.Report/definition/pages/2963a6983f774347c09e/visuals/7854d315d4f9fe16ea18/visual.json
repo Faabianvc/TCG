@@ -20,16 +20,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_dates"
+                      "Entity": "Calendario_Dim"
                     }
                   },
-                  "Property": "periodo"
+                  "Property": "añomes"
                 }
               },
-              "queryRef": "dim_dates.periodo",
-              "nativeQueryRef": "Periodo",
-              "active": true,
-              "displayName": "Periodo"
+              "queryRef": "Calendario_Dim.añomes",
+              "nativeQueryRef": "añomes",
+              "active": true
             }
           ]
         }
@@ -213,5 +212,61 @@
       "filterChanges": true
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4928919ed07d879b3c40",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Calendario_Dim"
+              }
+            },
+            "Property": "añomes"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "c",
+              "Entity": "Calendario_Dim",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "c"
+                            }
+                          },
+                          "Property": "añomes"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
   }
 }

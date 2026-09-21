@@ -89,7 +89,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'2026-07'"
+                                "Value": "'2026-09'"
                               }
                             }
                           ]
@@ -249,23 +249,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "17d180dc55ce6d7aacb4",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_dates"
-              }
-            },
-            "Property": "AñoMes"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

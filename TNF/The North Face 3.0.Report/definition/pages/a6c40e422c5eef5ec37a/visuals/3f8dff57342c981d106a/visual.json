@@ -268,20 +268,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "1d356a57d2bb19b6c2e3",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fct_respuestas"
-              }
-            },
-            "Property": "Periodo_m"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

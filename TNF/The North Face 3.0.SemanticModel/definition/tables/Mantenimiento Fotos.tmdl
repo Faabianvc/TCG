@@ -1,0 +1,185 @@
+table 'Mantenimiento Fotos'
+	lineageTag: d2e3f4a5-b6c7-8901-defa-234567890001
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890002
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890003
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890004
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column response_id
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890005
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890006
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890007
+		summarizeBy: sum
+		sourceColumn: survey_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890008
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890009
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890010
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'foto 1'
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890012
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: foto 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'foto 2'
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890013
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: foto 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'foto 3'
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890014
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: foto 3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'foto 4'
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890015
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: foto 4
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'foto 5'
+		dataType: string
+		lineageTag: d2e3f4a5-b6c7-8901-defa-234567890016
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: foto 5
+
+		annotation SummarizationSetBy = Automatic
+
+	column personalizado
+		dataType: string
+		lineageTag: a474debc-a354-4019-b0fc-70bd10947877
+		summarizeBy: none
+		sourceColumn: personalizado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento Fotos' = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				        SELECT DISTINCT
+				            a.branch_id,
+				            b.name,
+				            CAST(a.response_started_at AS DATE)                                                             AS fecha,
+				            CAST(a.branch_id AS VARCHAR) || '|' || CAST(a.response_started_at AS DATE) || '|' || CAST(a.survey_response_id AS VARCHAR) AS response_id,
+				            a.survey_response_id                                                                            AS id,
+				            a.survey_id,
+				            a.user_id,
+				            '1'                                                                                             AS orden,
+				            'Foto'                                                                                          AS kpi,
+				            CAST(a.branch_id AS VARCHAR) || '|' || CAST(a.response_started_at AS DATE) || '|' || CAST(a.survey_response_id AS VARCHAR) || '|1' AS Personalizado,
+				            MAX(CASE WHEN a.question_id = 52439 AND a.answer_is_deleted = false THEN a.answer END) OVER (PARTITION BY a.survey_response_id) AS ""foto 1"",
+				            MAX(CASE WHEN a.question_id = 52443 AND a.answer_is_deleted = false THEN a.answer END) OVER (PARTITION BY a.survey_response_id) AS ""foto 2"",
+				            MAX(CASE WHEN a.question_id = 52447 AND a.answer_is_deleted = false THEN a.answer END) OVER (PARTITION BY a.survey_response_id) AS ""foto 3"",
+				            MAX(CASE WHEN a.question_id = 52451 AND a.answer_is_deleted = false THEN a.answer END) OVER (PARTITION BY a.survey_response_id) AS ""foto 4"",
+				            MAX(CASE WHEN a.question_id = 52455 AND a.answer_is_deleted = false THEN a.answer END) OVER (PARTITION BY a.survey_response_id) AS ""foto 5""
+				        FROM tcg_l1_v3.answers a
+				        JOIN northface.vw_branches b ON b.id = a.branch_id
+				        WHERE a.survey_id    = 1615
+				          AND a.question_id IN (52439, 52443, 52447, 52451, 52455)
+				          AND a.response_is_approved = 1
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha",    type date},
+				        {"branch_id", Int64.Type},
+				        {"user_id",   Int64.Type},
+				        {"id",        Int64.Type},
+				        {"survey_id", Int64.Type}
+				    }),
+				    #"Duplicados quitados" = Table.Distinct(#"Tipo cambiado", {"response_id"})
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

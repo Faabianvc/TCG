@@ -1,0 +1,153 @@
+table 'Mantenimiento Fotos'
+	lineageTag: cccf83cb-86e7-4ccf-b1f0-0f4fedb2327f
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2857c125-dc19-46c5-8871-f7aa18d98061
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: f5604b9d-8189-4788-bdb4-782f003bcffb
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 33ee0143-bf81-48ee-b475-1e4aef942569
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: 31df1bac-7f11-4bf1-b310-567ecdc91d4a
+			defaultHierarchy: LocalDateTable_62fc1bc2-0087-4184-9a37-908501748b9a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column response_id
+		dataType: string
+		lineageTag: c4577638-331e-4bf3-a5a9-5ce68654c791
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 56c62b32-027a-4f85-a571-5df2a75fbad9
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 06313c15-65af-431b-b6cc-f0e7b566de9f
+		summarizeBy: sum
+		sourceColumn: quiz_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 11d4cf18-b80c-4dca-8366-8a612b825c1c
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 42d0b545-25d2-41e9-9a4f-fc637239155d
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: string
+		lineageTag: 709c65a6-42af-4be0-851d-3b946bb72ab2
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: 6d24e39a-8a68-4fcc-a812-dc9b201a5e8e
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column Personalizado
+		dataType: string
+		lineageTag: 3b6e1d96-bfc7-445f-aa7d-f14ea5e9d855
+		summarizeBy: none
+		sourceColumn: Personalizado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'foto 2'
+		dataType: string
+		lineageTag: ec3bc8ae-1d8a-4fa8-a037-49a72f9ed172
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: foto 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'foto 3'
+		dataType: string
+		lineageTag: 655cc232-7418-4786-91e9-5986a19029bf
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: foto 3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'foto 1'
+		dataType: string
+		lineageTag: f21e5126-0bb1-4adb-89f6-abc65c2cd28a
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: foto 1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento Fotos' = m
+		mode: import
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select distinct#(lf)qr.branch_id,#(lf)br.name,#(lf)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id  as response_id,#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id,#(lf)-- CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at) as salida,#(lf)qr.quiz_id,#(lf)qr.user_id,#(lf)q.title,#(lf)q.id as question_id,#(lf)case #(lf)#(tab)when q.id in (298353,298357,319201,319210,319211,319200) then 1#(lf)#(tab)when q.id in (300674,300684,319212,319203,319213,319202) then 2#(lf)#(tab)when q.id in (300677,300687,319214,319205,319204,319215) then 3#(lf)#(tab)when q.id in (300690,300680,319206,319216,319207,319217) then 4#(lf)#(tab)when q.id in (300693,300683,319218,319209,319208,319219) then 5#(lf)end as orden,#(lf)case #(lf)#(tab)when q.title ilike '%¿En qué área tienes necesidad de mantenimiento?%' then 'Area'#(lf)#(tab)when q.""type"" = 'photo' then 'Foto'#(lf)#(tab)else qra.value#(lf)end as kpi,#(lf)qra.value,#(lf)q.""type"",#(lf)case #(lf)#(tab)when q.id in (298353,298357,300674,300684,300677,300687,300690,300680,300693,300683) then 'foto 1'#(lf)#(tab)when q.id in (319201,319210,319212,319203,319214,319205,319206,319216,319218,319209) then 'foto 2'#(lf)#(tab)when q.id in (319211,319200,319213,319202,319204,319215,319207,319217,319208,319219) then 'foto 3'#(lf)end as orden_foto,#(lf)case #(lf)#(tab)when q.""type"" = 'choices_single' then qc.title#(lf)#(tab)when q.""type"" = 'photo' then 'https://tcgscout.com/storage/'||qra.value#(lf)#(tab)else qra.value#(lf)end as respuesta#(lf)from tcg_scout_v2.quiz_responses qr #(lf)LEFT JOIN tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id =qr.id #(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.question_choices qc on qc.question_id ||qc.value = qra.question_id ||qra.value #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)where qr.quiz_id in (6371, 6381)#(lf)and qr.approved is not false#(lf)and qr.deleted_at is null#(lf)and q.id in (298353,298357,319201,319210,319211,319200,300674,300684,319212,319203,319213,319202,300677,300687,319214,319205,319204,319215,300690,300680,319206,319216,319207,319217,300693,300683,319218,319209,319208,319219)#(lf)order by qr.id desc", null, [EnableFolding=true]),
+				    #"Columnas quitadas" = Table.RemoveColumns(Origen,{"type"}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas quitadas",{{"orden", type text}}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Tipo cambiado",null,"0",Replacer.ReplaceValue,{"orden"}),
+				    #"Personalizada agregada" = Table.AddColumn(#"Valor reemplazado", "Personalizado", each [response_id]&"|"&[orden]),
+				    #"Columnas quitadas1" = Table.RemoveColumns(#"Personalizada agregada",{"question_id"}),
+				    #"Filas filtradas" = Table.SelectRows(#"Columnas quitadas1", each ([kpi] = "Foto")),
+				    #"Columnas quitadas2" = Table.RemoveColumns(#"Filas filtradas",{"value"}),
+				    #"Columnas reordenadas" = Table.ReorderColumns(#"Columnas quitadas2",{"branch_id", "name", "fecha", "response_id", "id", "quiz_id", "user_id", "title", "orden", "kpi", "Personalizado", "orden_foto", "respuesta"}),
+				    #"Columna dinamizada" = Table.Pivot(#"Columnas reordenadas", List.Distinct(#"Columnas reordenadas"[orden_foto]), "orden_foto", "respuesta")
+				in
+				    #"Columna dinamizada"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

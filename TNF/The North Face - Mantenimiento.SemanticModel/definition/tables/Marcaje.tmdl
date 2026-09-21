@@ -1,0 +1,712 @@
+table Marcaje
+	lineageTag: e2a523e0-4cc2-4532-943f-807f05b6395a
+
+	measure Tareas = ```
+			
+			 var tareas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea]=1, Cumplimiento[branch_id])
+			 var cin = CALCULATE(COUNTROWS('in-out'), 'in-out'[Cumplimiento Check-In]=1, 'in-out'[branch_id])
+			 var cout = CALCULATE(COUNTROWS('in-out'), 'in-out'[Cumplimiento Check-Out]=1, 'in-out'[branch_id])
+			 RETURN IF(tareas + cin + cout > 0, tareas + cin + cout, 0)
+			```
+		formatString: 0
+		lineageTag: d11c1719-b9bf-4f3b-9130-251637926227
+
+	measure '% T1' = DIVIDE(SUM(Marcaje[CT1]), COUNTROWS(Marcaje),0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 65beee4a-788d-488e-ac0e-cb8c336a9f30
+
+	measure '% T2' = DIVIDE(SUM(Marcaje[CT2]), COUNTROWS(Marcaje),0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1604c1b1-ef47-47e7-bf89-6962b3564063
+
+	measure '% T3' = DIVIDE(SUM(Marcaje[CT3]), COUNTROWS(Marcaje),0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 7c2e6249-fc50-4642-9fe2-8ed0be3d40c6
+
+	measure '% T4' = DIVIDE(SUM(Marcaje[CT4]), COUNTROWS(Marcaje),0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1048515b-fda3-4f8a-928e-e72d2ae86996
+
+	measure '% T5' = DIVIDE(SUM(Marcaje[CT5]), COUNTROWS(Marcaje),0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 580c51aa-e5ce-475c-a2ff-409e45dc3049
+
+	measure '% T6' = DIVIDE(SUM(Marcaje[CT6]), COUNTROWS(Marcaje),0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 7ea72449-4aa8-443a-a17c-0c0426acda35
+
+	measure '% T7' = DIVIDE(SUM(Marcaje[CT7]), COUNTROWS(Marcaje),0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 4f260df2-fa84-49b0-80d3-9eef20172544
+
+	measure '% T8' = DIVIDE(SUM(Marcaje[CT8]), COUNTROWS(Marcaje),0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 3518df62-614b-440a-9d24-57b6804e5da9
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 61a19299-7a17-4003-963f-915ff0029ded
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f58cba7-eb1b-4b6b-a0c4-41e6603aa60c
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 49c616e2-8c87-4c4c-abe7-27db39abae26
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: 1460af90-b92e-410d-94d6-41585e87ee81
+			defaultHierarchy: LocalDateTable_2e799451-365b-4db5-9404-df2296b1f011.'Jerarquía de fechas'
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Semana = WEEKNUM(Marcaje[fecha],2)
+		formatString: 0
+		lineageTag: d38251d2-a291-40fb-9b16-6eb21b223efa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column añomes
+		dataType: string
+		lineageTag: f42c2851-f858-46a7-b964-690a59693e8c
+		summarizeBy: none
+		sourceColumn: añomes
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0da5e9aa-1ecb-430c-8ab9-897e3ad9ef8e
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column usuario
+		dataType: string
+		lineageTag: e91564cc-ece7-44e1-93c7-cd1bbfcd8d5b
+		summarizeBy: none
+		sourceColumn: usuario
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_encuesta
+		dataType: int64
+		formatString: 0
+		lineageTag: 92e4b550-bccc-4640-b3be-c360f2870475
+		summarizeBy: sum
+		sourceColumn: id_encuesta
+
+		annotation SummarizationSetBy = Automatic
+
+	column entrada
+		dataType: dateTime
+		formatString: mm-dd-yyyy hh:nn:ss
+		lineageTag: 0f8ac235-b019-4154-9f11-7736fe3839bc
+		summarizeBy: none
+		sourceColumn: entrada
+
+		variation Variación
+			isDefault
+			relationship: e801c41b-6a78-442c-b2d0-9df71ce3e56f
+			defaultHierarchy: LocalDateTable_a0e49f19-3d57-438a-b949-a1c03d91540a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column firma
+		dataType: string
+		lineageTag: 0bee88e5-34f4-49d8-8023-85d7f110a1b1
+		summarizeBy: none
+		sourceColumn: firma
+
+		annotation SummarizationSetBy = Automatic
+
+	column salida
+		dataType: dateTime
+		formatString: mm-dd-yyyy hh:nn:ss
+		lineageTag: fda34549-7d9a-419b-948e-5e8c1236856b
+		summarizeBy: none
+		sourceColumn: salida
+
+		variation Variación
+			isDefault
+			relationship: 4a770e31-793e-41b6-88ff-68f870f3e35e
+			defaultHierarchy: LocalDateTable_3047f0ef-05eb-4f75-9613-7ca4462d8393.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column resta
+		dataType: string
+		lineageTag: 84277141-6376-4ccd-93ef-7dab89193628
+		summarizeBy: none
+		sourceColumn: resta
+
+		annotation SummarizationSetBy = Automatic
+
+	column totalSeg
+		dataType: double
+		lineageTag: 322b17da-e439-4d34-8a0b-cccb2f8127a9
+		summarizeBy: sum
+		sourceColumn: totalSeg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column totalMin
+		dataType: double
+		lineageTag: cf38a616-fa47-4587-b5d0-00c47caff213
+		summarizeBy: sum
+		sourceColumn: totalMin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiferenciaHoras = ```
+			
+			    VAR DiferenciaTotalHoras = IF(ISBLANK(Marcaje[salida]), BLANK(), ABS(DATEDIFF('Marcaje'[entrada], 'Marcaje'[salida], SECOND)) / 3600)
+			    VAR Horas = INT(DiferenciaTotalHoras)
+			    VAR Minutos = INT(MOD(DiferenciaTotalHoras * 60, 60))
+			    VAR Segundos = INT(MOD(DiferenciaTotalHoras * 3600, 60))
+			    RETURN IF(ISBLANK(Marcaje[salida]), BLANK(), FORMAT(Horas, "00") & ":" & FORMAT(Minutos, "00") & ":" & FORMAT(Segundos, "00"))
+			```
+		lineageTag: 1d0c5648-e42e-4358-abb6-8b3e5b54a2d5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: b5e7108b-f307-4bbb-9e88-221b297ae3f9
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: bfa934de-60f0-4fdd-b0ef-697c38ca1678
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cumplimiento = IF(ISBLANK(Marcaje[totalSeg]), BLANK(), 1)
+		formatString: 0
+		lineageTag: 2b9073a8-3b2a-4333-90bb-8c9f89fc3356
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column ropa_depor_entrada
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 6410473e-60c0-4dad-94fe-eafaeb2ccc5c
+		summarizeBy: none
+		sourceColumn: ropa_depor_entrada
+
+		variation Variación
+			isDefault
+			relationship: 96798ca7-459b-4afa-9a2a-1c1b697b9ae6
+			defaultHierarchy: LocalDateTable_5e2e5a9c-07ff-4570-b5c7-f562610445aa.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ropa_depor_salida
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: f5535f4a-06a1-4344-ad98-9b4acfe29e39
+		summarizeBy: none
+		sourceColumn: ropa_depor_salida
+
+		variation Variación
+			isDefault
+			relationship: 37f93a8e-7724-4eac-ba49-f00d7cdd956c
+			defaultHierarchy: LocalDateTable_18aff3f1-1ce7-4d0e-98ee-03e7adb123f9.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column calzado_depor_entrada
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 15cfba44-e077-417c-b7d4-53c5a48259dd
+		summarizeBy: none
+		sourceColumn: calzado_depor_entrada
+
+		variation Variación
+			isDefault
+			relationship: 4bd08298-1e31-421c-b6f0-fbb78490486a
+			defaultHierarchy: LocalDateTable_8fd91ffe-4da6-42ba-b4b3-2760826e5c99.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column calzado_depor_salida
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 4a140e6c-0b9e-44dd-94dc-9974cf3f7e46
+		summarizeBy: none
+		sourceColumn: calzado_depor_salida
+
+		variation Variación
+			isDefault
+			relationship: 868212f1-21d9-43e1-9f30-4190ca3b6a6e
+			defaultHierarchy: LocalDateTable_2b51d6f3-c73a-4877-8179-055feff8a659.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column accesorio_depor_entrada
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 9b0192c8-7ff2-4fef-91ae-f81ddafb53bc
+		summarizeBy: none
+		sourceColumn: accesorio_depor_entrada
+
+		variation Variación
+			isDefault
+			relationship: 1b0a36fd-32a2-4e53-b60c-feec03855226
+			defaultHierarchy: LocalDateTable_1e515d63-f53a-4623-b569-26ee99f92779.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column accesorio_depor_salida
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 0342d4c6-b7e4-4ae4-ab37-8bb4ba562b28
+		summarizeBy: none
+		sourceColumn: accesorio_depor_salida
+
+		variation Variación
+			isDefault
+			relationship: 27634cfa-6d2d-4443-80f3-a482c10b9b9e
+			defaultHierarchy: LocalDateTable_3c4b8781-05b8-40ab-8bd7-f4d5cbc81e47.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column calzado_dama_entrada
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: cb39354e-24bf-4063-b2ed-d9f3cf27ea4a
+		summarizeBy: none
+		sourceColumn: calzado_dama_entrada
+
+		variation Variación
+			isDefault
+			relationship: db5b0f73-c93d-431b-9bdf-80be342197bf
+			defaultHierarchy: LocalDateTable_4fdf9337-2efc-47eb-983d-ca365bdbe6bd.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column calzado_dama_salida
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 0c9de120-c472-40bc-a09c-93dd6764afa6
+		summarizeBy: none
+		sourceColumn: calzado_dama_salida
+
+		variation Variación
+			isDefault
+			relationship: 3f475ea8-fa40-41ee-b7b3-7583ed1ea8c6
+			defaultHierarchy: LocalDateTable_ab56e143-2174-4c79-9517-4d98de53eaa3.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column calzado_caballero_entrada
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 3f57d020-e161-495d-8bdd-c93ceacb2f40
+		summarizeBy: none
+		sourceColumn: calzado_caballero_entrada
+
+		variation Variación
+			isDefault
+			relationship: bd1fd020-13d5-461b-b74e-0e5a0404818c
+			defaultHierarchy: LocalDateTable_2d0ccd18-2160-4fbf-be83-22dc5df97c09.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column calzado_caballero_salida
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 452c08a7-739f-4af3-8838-3bcdfe10f5cf
+		summarizeBy: none
+		sourceColumn: calzado_caballero_salida
+
+		variation Variación
+			isDefault
+			relationship: 0555b1d4-ed26-4ce0-b156-d7ea5ef4b546
+			defaultHierarchy: LocalDateTable_ab2f4b60-8015-4ea6-8239-340a79d53373.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column dama_lifestyle_entrada
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 3061b57e-5bdd-48ed-a4fb-b6658718b44f
+		summarizeBy: none
+		sourceColumn: dama_lifestyle_entrada
+
+		variation Variación
+			isDefault
+			relationship: 32e71a2b-2fa8-43f5-872e-508711ed5438
+			defaultHierarchy: LocalDateTable_6a0af671-f2e7-4271-8a39-43aa31868466.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column dama_lifestyle_salida
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: fc02c0b1-b5ab-4e72-94ec-4746880cc5d7
+		summarizeBy: none
+		sourceColumn: dama_lifestyle_salida
+
+		variation Variación
+			isDefault
+			relationship: b134f49c-2d89-4b8f-a760-db404564b7dd
+			defaultHierarchy: LocalDateTable_2628dad6-2bb5-4408-a780-85732df89fa1.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column caballero_lifestyle_entrada
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: bcf59ab5-1fa7-42c3-909b-895c94a4a498
+		summarizeBy: none
+		sourceColumn: caballero_lifestyle_entrada
+
+		variation Variación
+			isDefault
+			relationship: 412227c4-2a2c-440d-894a-c925d19a777d
+			defaultHierarchy: LocalDateTable_94bab29f-d31d-442a-840a-189fe60850d7.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column caballero_lifestyle_salida
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 8bdab781-0a68-4d23-91ed-0ebe204cf60d
+		summarizeBy: none
+		sourceColumn: caballero_lifestyle_salida
+
+		variation Variación
+			isDefault
+			relationship: a0cb13d7-3095-4732-96ff-1de56243ad96
+			defaultHierarchy: LocalDateTable_304eaecd-fe8c-44b3-82ff-4fe4328eb832.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column kids_entrada
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: f2d54100-a937-4ec3-a607-f75942473ce6
+		summarizeBy: none
+		sourceColumn: kids_entrada
+
+		variation Variación
+			isDefault
+			relationship: d790d879-ed43-4287-92aa-c165c8f6a4d1
+			defaultHierarchy: LocalDateTable_b7703a42-bc88-4d4f-805a-e0648ed2c130.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column kids_salida
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: a1b8f3ba-2903-4edd-953d-33ae601bf210
+		summarizeBy: none
+		sourceColumn: kids_salida
+
+		variation Variación
+			isDefault
+			relationship: 13e607c9-ca55-40aa-820d-cef6ccd9db1f
+			defaultHierarchy: LocalDateTable_d6f23bda-d774-40ca-a1be-3165b946af1c.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiempo_efectivo_tarea =
+			
+			var damaLife_minutos = ABS(DATEDIFF(Marcaje[dama_lifestyle_entrada], Marcaje[dama_lifestyle_salida],  MINUTE))
+			var ropaDepor_minutos = ABS(DATEDIFF(Marcaje[ropa_depor_entrada], Marcaje[ropa_depor_salida],  MINUTE))
+			var calzadoDama_minutos = ABS(DATEDIFF(Marcaje[calzado_dama_entrada], Marcaje[calzado_dama_salida],  MINUTE))
+			var accesoDepor_minutos = ABS(DATEDIFF(Marcaje[accesorio_depor_entrada], Marcaje[accesorio_depor_salida],  MINUTE))
+			var calzadoCab_minutos = ABS(DATEDIFF(Marcaje[calzado_caballero_entrada], Marcaje[calzado_caballero_salida],  MINUTE))
+			var cabLife_minutos = ABS(DATEDIFF(Marcaje[caballero_lifestyle_entrada], Marcaje[caballero_lifestyle_salida],  MINUTE))
+			var kids_minutos = ABS(DATEDIFF(Marcaje[kids_entrada], Marcaje[kids_salida],  MINUTE))
+			
+			return damaLife_minutos + ropaDepor_minutos + calzadoDama_minutos + accesoDepor_minutos + calzadoCab_minutos + cabLife_minutos + kids_minutos
+		formatString: 0
+		lineageTag: 36a72925-2020-4e87-825c-b660d6f1cd50
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo = ```
+			
+			    IF(
+			        CONTAINSSTRING('Marcaje'[email], "promotor"), 
+			        "Promotor",
+			        IF(
+			            CONTAINSSTRING('Marcaje'[email], "visual"),
+			            "Visual",
+			            BLANK()
+			        )
+			    )
+			```
+		lineageTag: 91e5f942-1aec-40b6-9fd9-ecefe326f0c5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Conteo tareas' = ```
+			
+			    VAR tarea_1 =
+			        IF(
+			            NOT(ISBLANK('Marcaje'[calzado_depor_entrada])) && NOT(ISBLANK('Marcaje'[calzado_depor_salida])) && 'Marcaje'[calzado_depor_entrada] <> 0 && 'Marcaje'[calzado_depor_salida] <> 0,
+			            1,
+			            0
+			        )
+			    VAR tarea_2 =  IF(
+			            NOT(ISBLANK('Marcaje'[ropa_depor_entrada])) && NOT(ISBLANK('Marcaje'[ropa_depor_salida])) && 'Marcaje'[ropa_depor_entrada] <> 0 && 'Marcaje'[ropa_depor_salida] <> 0,
+			            1,
+			            0
+			        )
+			    VAR tarea_3 =  IF(
+			            NOT(ISBLANK('Marcaje'[accesorio_depor_entrada])) && NOT(ISBLANK('Marcaje'[accesorio_depor_salida])) && 'Marcaje'[accesorio_depor_entrada] <> 0 && 'Marcaje'[accesorio_depor_salida] <> 0,
+			            1,
+			            0
+			        )
+			    VAR tarea_4 =  IF(
+			            NOT(ISBLANK('Marcaje'[calzado_dama_entrada])) && NOT(ISBLANK('Marcaje'[calzado_dama_salida])) && 'Marcaje'[calzado_dama_entrada] <> 0 && 'Marcaje'[calzado_dama_salida] <> 0,
+			            1,
+			            0
+			        )
+			    VAR tarea_5 =  IF(
+			            NOT(ISBLANK('Marcaje'[calzado_caballero_entrada])) && NOT(ISBLANK('Marcaje'[calzado_caballero_salida])) && 'Marcaje'[calzado_caballero_entrada] <> 0 && 'Marcaje'[calzado_caballero_salida] <> 0,
+			            1,
+			            0
+			        )
+			    VAR tarea_6 =  IF(
+			            NOT(ISBLANK('Marcaje'[dama_lifestyle_entrada])) && NOT(ISBLANK('Marcaje'[dama_lifestyle_salida])) && 'Marcaje'[dama_lifestyle_entrada] <> 0 && 'Marcaje'[dama_lifestyle_salida] <> 0,
+			            1,
+			            0
+			        )
+			    VAR tarea_7 =  IF(
+			            NOT(ISBLANK('Marcaje'[caballero_lifestyle_entrada])) && NOT(ISBLANK('Marcaje'[caballero_lifestyle_salida])) && 'Marcaje'[caballero_lifestyle_entrada] <> 0 && 'Marcaje'[caballero_lifestyle_salida] <> 0,
+			            1,
+			            0
+			        )
+			    VAR tarea_8 =  IF(
+			            NOT(ISBLANK('Marcaje'[kids_entrada])) && NOT(ISBLANK('Marcaje'[kids_salida])) && 'Marcaje'[kids_entrada] <> 0 && 'Marcaje'[kids_salida] <> 0,
+			            1,
+			            0
+			        )
+			    RETURN
+			        tarea_1 + tarea_2 + tarea_3 + tarea_4 + tarea_5 + tarea_6 + tarea_7 + tarea_8
+			```
+		formatString: 0
+		lineageTag: 0bb1c76a-25c7-4f67-a47a-b85082f11096
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CT1 =
+			IF(
+			            NOT(ISBLANK('Marcaje'[calzado_depor_entrada])) && NOT(ISBLANK('Marcaje'[calzado_depor_salida])) && 'Marcaje'[calzado_depor_entrada] <> 0 && 'Marcaje'[calzado_depor_salida] <> 0,
+			            1,
+			            0
+			        )
+		formatString: 0
+		lineageTag: ba827a32-505a-4efd-be1f-9b875807511f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CT2 = ```
+			IF(
+			            NOT(ISBLANK('Marcaje'[ropa_depor_entrada])) && NOT(ISBLANK('Marcaje'[ropa_depor_salida])) && 'Marcaje'[ropa_depor_entrada] <> 0 && 'Marcaje'[ropa_depor_salida] <> 0,
+			            1,
+			            0
+			        )
+			
+			```
+		formatString: 0
+		lineageTag: ba36c29b-2f7c-42db-8ab6-eb89d4827aae
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CT3 = ```
+			
+			    IF(
+			            NOT(ISBLANK('Marcaje'[accesorio_depor_entrada])) && NOT(ISBLANK('Marcaje'[accesorio_depor_salida])) && 'Marcaje'[accesorio_depor_entrada] <> 0 && 'Marcaje'[accesorio_depor_salida] <> 0,
+			            1,
+			            0
+			        )
+			
+			```
+		formatString: 0
+		lineageTag: 88159bfe-9978-412d-84b4-184a6db384c5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CT4 = ```
+			IF(
+			            NOT(ISBLANK('Marcaje'[calzado_dama_entrada])) && NOT(ISBLANK('Marcaje'[calzado_dama_salida])) && 'Marcaje'[calzado_dama_entrada] <> 0 && 'Marcaje'[calzado_dama_salida] <> 0,
+			            1,
+			            0
+			        )
+			
+			```
+		formatString: 0
+		lineageTag: be889091-eff1-4407-8bcc-a9921f6a9b15
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CT5 = ```
+			IF(
+			            NOT(ISBLANK('Marcaje'[calzado_caballero_entrada])) && NOT(ISBLANK('Marcaje'[calzado_caballero_salida])) && 'Marcaje'[calzado_caballero_entrada] <> 0 && 'Marcaje'[calzado_caballero_salida] <> 0,
+			            1,
+			            0
+			        )
+			   
+			```
+		formatString: 0
+		lineageTag: c36f83a5-bf6b-4a86-b18b-d5bddf3d06ba
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CT6 = ```
+			IF(
+			            NOT(ISBLANK('Marcaje'[dama_lifestyle_entrada])) && NOT(ISBLANK('Marcaje'[dama_lifestyle_salida])) && 'Marcaje'[dama_lifestyle_entrada] <> 0 && 'Marcaje'[dama_lifestyle_salida] <> 0,
+			            1,
+			            0
+			        )
+			
+			```
+		formatString: 0
+		lineageTag: da968981-6a6b-4b00-ae54-1430e82b301f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CT7 = ```
+			IF(
+			            NOT(ISBLANK('Marcaje'[caballero_lifestyle_entrada])) && NOT(ISBLANK('Marcaje'[caballero_lifestyle_salida])) && 'Marcaje'[caballero_lifestyle_entrada] <> 0 && 'Marcaje'[caballero_lifestyle_salida] <> 0,
+			            1,
+			            0
+			        )
+			
+			```
+		formatString: 0
+		lineageTag: 02471204-b4a5-47c0-951c-d255993c64e9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CT8 =
+			IF(
+			            NOT(ISBLANK('Marcaje'[kids_entrada])) && NOT(ISBLANK('Marcaje'[kids_salida])) && 'Marcaje'[kids_entrada] <> 0 && 'Marcaje'[kids_salida] <> 0,
+			            1,
+			            0
+			        )
+		formatString: 0
+		lineageTag: f750f7d8-0cc3-4920-a9bc-591da29ed837
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cumplimiento_tarea = DIVIDE(Marcaje[Conteo tareas], COUNTROWS(Marcaje)*8)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1cdfae10-507f-4de0-bc24-06411b3a715f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id
+		dataType: string
+		lineageTag: 386cde0d-833a-4579-8421-ffddb65ab780
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column almuerzo_entrada
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: e7d836a0-db8f-45ac-b863-a070a043f441
+		summarizeBy: none
+		sourceColumn: almuerzo_entrada
+
+		variation Variación
+			isDefault
+			relationship: d7584804-cdaf-4700-a72a-b73af71cdf7f
+			defaultHierarchy: LocalDateTable_8bec6ab2-efc9-43e6-b834-3977fbcdc999.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column almuerzo_salida
+		dataType: dateTime
+		formatString: hh:nn:ss
+		lineageTag: 97ebedf9-ba43-4486-9425-dd3d195c2b24
+		summarizeBy: none
+		sourceColumn: almuerzo_salida
+
+		variation Variación
+			isDefault
+			relationship: 50ead1f3-1cbe-4f4d-9d24-2fac0fefbaa5
+			defaultHierarchy: LocalDateTable_6ac5e1ba-5022-4951-9da7-7e45621f06ed.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition Marcaje-28b4a1e5-86a7-4bb7-a66e-c980b83a9be3 = m
+		mode: import
+		queryGroup: Marcaje
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id as response_id,#(lf)qr.id as id_encuesta,#(lf)left(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at),7) as añomes,#(lf)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at) as Entrada,#(lf)qr.branch_id,#(lf)qr.user_id,#(lf)br.name,#(lf)u.email,#(lf)case#(lf)#(tab)when u.last_name is null then initcap(u.""name"") #(lf)#(tab)else initcap(u.""name"")|| ' ' || initcap(u.last_name)#(lf)#(tab)end as usuario,#(lf)'https://tcgscout.com/storage/'||qra.value as firma,#(lf)rdp.fecha_entrada as ropa_depor_entrada,#(lf)rdp.fecha_salida as ropa_depor_salida,#(lf)cdp.fecha_entrada as calzado_depor_entrada,#(lf)cdp.fecha_salida as calzado_depor_salida,#(lf)acd.fecha_entrada as accesorio_depor_entrada,#(lf)acd.fecha_salida as accesorio_depor_salida,#(lf)cdl.fecha_entrada as calzado_dama_entrada,#(lf)cdl.fecha_salida as calzado_dama_salida,#(lf)ccl.fecha_entrada as calzado_caballero_entrada,#(lf)ccl.fecha_salida as calzado_caballero_salida,#(lf)dal.fecha_entrada as dama_lifestyle_entrada,#(lf)dal.fecha_salida as dama_lifestyle_salida,#(lf)cal.fecha_entrada as caballero_lifestyle_entrada,#(lf)cal.fecha_salida as caballero_lifestyle_salida,#(lf)kid.fecha_entrada as kids_entrada,#(lf)kid.fecha_salida as kids_salida,#(lf)al.fecha_entrada as almuerzo_entrada,#(lf)al.fecha_salida as almuerzo_salida#(lf)from tcg_scout_v2.quiz_responses qr#(lf)left join tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id = qr.id#(lf)left join tcg_scout_v2.users u on u.id = qr.user_id #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)left join(#(lf)#(tab)-- ROPA DEPORTIVA#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)#(tab)#(tab)and br.id = 1643#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6264#(tab)#(lf)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)#(tab)and br.id = 1643#(lf)) as rdp on rdp.branch_id = qr.branch_id and rdp.user_id = qr.user_id and rdp.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)left join(#(lf)#(tab)-- CALZADO DEPORTIVO#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)#(tab)#(tab)and br.id = 1641#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6264#(tab)#(lf)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)#(tab)and br.id = 1641#(lf)) as cdp on cdp.branch_id = qr.branch_id and cdp.user_id = qr.user_id and cdp.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)left join(#(lf)#(tab)-- ACCESORIOS DEPORTIVOS#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)#(tab)#(tab)and br.id = 1694#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6264#(tab)#(lf)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)#(tab)and br.id = 1694#(lf)) as acd on acd.branch_id = qr.branch_id and acd.user_id = qr.user_id and acd.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)left join(#(lf)#(tab)-- CALZADO DAMAS LIFESTYLE#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)#(tab)#(tab)and br.id = 1639#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6264#(tab)#(lf)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)#(tab)and br.id = 1639#(lf)) as cdl on cdl.branch_id = qr.branch_id and cdl.user_id = qr.user_id and cdl.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)left join(#(lf)#(tab)--CALZADO CABALLERO LIFESTYLE#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)#(tab)#(tab)and br.id = 1640#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6264#(tab)#(lf)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)#(tab)and br.id = 1640#(lf)) as ccl on ccl.branch_id = qr.branch_id and ccl.user_id = qr.user_id and ccl.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)left join(#(lf)#(tab)-- DAMAS LIFESTYLE#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)#(tab)#(tab)and br.id = 1638#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6264#(tab)#(lf)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)#(tab)and br.id = 1638#(lf)) as dal on dal.branch_id = qr.branch_id and dal.user_id = qr.user_id and dal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)left join(#(lf)#(tab)-- CABALLEROS LIFESTYLE#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)#(tab)#(tab)and br.id = 1642#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6264#(tab)#(lf)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)#(tab)and br.id = 1642#(lf)) cal on cal.branch_id = qr.branch_id and cal.user_id = qr.user_id and cal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)left join(#(lf)#(tab)-- KIDS#(tab)#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6265#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)#(tab)#(tab)and br.id = 1695#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6264#(tab)#(lf) #(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)#(tab)and br.id = 1695#(lf)) kid  on kid.branch_id = qr.branch_id and kid.user_id = qr.user_id and kid.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)left join(#(lf)#(tab)-- ALMUERZO#(lf)#(tab)select distinct#(lf)#(tab)qr.id,#(lf)#(tab)qr.branch_id,#(lf)#(tab)qr.user_id,#(lf)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)convert_timezone('America/Guatemala', qr.started_at) as fecha_entrada,#(lf)#(tab)sal.fecha_salida as fecha_salida#(lf)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)convert_timezone('America/Guatemala', qr.finished_at) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id = 6341#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)                        and qr.deleted_at is null#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id#(lf)#(tab)where qr.quiz_id = 6340#(tab)#(lf)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)        and qr.deleted_at is null#(lf)) al on al.branch_id = qr.branch_id and al.user_id = qr.user_id and al.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at), 10)#(lf)where qr.quiz_id in (6260,6261)#(lf)and qr.approved is not false#(lf)and qr.deleted_at is null", null, [EnableFolding=true]),
+				    #"Consultas combinadas" = Table.NestedJoin(Origen, {"response_id"}, Salida, {"response_id"}, "Salida", JoinKind.LeftOuter),
+				    #"Se expandió Salida" = Table.ExpandTableColumn(#"Consultas combinadas", "Salida", {"salida"}, {"salida"}),
+				    #"Personalizada agregada" = Table.AddColumn(#"Se expandió Salida", "resta", each [salida]-[entrada]),
+				    #"Personalizada agregada1" = Table.AddColumn(#"Personalizada agregada", "totalSeg", each Duration.TotalSeconds([resta])),
+				    #"Personalizada agregada2" = Table.AddColumn(#"Personalizada agregada1", "totalMin", each Duration.TotalMinutes([resta])),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Personalizada agregada2",{{"totalMin", type number}, {"totalSeg", type number}}),
+				    #"Duplicados quitados" = Table.Distinct(#"Tipo cambiado")
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

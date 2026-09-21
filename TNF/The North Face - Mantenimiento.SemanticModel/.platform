@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "The North Face - Mantenimiento"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "95e9c01e-2875-4323-a47f-4363cf952738"
+  }
+}

@@ -4,10 +4,10 @@
   "position": {
     "x": 1914.55547112462,
     "y": 724.28951367781133,
-    "z": 26015,
+    "z": 24000,
     "height": 72.5,
     "width": 528.75,
-    "tabOrder": 23016
+    "tabOrder": 22000
   },
   "visual": {
     "visualType": "advanceCardE03760C5AB684758B56AA29F9E6C257B",
@@ -167,28 +167,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "5da82f837a0390b91cc6",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Marcaje"
-                  }
-                },
-                "Property": "entrada"
-              }
-            },
-            "Function": 3
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

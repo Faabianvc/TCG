@@ -95,23 +95,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "e1bd5fb02ee3757d0e4b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "1Medidas"
-              }
-            },
-            "Property": "foto_fachada_o_foto_especifica_fecha"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

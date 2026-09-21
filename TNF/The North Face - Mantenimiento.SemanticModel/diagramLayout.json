@@ -1,0 +1,231 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 1.6666666666666667,
+        "y": 251.66666666666669
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 2161.0453052708012,
+            "y": 344.60700165101883
+          },
+          "nodeIndex": "Marcaje",
+          "nodeLineageTag": "e2a523e0-4cc2-4532-943f-807f05b6395a",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 926.11489804778012,
+            "y": 874.889129447007
+          },
+          "nodeIndex": "Sucursales",
+          "nodeLineageTag": "535f9250-052d-44d6-a3ff-505867821977",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 1862.5122553872759,
+            "y": 779.81530668621781
+          },
+          "nodeIndex": "Exhibicion",
+          "nodeLineageTag": "4dc46910-b9a3-4604-94dd-66fdc774a9d5",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 1870.7677478038675,
+            "y": 459.04961870404236
+          },
+          "nodeIndex": "1medidas",
+          "nodeLineageTag": "313ad443-0790-43d0-a47c-388c7a18f9f5",
+          "size": {
+            "height": 256.48864066302741,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 556.09561904615862,
+            "y": 309.3019877545936
+          },
+          "nodeIndex": "Calendario_Dim",
+          "nodeLineageTag": "c20a8976-7b50-4424-bbda-46be953a7d14",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 8,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 1883.4784843327245,
+            "y": 89.894688853688649
+          },
+          "nodeIndex": "Cumplimiento",
+          "nodeLineageTag": "b2652847-5bd7-4304-9074-2ae4a022b1f0",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 2165.7341004783038,
+            "y": 85.773142563205454
+          },
+          "nodeIndex": "in-out",
+          "nodeLineageTag": "2316b090-316b-43af-9143-b57f1ce476e3",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1125.184142128649,
+            "y": 515.572143254122
+          },
+          "nodeIndex": "Usuarios_Dim",
+          "nodeLineageTag": "4f9d1773-8f7e-4d55-9064-dde8389684f8",
+          "size": {
+            "height": 226,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 2196.3782637192735,
+            "y": 671.104173448452
+          },
+          "nodeIndex": "Gap",
+          "nodeLineageTag": "72eded5d-28ce-4b65-9c7d-6a341d942f8f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 2201.8378457991944,
+            "y": 1108.2875294345529
+          },
+          "nodeIndex": "Gap_comentarios",
+          "nodeLineageTag": "837d85ed-9aff-4a80-bbb1-cd31ee9c5aae",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 564.12232332676729,
+            "y": 532.321060084662
+          },
+          "nodeIndex": "Mantenimiento",
+          "nodeLineageTag": "3d08cdf0-8588-4809-899a-6d6c71ff8947",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 21.357881215826865,
+            "y": 432.44040375761176
+          },
+          "nodeIndex": "Mantenimiento Fotos",
+          "nodeLineageTag": "cccf83cb-86e7-4ccf-b1f0-0f4fedb2327f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 572.02872159642834,
+            "y": 1154.9236824159973
+          },
+          "nodeIndex": "Mantenimiento Comentarios",
+          "nodeLineageTag": "b5de27f0-d64f-4e12-9b2f-cc65d4cf5f68",
+          "size": {
+            "height": 455,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 64.631047904869774,
+            "y": 1289.0905548374151
+          },
+          "nodeIndex": "Mantenimiento Status",
+          "nodeLineageTag": "6f57299c-0a1b-42f3-9b69-7819bf0c00a1",
+          "size": {
+            "height": 435.27542895619717,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 8.676152489014612,
+            "y": 763.549902495716
+          },
+          "nodeIndex": "Mantenimiento tiempos",
+          "nodeLineageTag": "d0364c6e-f5e4-459f-baeb-4587a0ab15bd",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 33.378214617173143,
+            "y": 973.18186957821979
+          },
+          "nodeIndex": "RespuestasRecientes",
+          "nodeLineageTag": "57bf0fb2-1e82-496c-b9cd-99e2062f1598",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 60,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

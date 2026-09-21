@@ -343,20 +343,6 @@
         },
         "type": "Advanced",
         "howCreated": "User"
-      },
-      {
-        "name": "7604e392d134da0cd518",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_sucursales"
-              }
-            },
-            "Property": "name"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

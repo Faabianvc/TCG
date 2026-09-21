@@ -4,10 +4,10 @@
   "position": {
     "x": 2199.9684397793781,
     "y": 237.52032400077823,
-    "z": 26007,
+    "z": 16000,
     "height": 235.72377158034527,
     "width": 235.72377158034527,
-    "tabOrder": 23008
+    "tabOrder": 14000
   },
   "visual": {
     "visualType": "PBI_CV_81BBAD08_3ADD_466C_8819_9FACA21A6B8F",
@@ -89,23 +89,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "65debd9c37cb90c0c467",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "1Medidas"
-              }
-            },
-            "Property": "fotourl Marcaje salida"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

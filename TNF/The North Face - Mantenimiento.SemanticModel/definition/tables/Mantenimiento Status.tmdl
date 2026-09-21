@@ -1,0 +1,130 @@
+table 'Mantenimiento Status'
+	lineageTag: 6f57299c-0a1b-42f3-9b69-7819bf0c00a1
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cfd92cbb-d958-46db-b078-fe13e8b4315b
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 91f47651-f8a9-4187-9f82-14e38d1d3d7d
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 6fdcf3ad-4114-49a0-899a-416f55447e5c
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: 59c0f33a-7c5d-43eb-95dd-fd47e6cf6fcf
+			defaultHierarchy: LocalDateTable_27a73e3e-2419-41f5-af46-8b6ad4af2a12.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column response_id
+		dataType: string
+		lineageTag: 9ac9e756-ea86-44bb-959f-7b1e239d5d97
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e4223bd-0948-43b5-91e4-383a88de89c6
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cb51ad64-37ae-435d-a786-cee874af3f9d
+		summarizeBy: sum
+		sourceColumn: quiz_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: bd9b3b4e-6af6-43e7-8d1f-b35622e2c510
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID solicitud'
+		dataType: string
+		lineageTag: af537477-a1e1-4a9b-9253-e797521746cf
+		summarizeBy: none
+		sourceColumn: ID solicitud
+
+		annotation SummarizationSetBy = Automatic
+
+	column Foto
+		dataType: string
+		lineageTag: 840a706b-5949-46d6-85f7-5f823447139c
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Foto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 3ae73856-2b1b-4409-89f2-a24645e62ce2
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column mantenimiento
+		dataType: string
+		lineageTag: ce4ab53a-399e-4f14-8540-1e3060bd5936
+		summarizeBy: none
+		sourceColumn: mantenimiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id_2
+		dataType: int64
+		formatString: 0
+		lineageTag: 65997fe1-0829-43d1-9aa9-a05567c9c550
+		summarizeBy: sum
+		sourceColumn: response_id_2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento Status' = m
+		mode: import
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select distinct#(lf)qr.branch_id,#(lf)qr.id as response_id_2,#(lf)br.name,#(lf)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id  as response_id,#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id,#(lf)-- CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at) as salida,#(lf)qr.quiz_id,#(lf)qr.user_id,#(lf)q.title,#(lf)case #(lf)#(tab)when q.id =304757 then 'ID solicitud'#(lf)when q.id =304758 then 'mantenimiento'#(lf)when q.id =304759 then 'Status'#(lf)when q.id =304760 then 'Foto'#(lf)#(tab)else null#(lf)end as kpi,#(lf)case #(lf)#(tab)when q.""type"" = 'choices_single' then qc.title#(lf)#(tab)when q.""type"" = 'photo' then 'https://tcgscout.com/storage/'||qra.value#(lf)#(tab)else qra.value#(lf)end as respuesta,#(lf)q.""type""#(lf)from tcg_scout_v2.quiz_responses qr #(lf)LEFT JOIN tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id =qr.id #(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.question_choices qc on qc.question_id ||qc.value = qra.question_id ||qra.value #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)where qr.quiz_id in (6493)#(lf)and qr.approved is not false#(lf)and qr.deleted_at is null#(lf)and qra.deleted_at is null#(lf)order by qr.id desc", null, [EnableFolding=true]),
+				    #"Columnas quitadas" = Table.RemoveColumns(Origen,{"title"}),
+				    #"Columnas quitadas1" = Table.RemoveColumns(#"Columnas quitadas",{"type"}),
+				    #"Columna dinamizada" = Table.Pivot(#"Columnas quitadas1", List.Distinct(#"Columnas quitadas1"[kpi]), "kpi", "respuesta")
+				in
+				    #"Columna dinamizada"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

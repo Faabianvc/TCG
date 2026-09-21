@@ -1,6 +1,15 @@
 table Marcaje
 	lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 
+	measure Tareas = ```
+			
+			 var tareas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea]=1, Cumplimiento[branch_id])
+			 var cin = CALCULATE(COUNTROWS('in-out'), 'in-out'[Cumplimiento Check-In]=1, 'in-out'[branch_id])
+			 var cout = CALCULATE(COUNTROWS('in-out'), 'in-out'[Cumplimiento Check-Out]=1, 'in-out'[branch_id])
+			 RETURN IF(tareas + cin + cout > 0, tareas + cin + cout, 0)
+			```
+		lineageTag: 90e67c19-d2f4-493c-9d1d-0d2ccd518a3d
+
 	column survey_response_id
 		dataType: int64
 		formatString: 0
@@ -357,6 +366,14 @@ table Marcaje
 
 		annotation SummarizationSetBy = Automatic
 
+	column response_id
+		dataType: string
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678910
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Marcaje = m
 		mode: import
 		queryGroup: Fcts
@@ -367,6 +384,7 @@ table Marcaje
 				        "
 				SELECT
 				    cin.survey_response_id,
+				    CAST(cin.branch_id AS VARCHAR) || '|' || CAST(cin.response_started_at AS DATE) || '|' || CAST(cin.user_id AS VARCHAR) AS response_id,
 				    cin.branch_id,
 				    cin.user_id,
 				    LEFT(CAST(cin.response_started_at AS VARCHAR), 7)  AS añomes,
@@ -409,25 +427,29 @@ table Marcaje
 				    kids.response_finished_at                          AS kids_salida
 				
 				FROM (
-				    SELECT survey_response_id, branch_id, user_id,
-				           MIN(response_started_at)                               AS response_started_at,
-				           MAX(CASE WHEN question_type = 'image' THEN answer END) AS answer
+				    SELECT branch_id, user_id,
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(survey_response_id)           AS survey_response_id,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(CASE WHEN question_type = 'image'
+				                     AND answer_is_deleted = false
+				                    THEN answer END)         AS answer
 				    FROM tcg_l1_v3.answers
 				    WHERE survey_id = 1610
 				      AND response_is_approved = 1
-				      AND answer_is_deleted = false
-				    GROUP BY survey_response_id, branch_id, user_id
+				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
 				) cin
 				
 				LEFT JOIN (
 				    SELECT branch_id, user_id,
-				           CAST(response_started_at AS DATE)                      AS fecha,
-				           MAX(response_finished_at)                              AS response_finished_at,
-				           MAX(CASE WHEN question_type = 'image' THEN answer END) AS answer
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MAX(response_finished_at)         AS response_finished_at,
+				           MAX(CASE WHEN question_type = 'image'
+				                     AND answer_is_deleted = false
+				                    THEN answer END)         AS answer
 				    FROM tcg_l1_v3.answers
 				    WHERE survey_id = 1611
 				      AND response_is_approved = 1
-				      AND answer_is_deleted = false
 				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
 				) cout
 				    ON cout.branch_id = cin.branch_id
@@ -436,13 +458,14 @@ table Marcaje
 				
 				LEFT JOIN (
 				    SELECT branch_id, user_id,
-				           CAST(response_started_at AS DATE)                      AS fecha,
-				           MIN(response_started_at)                               AS response_started_at,
-				           MAX(CASE WHEN question_type = 'image' THEN answer END) AS answer
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MIN(response_started_at)          AS response_started_at,
+				           MAX(CASE WHEN question_type = 'image'
+				                     AND answer_is_deleted = false
+				                    THEN answer END)         AS answer
 				    FROM tcg_l1_v3.answers
 				    WHERE survey_id = 1612
 				      AND response_is_approved = 1
-				      AND answer_is_deleted = false
 				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
 				) al_in
 				    ON al_in.branch_id = cin.branch_id
@@ -451,13 +474,14 @@ table Marcaje
 				
 				LEFT JOIN (
 				    SELECT branch_id, user_id,
-				           CAST(response_started_at AS DATE)                      AS fecha,
-				           MAX(response_finished_at)                              AS response_finished_at,
-				           MAX(CASE WHEN question_type = 'image' THEN answer END) AS answer
+				           CAST(response_started_at AS DATE) AS fecha,
+				           MAX(response_finished_at)         AS response_finished_at,
+				           MAX(CASE WHEN question_type = 'image'
+				                     AND answer_is_deleted = false
+				                    THEN answer END)         AS answer
 				    FROM tcg_l1_v3.answers
 				    WHERE survey_id = 1613
 				      AND response_is_approved = 1
-				      AND answer_is_deleted = false
 				    GROUP BY branch_id, user_id, CAST(response_started_at AS DATE)
 				) al_out
 				    ON al_out.branch_id = cin.branch_id

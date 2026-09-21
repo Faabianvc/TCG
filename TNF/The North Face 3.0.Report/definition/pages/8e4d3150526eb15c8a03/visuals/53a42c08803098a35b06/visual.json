@@ -4,10 +4,10 @@
   "position": {
     "x": 2202.2127956890727,
     "y": 472.79256835668792,
-    "z": 26009,
+    "z": 18000,
     "height": 236.66666666666669,
     "width": 235,
-    "tabOrder": 23010
+    "tabOrder": 16000
   },
   "visual": {
     "visualType": "PBI_CV_81BBAD08_3ADD_466C_8819_9FACA21A6B8F",
@@ -89,23 +89,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "95ad45638de678196414",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "1Medidas"
-              }
-            },
-            "Property": "fotourl Almuerzo_salida"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

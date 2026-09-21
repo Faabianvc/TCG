@@ -1,0 +1,317 @@
+table Cumplimiento
+	lineageTag: c7e3a1f2-4b8d-4e9a-a1c3-d2f5e6a7b8c9
+
+	measure PorcentajeCumplimiento =
+			
+			VAR TotalTareas = [Tareas2] * DISTINCTCOUNT(dim_sucursales[id])
+			VAR TareasCumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1)
+			RETURN CALCULATE(DIVIDE(TareasCumplidas, TotalTareas, 0), Cumplimiento[departamento])
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567001
+
+	measure 'Tarea 2 Caballeros Lifestyle' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Caballero Lifestyle")
+			VAR total_tareas = [Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567002
+
+	measure 'Tarea 3 Calzado Caballeros' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Calzado Caballero Lifestyle")
+			VAR total_tareas = [Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567003
+
+	measure 'Tarea 4 Damas Lifestyle' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Damas Lifestyle")
+			VAR total_tareas = [Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567004
+
+	measure 'Tarea 5 Calzado damas' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Calzado Damas Lifestyle")
+			VAR total_tareas = [Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567005
+
+	measure 'Tarea 6 Ropa deportiva' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Ropa Deportiva")
+			VAR total_tareas = [Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567006
+
+	measure 'Tarea 7 Calzado deportivo' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Calzado Deportivo")
+			VAR total_tareas = [Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567007
+
+	measure 'Tarea 8 Kids' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Kids")
+			VAR total_tareas = [Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567008
+
+	measure 'Tarea 9 Accesorios deportivos' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Accesorios Deportivos")
+			VAR total_tareas = [Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567009
+
+	measure 'Tarea 11 Almuerzo' =
+			
+			VAR cumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1, Cumplimiento[departamento] = "Almuerzo")
+			VAR total_tareas = [Tareas2] / 11
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567010
+
+	measure Tareas2 = DISTINCTCOUNT(dim_dates[date]) * 11
+		formatString: 0
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567011
+
+	column response_id
+		dataType: string
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678001
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678002
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678003
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column departamento
+		dataType: string
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678004
+		summarizeBy: none
+		sourceColumn: departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_entrada
+		dataType: dateTime
+		formatString: dd-mm-yyyy hh:nn:ss
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678005
+		summarizeBy: none
+		sourceColumn: fecha_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column fecha_salida
+		dataType: dateTime
+		formatString: dd-mm-yyyy hh:nn:ss
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678006
+		summarizeBy: none
+		sourceColumn: fecha_salida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Fecha
+		dataType: dateTime
+		formatString: dd-mm-yyyy
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678007
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Cumplimiento tarea' =
+			IF(
+			    NOT(ISBLANK('Cumplimiento'[fecha_entrada])) && NOT(ISBLANK('Cumplimiento'[fecha_salida]))
+			        && 'Cumplimiento'[fecha_entrada] <> 0 && 'Cumplimiento'[fecha_salida] <> 0,
+			    1,
+			    0
+			)
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678008
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_
+		dataType: int64
+		formatString: 0
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678009
+		summarizeBy: sum
+		sourceColumn: id_
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f12345678010
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Cumplimiento = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    /*
+				      Equivalente a la tabla Cumplimiento del v2 (The North Face).
+				      En v2 usaba tcg_scout_v2 con brand_id para identificar departamentos.
+				      En v3 usamos northface.vw_answers_v3 con task_category_name como diferenciador.
+				      - Fila base: survey_id = 1610 (Check In) — una fila por visita+departamento
+				      - Salida por departamento: mismo survey_id de entrada pero response_finished_at
+				      - JOIN por branch_id + user_id + fecha del día (igual que Marcaje)
+				      - Sin CONVERT_TIMEZONE: las fechas ya vienen en zona horaria correcta
+				    */
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				        SELECT
+				            CAST(entrada.branch_id AS VARCHAR) || '|' || CAST(entrada.fecha AS VARCHAR) || '|' || CAST(entrada.user_id AS VARCHAR) || '|' || entrada.task_category_name AS response_id,
+				            CAST(entrada.branch_id AS BIGINT) * 10000000000 + CAST(REPLACE(CAST(entrada.fecha AS VARCHAR), '-', '') AS BIGINT) + entrada.user_id AS id_,
+				            b.name,
+				            entrada.user_id,
+				            entrada.branch_id,
+				            entrada.task_category_name AS departamento,
+				            MIN(entrada.response_started_at) AS fecha_entrada,
+				            MAX(salida.response_finished_at) AS fecha_salida,
+				            entrada.fecha AS fecha
+				        FROM (
+				            SELECT branch_id, user_id,
+				                DATE(response_started_at) AS fecha,
+				                task_category_name,
+				                MIN(response_started_at) AS response_started_at
+				            FROM tcg_l1_v3.answers
+				            WHERE survey_id = 1617
+				              AND task_category_name IN (
+				                  'Ropa Deportiva',
+				                  'Calzado Deportivo',
+				                  'Accesorios Deportivos',
+				                  'Calzado Damas Lifestyle',
+				                  'Calzado Caballero Lifestyle',
+				                  'Damas Lifestyle',
+				                  'Caballero Lifestyle',
+				                  'Kids'
+				              )
+				              AND response_is_approved = 1
+				            GROUP BY branch_id, user_id, DATE(response_started_at), task_category_name
+				        ) entrada
+				        LEFT JOIN (
+				            SELECT branch_id, user_id,
+				                DATE(response_started_at) AS fecha,
+				                task_category_name,
+				                MAX(response_finished_at) AS response_finished_at
+				            FROM tcg_l1_v3.answers
+				            WHERE survey_id = 1618
+				              AND task_category_name IN (
+				                  'Ropa Deportiva',
+				                  'Calzado Deportivo',
+				                  'Accesorios Deportivos',
+				                  'Calzado Damas Lifestyle',
+				                  'Calzado Caballero Lifestyle',
+				                  'Damas Lifestyle',
+				                  'Caballero Lifestyle',
+				                  'Kids'
+				              )
+				              AND response_is_approved = 1
+				            GROUP BY branch_id, user_id, DATE(response_started_at), task_category_name
+				        ) salida
+				            ON salida.branch_id        = entrada.branch_id
+				           AND salida.user_id          = entrada.user_id
+				           AND salida.fecha            = entrada.fecha
+				           AND salida.task_category_name = entrada.task_category_name
+				        JOIN northface.vw_branches b ON b.id = entrada.branch_id
+				        GROUP BY
+				            entrada.branch_id,
+				            entrada.user_id,
+				            entrada.fecha,
+				            entrada.task_category_name,
+				            b.name
+				
+				        UNION ALL
+				
+				        SELECT
+				            CAST(cin.branch_id AS VARCHAR) || '|' || CAST(cin.fecha AS VARCHAR) || '|' || CAST(cin.user_id AS VARCHAR) || '|Almuerzo' AS response_id,
+				            CAST(cin.branch_id AS BIGINT) * 10000000000 + CAST(REPLACE(CAST(cin.fecha AS VARCHAR), '-', '') AS BIGINT) + cin.user_id + 999 AS id_,
+				            b.name,
+				            cin.user_id,
+				            cin.branch_id,
+				            'Almuerzo' AS departamento,
+				            cin.fecha_entrada,
+				            cout.fecha_salida,
+				            cin.fecha AS fecha
+				        FROM (
+				            SELECT branch_id, user_id,
+				                DATE(response_started_at) AS fecha,
+				                MIN(response_started_at) AS fecha_entrada
+				            FROM tcg_l1_v3.answers
+				            WHERE survey_id = 1612
+				              AND response_is_approved = 1
+				            GROUP BY branch_id, user_id, DATE(response_started_at)
+				        ) cin
+				        LEFT JOIN (
+				            SELECT branch_id, user_id,
+				                DATE(response_started_at) AS fecha,
+				                MAX(response_finished_at) AS fecha_salida
+				            FROM tcg_l1_v3.answers
+				            WHERE survey_id = 1613
+				              AND response_is_approved = 1
+				            GROUP BY branch_id, user_id, DATE(response_started_at)
+				        ) cout ON cout.branch_id = cin.branch_id AND cout.user_id = cin.user_id AND cout.fecha = cin.fecha
+				        JOIN northface.vw_branches b ON b.id = cin.branch_id
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha_entrada", type datetime},
+				        {"fecha_salida",  type datetime},
+				        {"fecha",         type date},
+				        {"user_id",       Int64.Type},
+				        {"branch_id",     Int64.Type},
+				        {"id_",           Int64.Type}
+				    }),
+				    #"Duplicados quitados" = Table.Distinct(#"Tipo cambiado", {"response_id"})
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

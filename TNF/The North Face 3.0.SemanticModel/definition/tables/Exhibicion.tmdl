@@ -1,0 +1,229 @@
+table Exhibicion
+	lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234567
+
+	column añomes
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234568
+		summarizeBy: none
+		sourceColumn: añomes
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234569
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id_2
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234570
+		summarizeBy: none
+		sourceColumn: response_id_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234571
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234572
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ciudad
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234573
+		summarizeBy: none
+		sourceColumn: ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column cadena
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234574
+		summarizeBy: none
+		sourceColumn: cadena
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcadena
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234575
+		summarizeBy: none
+		sourceColumn: subcadena
+
+		annotation SummarizationSetBy = Automatic
+
+	column sucursal
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234576
+		summarizeBy: none
+		sourceColumn: sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column usuario
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234577
+		summarizeBy: none
+		sourceColumn: usuario
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234578
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column marca
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234579
+		summarizeBy: none
+		sourceColumn: marca
+
+		annotation SummarizationSetBy = Automatic
+
+	column antes_impl
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234580
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: antes_impl
+
+		annotation SummarizationSetBy = Automatic
+
+	column despues_impl
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234581
+		summarizeBy: none
+		sourceColumn: despues_impl
+
+		annotation SummarizationSetBy = Automatic
+
+	column disponibilidad = 1
+		formatString: 0
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234582
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semana = WEEKNUM(Exhibicion[fecha], 2)
+		formatString: 0
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234583
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Exhibicion = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				        SELECT
+				            LEFT(CAST(antes.response_started_at AS VARCHAR), 7)                                          AS añomes,
+				            CAST(antes.branch_id AS VARCHAR) || '|' || CAST(antes.response_started_at AS DATE) || '|' || CAST(antes.survey_response_id AS VARCHAR) AS response_id,
+				            CAST(antes.branch_id AS VARCHAR) || '|' || LEFT(CAST(antes.response_started_at AS VARCHAR), 7) AS response_id_2,
+				            antes.branch_id,
+				            CAST(antes.response_started_at AS DATE)                                                     AS fecha,
+				            b.city                                                                                      AS ciudad,
+				            b.chain                                                                                     AS cadena,
+				            b.chain_sub_category                                                                        AS subcadena,
+				            b.name                                                                                      AS sucursal,
+				            u.full_name                                                                                 AS usuario,
+				            antes.user_id,
+				            UPPER(antes.task_category_name)                                                             AS marca,
+				            antes.answer                                                                                AS antes_impl,
+				            desp.answer                                                                                 AS despues_impl
+				        FROM (
+				            SELECT
+				                survey_response_id,
+				                branch_id,
+				                user_id,
+				                task_category_name,
+				                response_started_at,
+				                MAX(CASE WHEN question_type IN ('image', 'multiple image question') AND answer_is_deleted = false THEN answer END) AS answer
+				            FROM tcg_l1_v3.answers
+				            WHERE survey_id = 1617
+				              AND task_category_name IN (
+				                  'Ropa Deportiva',
+				                  'Calzado Deportivo',
+				                  'Accesorios Deportivos',
+				                  'Calzado Damas Lifestyle',
+				                  'Calzado Caballero Lifestyle',
+				                  'Damas Lifestyle',
+				                  'Caballero Lifestyle',
+				                  'Kids'
+				              )
+				              AND response_is_approved = 1
+				            GROUP BY survey_response_id, branch_id, user_id, task_category_name, response_started_at
+				        ) antes
+				        LEFT JOIN (
+				            SELECT
+				                branch_id,
+				                user_id,
+				                task_category_name,
+				                CAST(response_started_at AS DATE)                                                      AS fecha,
+				                MAX(CASE WHEN question_type IN ('image', 'multiple image question') AND answer_is_deleted = false THEN answer END) AS answer
+				            FROM tcg_l1_v3.answers
+				            WHERE survey_id = 1618
+				              AND task_category_name IN (
+				                  'Ropa Deportiva',
+				                  'Calzado Deportivo',
+				                  'Accesorios Deportivos',
+				                  'Calzado Damas Lifestyle',
+				                  'Calzado Caballero Lifestyle',
+				                  'Damas Lifestyle',
+				                  'Caballero Lifestyle',
+				                  'Kids'
+				              )
+				              AND response_is_approved = 1
+				            GROUP BY branch_id, user_id, task_category_name, CAST(response_started_at AS DATE)
+				        ) desp
+				            ON  desp.branch_id          = antes.branch_id
+				            AND desp.user_id            = antes.user_id
+				            AND desp.task_category_name = antes.task_category_name
+				            AND desp.fecha              = CAST(antes.response_started_at AS DATE)
+				        JOIN tcg_l0_v3.survey_responses sr ON sr.id = antes.survey_response_id
+				        JOIN tcg_l0_v3.users u             ON u.id  = antes.user_id
+				        JOIN northface.vw_branches b        ON b.id  = antes.branch_id
+				        WHERE antes.answer IS NOT NULL
+				           OR desp.answer  IS NOT NULL
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha",    type date},
+				        {"branch_id", Int64.Type},
+				        {"user_id",   Int64.Type}
+				    }),
+				    #"Marca mayusculas" = Table.TransformColumns(#"Tipo cambiado", {{"marca", Text.Upper, type text}})
+				in
+				    #"Marca mayusculas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,128 @@
+table in-out
+	lineageTag: 2316b090-316b-43af-9143-b57f1ce476e3
+
+	measure 'Tarea 1 (Check in)' =
+			
+			var cumplidas = CALCULATE(COUNTROWS('in-out'),'in-out'[Cumplimiento Check-In]=1,'in-out'[branch_id])
+			var total_tareas = [Tareas2]/11
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 9c96b99c-7ea2-4e93-b674-42dab94b4a6a
+
+	measure 'Tarea 10 (Check Out)' =
+			
+			var cumplidas = CALCULATE(COUNTROWS('in-out'),'in-out'[Cumplimiento Check-Out]=1,'in-out'[branch_id])
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: f5e5df4c-1805-4264-99fc-33c493b3aa54
+
+	column response_id
+		dataType: string
+		lineageTag: d11f2e12-4f6a-47cf-8934-0885444bb05f
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 630c4f48-6862-4f2c-ac61-2af25824d4d8
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 67ad65f1-fdd6-4cea-bde0-976af6532887
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_entrada
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 74ec81a1-0984-4eb2-bb7e-1adee3d463e5
+		summarizeBy: none
+		sourceColumn: fecha_entrada
+
+		variation Variación
+			isDefault
+			relationship: fba09599-2f40-4c36-8177-2ed1bfdb47f2
+			defaultHierarchy: LocalDateTable_e3e52ea9-c136-48d8-9aab-3c1faf5fc60e.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_salida
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0a7dbe69-35b3-48fd-85e2-a4ce19e264ed
+		summarizeBy: none
+		sourceColumn: fecha_salida
+
+		variation Variación
+			isDefault
+			relationship: 83c13aed-4356-4a23-9ec8-8347b3689d4a
+			defaultHierarchy: LocalDateTable_784f0334-5b98-40bf-8b1a-e931276fd8d2.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cumplimiento Check-In' =
+			IF(
+			            NOT(ISBLANK('in-out'[fecha_entrada])),
+			            1,
+			            0
+			        )
+		formatString: 0
+		lineageTag: 6976b944-ffac-4d49-b8de-d3a819756bbc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cumplimiento Check-Out' =
+			IF(
+			            NOT(ISBLANK('in-out'[fecha_salida])),
+			            1,
+			            0
+			        )
+		formatString: 0
+		lineageTag: 15560c8c-fb14-4064-84b9-872832825143
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 66d93821-831d-4cf9-adc8-39c1a6ccd0a0
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_
+		dataType: int64
+		formatString: 0
+		lineageTag: 441488f8-9568-4d06-9124-0c76a6925e43
+		summarizeBy: sum
+		sourceColumn: id_
+
+		annotation SummarizationSetBy = Automatic
+
+	partition in-out = m
+		mode: import
+		queryGroup: RedShift
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id_,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id as response_id,#(lf)b2.name,#(lf)qr.user_id,#(lf)qr.branch_id,#(lf)min(convert_timezone('America/Guatemala', qr.started_at)) as fecha_entrada,#(lf)sal.fecha_salida#(lf)from tcg_scout_v2.quiz_responses qr#(lf)left join tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id = qr.id#(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.users u on u.id = qr.user_id #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.branches b2 on b2.id = bq.branch_id #(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)join tcg_scout_v2.quizzes q2 on q2.id = qr.quiz_id #(lf)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)br.id as br_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)MAX(convert_timezone('America/Guatemala', qr.finished_at)) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.quizzes q2 on q2.id = qr.quiz_id #(lf)#(tab)#(tab)#(tab)where qr.quiz_id in (6263,6262)#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)#(tab)#(tab)#(tab)group by qr.user_id, fecha_medicion, qr.branch_id ,br_id, qr.id#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id and sal.br_id = br.id#(lf)where qr.quiz_id in (6260,6261) #(lf)and qr.approved is not false#(lf)and qr.deleted_at is null#(lf)group by #(lf)id_, response_id, b2.name, qr.user_id, sal.fecha_salida, qr.branch_id", null, [EnableFolding=true]),
+				    #"Duplicados quitados" = Table.Distinct(Origen, {"id_"})
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

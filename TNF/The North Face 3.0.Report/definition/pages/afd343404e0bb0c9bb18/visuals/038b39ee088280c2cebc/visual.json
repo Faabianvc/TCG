@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "038b39ee088280c2cebc",
   "position": {
     "x": 543.31306990881455,
@@ -89,7 +89,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Nike Arauco Maipu'"
+                                "Value": "'Montserrat Saenz Acatitla'"
                               }
                             }
                           ]
@@ -390,55 +390,6 @@
           }
         },
         "type": "Categorical",
-        "howCreated": "User"
-      },
-      {
-        "name": "c2e1c0568e6b97fcc894",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_usuarios"
-              }
-            },
-            "Property": "is_ms"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "d",
-              "Entity": "dim_usuarios",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 0,
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "d"
-                        }
-                      },
-                      "Property": "is_ms"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "0L"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
         "howCreated": "User"
       }
     ]

@@ -1,0 +1,72 @@
+table Calendario_Dim
+	lineageTag: c20a8976-7b50-4424-bbda-46be953a7d14
+
+	column response_id
+		dataType: string
+		lineageTag: f1a3a1f7-6f36-4b71-92be-ab61789cddea
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column añomes
+		dataType: string
+		lineageTag: 96dc5658-988a-49ff-af80-22446fa1b809
+		summarizeBy: none
+		sourceColumn: añomes
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 2a17c244-4cdd-44cb-85df-3d44f3203d97
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: fb48e466-c6a7-4303-93b3-4a303984572e
+			defaultHierarchy: LocalDateTable_d30e1a2e-e346-4768-9b74-3314221aff9d.'Jerarquía de fechas'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column departamento
+		dataType: string
+		lineageTag: b3ff5660-cfdf-44fd-a8c3-8ef85571bad6
+		summarizeBy: none
+		sourceColumn: departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semana
+		dataType: int64
+		formatString: 0
+		lineageTag: fd5a11a3-93d6-433c-b166-7d0d74f7e2a2
+		summarizeBy: sum
+		sourceColumn: Semana
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendario_Dim = m
+		mode: import
+		queryGroup: RedShift
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select distinct #(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id as response_id,#(lf)left(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at),7) as añomes,#(lf)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)br.name as departamento#(lf)from tcg_scout_v2.quiz_responses qr#(lf)left join tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id = qr.id#(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.users u on u.id = qr.user_id #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)where qr.quiz_id in (6260,6261,6262,6263,6264,6265,6340,6341,6367,6368)#(lf)and qr.approved is not false#(lf)and qr.deleted_at is null", null, [EnableFolding=true]),
+				    #"Duplicados quitados" = Table.Distinct(Origen, {"response_id"}),
+				    #"Semana del año insertada" = Table.AddColumn(#"Duplicados quitados", "Semana del año", each Date.WeekOfYear([fecha]), Int64.Type),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Semana del año insertada",{{"Semana del año", "Semana"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

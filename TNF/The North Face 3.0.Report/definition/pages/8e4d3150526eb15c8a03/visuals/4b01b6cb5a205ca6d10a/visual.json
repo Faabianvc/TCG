@@ -4,10 +4,10 @@
   "position": {
     "x": 58.890577507598785,
     "y": 982.14285714285722,
-    "z": 26005,
+    "z": 14000,
     "height": 387.53799392097267,
     "width": 2401.2158054711249,
-    "tabOrder": 23006
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "columnChart",
@@ -355,42 +355,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "6e3165d1c4560e2bc59a",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_sucursales"
-              }
-            },
-            "Property": "name"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "e24e43108b7e301230c0",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Marcaje"
-                  }
-                },
-                "Property": "totalmin"
-              }
-            },
-            "Function": 1
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

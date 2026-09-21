@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "8f88dba7866d0d2e6d61",
   "position": {
-    "x": 908.10030395136778,
-    "y": 18,
-    "z": 14000,
+    "x": 773.84498480243167,
+    "y": 38,
+    "z": 7000,
     "height": 85,
-    "width": 272.5,
-    "tabOrder": 11000
+    "width": 315.34954407294833,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "slicer",
@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "dim_sucursales.city",
-              "nativeQueryRef": "Comuna",
+              "nativeQueryRef": "Ciudad",
               "active": true,
-              "displayName": "Comuna"
+              "displayName": "Ciudad"
             }
           ]
         }

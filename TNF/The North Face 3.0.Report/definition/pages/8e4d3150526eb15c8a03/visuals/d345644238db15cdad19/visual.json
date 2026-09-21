@@ -4,10 +4,10 @@
   "position": {
     "x": 1918.8794623557378,
     "y": 474.45923502335478,
-    "z": 26008,
+    "z": 17000,
     "height": 235,
     "width": 236.66666666666669,
-    "tabOrder": 23009
+    "tabOrder": 15000
   },
   "visual": {
     "visualType": "PBI_CV_81BBAD08_3ADD_466C_8819_9FACA21A6B8F",
@@ -89,23 +89,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "0c60a144bb93b9a493a5",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "1Medidas"
-              }
-            },
-            "Property": "fotourl Almuerzo entrada"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

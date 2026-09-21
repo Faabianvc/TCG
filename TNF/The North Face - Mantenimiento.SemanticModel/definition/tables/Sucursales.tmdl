@@ -1,0 +1,82 @@
+table Sucursales
+	lineageTag: 535f9250-052d-44d6-a3ff-505867821977
+
+	column company_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d9885d5-1758-4b62-b6a5-881c708209b8
+		summarizeBy: none
+		sourceColumn: company_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d27615be-5c85-41e1-b8e6-d428ac5a007a
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: string
+		lineageTag: 5337056d-ebe4-46b2-9a4f-f1951be2e9ec
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ciudad
+		dataType: string
+		lineageTag: 7e47eee0-bd44-41f1-8cdd-b923b26e231c
+		summarizeBy: none
+		sourceColumn: ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column cadena
+		dataType: string
+		lineageTag: 1980017f-7ac0-4926-a5f8-6fc6d584a44f
+		summarizeBy: none
+		sourceColumn: cadena
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcadena
+		dataType: string
+		lineageTag: b1fd81a5-32a8-49fa-9ed8-caf5ebd444f6
+		summarizeBy: none
+		sourceColumn: subcadena
+
+		annotation SummarizationSetBy = Automatic
+
+	column sucursal
+		dataType: string
+		lineageTag: b1021fb4-833f-4632-84ee-ef0f070fe01f
+		summarizeBy: none
+		sourceColumn: sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column coordenadas
+		dataType: string
+		lineageTag: 585cb2f1-c16f-4771-8444-6631091b77ab
+		summarizeBy: none
+		sourceColumn: coordenadas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sucursales = m
+		mode: import
+		queryGroup: RedShift
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)#(tab)b.company_id,#(lf)#(tab)b.id as branch_id,#(lf)#(tab)b.store_id,#(lf)#(tab)case#(lf)#(tab)#(tab)when b.province is null then initcap(b.zone)#(lf)#(tab)#(tab)else b.province#(lf)#(tab)end as ciudad,#(lf)#(tab)initcap(b.chain_name) as cadena,#(lf)#(tab)initcap(b.chain_store) as subcadena,#(lf)#(tab)initcap(b.""name"") as sucursal,#(lf)#(tab)b.latitude ||','||b.longitude as coordenadas#(lf)from tcg_scout_v2.branches b #(lf)where b.company_id = 280#(lf)#(tab)and b.deleted_at is null", null, [EnableFolding=true])
+				in
+				    Origen
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

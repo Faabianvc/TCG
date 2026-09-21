@@ -1,0 +1,219 @@
+table Cumplimiento
+	lineageTag: b2652847-5bd7-4304-9074-2ae4a022b1f0
+
+	measure PorcentajeCumplimiento =
+			
+			VAR TotalTareas = [Tareas2] * DISTINCTCOUNT(Sucursales[branch_id])
+			VAR TareasCumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1)
+			RETURN CALCULATE(DIVIDE(TareasCumplidas, TotalTareas, 0), Cumplimiento[departamento])
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 93618322-1761-4aa3-a051-78b4f26066b8
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "AveragePerCategory"
+				}
+
+		changedProperty = FormatString
+
+	measure 'Tarea 2 Caballeros Lifestyle' =
+			
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] = "CABALLEROS LIFESTYLE")
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: fba3533b-ae62-4fae-b04c-61920c98b330
+
+	measure 'Tarea 3 Calzado Caballeros' =
+			
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] = "CALZADO CALLEROS LIFESTYLE",Cumplimiento[branch_id])
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: ba211259-bbf9-42b1-aabc-19c0d2a7285c
+
+	measure 'Tarea 4 Damas Lifestyle' =
+			
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] = "DAMAS LIFESTYLE",Cumplimiento[branch_id])
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 7ee430c7-f053-4527-bfa3-b9869005a0e8
+
+	measure 'Tarea 5 Calzado damas' =
+			
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] ="CALZADO DAMAS LIFESTYLE",Cumplimiento[branch_id])
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 334f2cbb-f079-4716-a3a9-3211a4123258
+
+	measure 'Tarea 6 Ropa deportiva' =
+			
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] ="ROPA DEPORTIVA",Cumplimiento[branch_id])
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: c4f4f759-da8d-4022-9723-4f351950572d
+
+	measure 'Tarea 7 Calzado deportivo' =
+			
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] ="CALZADO DEPORTIVO",Cumplimiento[branch_id])
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 494528fd-c7e5-4299-ac53-2ef641135d3a
+
+	measure 'Tarea 8 Kids' =
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] ="KIDS",Cumplimiento[branch_id])
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: d9e6d606-301d-49de-9a08-f403b1c7f46f
+
+	measure Tareas2 = DISTINCTCOUNT(Calendario_Dim[fecha]) * 11
+		formatString: 0
+		lineageTag: 1022e09d-f97e-46cd-955d-2dd0c69d6cf3
+
+	measure 'Tarea 9 Accesorios deportivos' =
+			
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] ="ACCESORIOS DEPORTIVOS",Cumplimiento[branch_id])
+			var total_tareas = [Tareas2]/10
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: f7cdbbf1-d91e-4b21-953b-559f6972cbf9
+
+	measure 'Tarea 11 Almuerzo' =
+			var cumplidas = CALCULATE(COUNTROWS(Cumplimiento),Cumplimiento[Cumplimiento tarea]=1,Cumplimiento[departamento] ="Almuerzo",Cumplimiento[branch_id])
+			var total_tareas = [Tareas2]/11
+			return IF(DIVIDE(cumplidas, total_tareas,0)>0, DIVIDE(cumplidas, total_tareas,0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 30aa3225-5eca-4226-b873-e25f790c066f
+
+	column response_id
+		dataType: string
+		lineageTag: 2181bbfc-ee43-4f2f-a2c8-bea5faf14247
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 5bca56c8-409b-4e50-818c-16c7b2f4c3a9
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2037b77d-5578-4d84-a79f-7dde48870d8a
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column departamento
+		dataType: string
+		lineageTag: 9f457959-8316-4124-9c2e-50056cf906eb
+		summarizeBy: none
+		sourceColumn: departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_entrada
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9749c873-8d3e-40ae-89f1-784374a49c81
+		summarizeBy: none
+		sourceColumn: fecha_entrada
+
+		variation Variación
+			isDefault
+			relationship: 249305ab-4c2c-4f76-8547-e76e2a0b3158
+			defaultHierarchy: LocalDateTable_05f6d767-777b-4476-b8b9-adeea3bf21c0.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_salida
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2c9cebca-7fe9-4f67-84d8-33c0f7218896
+		summarizeBy: none
+		sourceColumn: fecha_salida
+
+		variation Variación
+			isDefault
+			relationship: bd4dd629-3f1c-46c5-a763-5fa8f820f817
+			defaultHierarchy: LocalDateTable_c3aa5f4d-5945-447e-9296-8996b45c92b5.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: dd-mm-yyyy
+		lineageTag: 536dda7d-877e-4a9d-badf-3723e2945113
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variación
+			isDefault
+			relationship: 7c843a41-716a-406f-ab2c-0e2295b3ffa3
+			defaultHierarchy: LocalDateTable_8c2f8a7e-6cf7-4311-bfb4-e8066f24ef8a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Cumplimiento tarea' =
+			IF(
+			            NOT(ISBLANK('Cumplimiento'[fecha_entrada])) && NOT(ISBLANK('Cumplimiento'[fecha_salida])) && 'Cumplimiento'[fecha_entrada] <> 0 && 'Cumplimiento'[fecha_salida] <> 0,
+			            1,
+			            0
+			        )
+		lineageTag: 496fd61a-6200-45ac-8cab-43a1c765cb10
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_
+		dataType: int64
+		formatString: 0
+		lineageTag: 7974c7d5-b03c-42b5-8f2e-490212a3a418
+		summarizeBy: sum
+		sourceColumn: id_
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 44e1fea2-51ed-4ada-9b01-02306c70a36e
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Cumplimiento = m
+		mode: import
+		queryGroup: RedShift
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id_,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id as response_id,#(lf)b2.name,#(lf)q.title as title,#(lf)qr.user_id as User_id,#(lf)br.name as departamento,#(lf)qr.branch_id,#(lf)min( convert_timezone('America/Guatemala', qr.started_at)) as fecha_entrada,#(lf)sal.fecha_salida#(lf)from tcg_scout_v2.quiz_responses qr#(lf)left join tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id = qr.id#(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.users u on u.id = qr.user_id #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.branches b2 on b2.id = bq.branch_id #(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)left join(#(lf)#(tab)#(tab)#(tab)select distinct#(lf)#(tab)#(tab)#(tab)qr.id,#(lf)#(tab)#(tab)#(tab)qr.branch_id,#(lf)#(tab)#(tab)#(tab)qr.user_id,#(lf)#(tab)#(tab)#(tab)br.id as br_id,#(lf)#(tab)#(tab)#(tab)left(convert_timezone('America/Guatemala', qr.started_at), 10) as fecha_medicion,#(lf)#(tab)#(tab)#(tab)MAX(convert_timezone('America/Guatemala', qr.finished_at)) as fecha_salida#(lf)#(tab)#(tab)#(tab)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)#(tab)#(tab)#(tab)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)#(tab)#(tab)#(tab)where qr.quiz_id in (6265,6368,6263,6262,6341)#(lf)#(tab)#(tab)#(tab)and (qr.approved is null or qr.approved = 1)#(lf)#(tab)#(tab)#(tab)group by qr.user_id, fecha_medicion, qr.branch_id ,br_id, qr.id#(lf)#(tab)) as sal on sal.fecha_medicion = left(convert_timezone('America/Guatemala', qr.started_at),10) and sal.branch_id = qr.branch_id and sal.user_id = qr.user_id and sal.br_id = br.id#(lf)where qr.quiz_id in (6264,6367,6261,6260,6340) #(lf)and qr.approved is not false#(lf)and qr.deleted_at is null#(lf)and ((title like '%Indica la cantidad de fotos que necesitas tomar de como encontraste%') or (title like'%Captura una foto de la fachada del PDV tipo selfie%') or(title like '%Has realizado el marcaje de salida%'))#(lf)group by #(lf)id_, response_id, b2.name, title, qr.user_id, departamento,sal.fecha_salida, qr.branch_id", null, [EnableFolding=true]),
+				    #"Fecha insertada" = Table.AddColumn(Origen, "Fecha", each DateTime.Date([fecha_entrada]), type date),
+				    #"Columnas quitadas1" = Table.RemoveColumns(#"Fecha insertada",{"title"}),
+				    #"Duplicados quitados" = Table.Distinct(#"Columnas quitadas1", {"fecha_entrada"})
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

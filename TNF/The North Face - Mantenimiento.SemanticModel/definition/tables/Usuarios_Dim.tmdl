@@ -1,0 +1,50 @@
+table Usuarios_Dim
+	lineageTag: 4f9d1773-8f7e-4d55-9064-dde8389684f8
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cf8f7429-430f-4383-9811-fe6129138698
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_name
+		dataType: string
+		lineageTag: 861b93f7-3254-434a-bfda-264a1d3384dc
+		summarizeBy: none
+		sourceColumn: user_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 1fbe0182-c34a-467b-8e16-27fa9c5065c1
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column cargo
+		dataType: string
+		lineageTag: 2cfcd8a4-2fcd-4e9b-94c9-39abe99fea7b
+		summarizeBy: none
+		sourceColumn: cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Usuarios_Dim = m
+		mode: import
+		queryGroup: RedShift
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select distinct#(lf)qr.user_id,#(lf)case#(lf)#(tab)when u.last_name is null then initcap(u.""name"") #(lf)#(tab)else initcap(u.""name"")|| ' ' || initcap(u.last_name)#(lf)end as user_name,#(lf)u.email,#(lf)case #(lf)#(tab)when u.email like '%visual%' then 'Visual'#(lf)#(tab)when u.email like '%promotor%' then 'Promotor'#(lf)end as cargo#(lf)from tcg_scout_v2.quiz_responses qr#(lf)left join tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id = qr.id#(lf)left join tcg_scout_v2.users u on u.id = qr.user_id #(lf)where qr.quiz_id in (6260,6261,6262,6263,6264,6265,6340,6341,6367,6368) #(lf)and qr.approved is not false#(lf)and qr.deleted_at is null", null, [EnableFolding=true]),
+				    #"Duplicados quitados" = Table.Distinct(Origen)
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

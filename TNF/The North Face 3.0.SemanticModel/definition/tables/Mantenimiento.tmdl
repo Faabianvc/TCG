@@ -1,0 +1,221 @@
+table Mantenimiento
+	lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789001
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789002
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789003
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column response_id
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789004
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789005
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789006
+		summarizeBy: sum
+		sourceColumn: survey_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789007
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789008
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789009
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789010
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+	column respuesta
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789011
+		summarizeBy: none
+		sourceColumn: respuesta
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_response_id
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789016
+		summarizeBy: none
+		sourceColumn: quiz_response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column keyfoto
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789017
+		summarizeBy: none
+		sourceColumn: keyfoto
+
+		annotation SummarizationSetBy = Automatic
+
+	column alerta_id
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789018
+		summarizeBy: none
+		sourceColumn: alerta_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodo
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789019
+		summarizeBy: none
+		sourceColumn: periodo
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: string
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789020
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Foto después' = ""
+		lineageTag: c1d2e3f4-a5b6-7890-cdef-123456789021
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ciudad
+		dataType: string
+		lineageTag: 781a2946-2519-4e7f-8b95-edc530767c05
+		summarizeBy: none
+		sourceColumn: ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column cadena
+		dataType: string
+		lineageTag: 5346b444-2e61-4832-b140-a2ee965a90ec
+		summarizeBy: none
+		sourceColumn: cadena
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcadena
+		dataType: string
+		lineageTag: fba2ea29-cab9-41ad-ad68-24ac85d1c6fd
+		summarizeBy: none
+		sourceColumn: subcadena
+
+		annotation SummarizationSetBy = Automatic
+
+	column sucursal
+		dataType: string
+		lineageTag: 642b8b80-f223-4251-a8c4-d71091dc7277
+		summarizeBy: none
+		sourceColumn: sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Mantenimiento = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				        SELECT DISTINCT
+				            a.branch_id,
+				            b.name,
+				            CAST(a.response_started_at AS DATE)                                                             AS fecha,
+				            CAST(a.branch_id AS VARCHAR) || '|' || CAST(a.response_started_at AS DATE) || '|' || CAST(a.survey_response_id AS VARCHAR) AS response_id,
+				            a.survey_response_id                                                                            AS id,
+				            LEFT(CAST(a.response_started_at AS VARCHAR), 7)                                                 AS periodo,
+				            CAST(a.survey_response_id AS VARCHAR)                                                           AS quiz_response_id,
+				            a.survey_id,
+				            a.user_id,
+				            '1'                                                                                             AS orden,
+				            'Area'                                                                                          AS kpi,
+				            a.answer                                                                                        AS value,
+				            a.answer                                                                                        AS respuesta,
+				            b.city                                                                                          AS Ciudad,
+				            b.chain                                                                                         AS Cadena,
+				            b.chain_sub_category                                                                            AS Subcadena,
+				            b.name                                                                                          AS Sucursal
+				        FROM tcg_l1_v3.answers a
+				        JOIN northface.vw_branches b ON b.id = a.branch_id
+				        WHERE a.survey_id   = 1615
+				          AND a.question_id = 52438
+				          AND a.answer IS NOT NULL
+				          AND a.response_is_approved = 1
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha",    type date},
+				        {"branch_id", Int64.Type},
+				        {"user_id",   Int64.Type},
+				        {"id",        Int64.Type},
+				        {"survey_id", Int64.Type}
+				    }),
+				    #"keyfoto agregado"  = Table.AddColumn(#"Tipo cambiado",  "keyfoto",   each [response_id] & "|" & [orden]),
+				    #"alerta_id agregado" = Table.AddColumn(#"keyfoto agregado", "alerta_id", each [quiz_response_id] & [orden]),
+				    #"Filas filtradas"   = Table.SelectRows(#"alerta_id agregado", each [keyfoto] <> null and [keyfoto] <> "")
+				in
+				    #"Filas filtradas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

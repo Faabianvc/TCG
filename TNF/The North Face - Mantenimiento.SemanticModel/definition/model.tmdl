@@ -1,0 +1,82 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CL
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Marcaje
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup Exhibiciones
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup RedShift
+
+	annotation PBI_QueryGroupOrder = 2
+
+annotation PBI_QueryOrder = ["Marcaje","Salida","Sucursales","Exhibicion","Exhibicion antiguo","Calendario_Dim","Cumplimiento","in-out","Usuarios_Dim","Gap","Tabla","Gap_comentarios","Mantenimiento","Mantenimiento Fotos","Mantenimiento Comentarios","Mantenimiento Status","Mantenimiento tiempos"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_2dd553a3-a31f-4e82-83f8-33fadd9ecb73
+ref table Marcaje
+ref table LocalDateTable_a0e49f19-3d57-438a-b949-a1c03d91540a
+ref table LocalDateTable_3047f0ef-05eb-4f75-9613-7ca4462d8393
+ref table LocalDateTable_2e799451-365b-4db5-9404-df2296b1f011
+ref table 1medidas
+ref table Sucursales
+ref table Exhibicion
+ref table LocalDateTable_5a8bf99b-3a52-48f5-a52c-c51792b7fbd7
+ref table LocalDateTable_5e2e5a9c-07ff-4570-b5c7-f562610445aa
+ref table LocalDateTable_18aff3f1-1ce7-4d0e-98ee-03e7adb123f9
+ref table LocalDateTable_8fd91ffe-4da6-42ba-b4b3-2760826e5c99
+ref table LocalDateTable_2b51d6f3-c73a-4877-8179-055feff8a659
+ref table LocalDateTable_1e515d63-f53a-4623-b569-26ee99f92779
+ref table LocalDateTable_3c4b8781-05b8-40ab-8bd7-f4d5cbc81e47
+ref table LocalDateTable_4fdf9337-2efc-47eb-983d-ca365bdbe6bd
+ref table LocalDateTable_ab56e143-2174-4c79-9517-4d98de53eaa3
+ref table LocalDateTable_2d0ccd18-2160-4fbf-be83-22dc5df97c09
+ref table LocalDateTable_ab2f4b60-8015-4ea6-8239-340a79d53373
+ref table LocalDateTable_6a0af671-f2e7-4271-8a39-43aa31868466
+ref table LocalDateTable_2628dad6-2bb5-4408-a780-85732df89fa1
+ref table LocalDateTable_94bab29f-d31d-442a-840a-189fe60850d7
+ref table LocalDateTable_304eaecd-fe8c-44b3-82ff-4fe4328eb832
+ref table LocalDateTable_b7703a42-bc88-4d4f-805a-e0648ed2c130
+ref table LocalDateTable_d6f23bda-d774-40ca-a1be-3165b946af1c
+ref table Calendario_Dim
+ref table LocalDateTable_d30e1a2e-e346-4768-9b74-3314221aff9d
+ref table Cumplimiento
+ref table LocalDateTable_05f6d767-777b-4476-b8b9-adeea3bf21c0
+ref table LocalDateTable_c3aa5f4d-5945-447e-9296-8996b45c92b5
+ref table LocalDateTable_8c2f8a7e-6cf7-4311-bfb4-e8066f24ef8a
+ref table in-out
+ref table LocalDateTable_e3e52ea9-c136-48d8-9aab-3c1faf5fc60e
+ref table LocalDateTable_784f0334-5b98-40bf-8b1a-e931276fd8d2
+ref table Usuarios_Dim
+ref table LocalDateTable_8bec6ab2-efc9-43e6-b834-3977fbcdc999
+ref table LocalDateTable_6ac5e1ba-5022-4951-9da7-7e45621f06ed
+ref table Gap
+ref table LocalDateTable_b862f3a4-449f-4bb4-a11a-03616218b59f
+ref table Gap_comentarios
+ref table LocalDateTable_da99caf6-a5da-4233-af85-5b7bc7ea843d
+ref table Mantenimiento
+ref table LocalDateTable_718b3aa1-a948-40f7-82f8-d876c14aa015
+ref table 'Mantenimiento Fotos'
+ref table LocalDateTable_62fc1bc2-0087-4184-9a37-908501748b9a
+ref table 'Mantenimiento Comentarios'
+ref table LocalDateTable_0bab705e-f8e8-4c49-bc9f-55a6c4022c87
+ref table 'Mantenimiento Status'
+ref table LocalDateTable_27a73e3e-2419-41f5-af46-8b6ad4af2a12
+ref table 'Mantenimiento tiempos'
+ref table LocalDateTable_e58c1ec0-1153-4cd9-82be-b95b674ab019
+ref table RespuestasRecientes
+ref table LocalDateTable_fe0834bb-7cc5-4c65-9df0-4d713299539c
+
+ref cultureInfo es-MX
+

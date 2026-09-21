@@ -1,0 +1,75 @@
+table RespuestasRecientes
+	lineageTag: b6c7d8e9-f0a1-2345-bcde-678901200001
+
+	column FechaReciente
+		lineageTag: b6c7d8e9-f0a1-2345-bcde-678901200003
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [FechaReciente]
+
+		annotation SummarizationSetBy = Automatic
+
+	column StatusFinal
+		lineageTag: b6c7d8e9-f0a1-2345-bcde-678901200004
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [StatusFinal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Foto
+		lineageTag: b6c7d8e9-f0a1-2345-bcde-678901200005
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Foto]
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id
+		lineageTag: b6c7d8e9-f0a1-2345-bcde-678901200007
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [response_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID solicitud'
+		lineageTag: cbc0827c-370a-4a1d-8cce-61cb16f836c1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Mantenimiento Status[ID solicitud]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RespuestasRecientes = calculated
+		mode: import
+		source =
+				ADDCOLUMNS(
+				    SUMMARIZE(
+				        'Mantenimiento Status',
+				        'Mantenimiento Status'[ID solicitud],
+				        "FechaReciente", MAX('Mantenimiento Status'[fecha])
+				    ),
+				    "response_id", 'Mantenimiento Status'[ID solicitud],
+				    "StatusFinal",
+				    CALCULATE(
+				        FIRSTNONBLANK('Mantenimiento Status'[Status], 1),
+				        FILTER(
+				            'Mantenimiento Status',
+				            'Mantenimiento Status'[ID solicitud] = EARLIER('Mantenimiento Status'[ID solicitud])
+				                && 'Mantenimiento Status'[fecha] = EARLIER([FechaReciente])
+				        )
+				    ),
+				    "Foto",
+				    CALCULATE(
+				        FIRSTNONBLANK('Mantenimiento Status'[Foto], 1),
+				        FILTER(
+				            'Mantenimiento Status',
+				            'Mantenimiento Status'[ID solicitud] = EARLIER('Mantenimiento Status'[ID solicitud])
+				                && 'Mantenimiento Status'[fecha] = EARLIER([FechaReciente])
+				        )
+				    )
+				)
+
+	annotation PBI_ResultType = Table
+

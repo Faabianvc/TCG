@@ -1,0 +1,166 @@
+table Gap
+	lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560001
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560002
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560003
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560004
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column response_id
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560005
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560006
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560007
+		summarizeBy: sum
+		sourceColumn: survey_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560008
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560009
+		summarizeBy: sum
+		sourceColumn: question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560010
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560011
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre del mes'
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560012
+		summarizeBy: none
+		sourceColumn: nombre_del_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column task_category_name
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560013
+		summarizeBy: none
+		sourceColumn: task_category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tabla.qc_value'
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234560014
+		summarizeBy: none
+		sourceColumn: qc_value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Gap = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				        SELECT DISTINCT
+				            a.branch_id,
+				            b.name,
+				            CAST(a.response_started_at AS DATE)                                                         AS fecha,
+				            CAST(a.branch_id AS VARCHAR) || '|' || CAST(a.response_started_at AS DATE) || '|' || CAST(a.user_id AS VARCHAR) || '|' || a.task_category_name AS response_id,
+				            a.survey_response_id                                                                        AS id,
+				            a.survey_id,
+				            a.user_id,
+				            a.question_id,
+				            a.task_category_name,
+				            'razon'                                                                                     AS kpi,
+				            a.answer                                                                                    AS value,
+				            a.answer                                                                                    AS qc_value,
+				            TO_CHAR(a.response_started_at, 'Month')                                                    AS nombre_del_mes
+				        FROM tcg_l1_v3.answers a
+				        JOIN northface.vw_branches b ON b.id = a.branch_id
+				        WHERE a.survey_id    = 1621
+				          AND a.question_id  = 52464
+				          AND a.answer IS NOT NULL
+				          AND a.response_is_approved = 1
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha",       type date},
+				        {"branch_id",   Int64.Type},
+				        {"user_id",     Int64.Type},
+				        {"id",          Int64.Type},
+				        {"survey_id",   Int64.Type},
+				        {"question_id", Int64.Type},
+				        {"value",       type text},
+				        {"qc_value",    type text}
+				    })
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

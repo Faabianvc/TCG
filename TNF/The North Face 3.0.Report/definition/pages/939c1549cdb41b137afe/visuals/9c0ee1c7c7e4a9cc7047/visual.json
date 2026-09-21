@@ -875,53 +875,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "811663bf8d161906b210",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_dates"
-              }
-            },
-            "Property": "periodo"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "03e24194c0cb572a3846",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_clasificacion"
-              }
-            },
-            "Property": "clasificacion"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "f9c24c42615d892e82b6",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Perfect Stores"
-                  }
-                },
-                "Property": "clasificacion"
-              }
-            },
-            "Function": 5
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

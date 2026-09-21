@@ -1,7 +1,3 @@
-relationship AutoDetected_c8be6a8b-5bae-4c1c-8a57-ec2202edbe85
-	fromColumn: dim_preguntas.question_short
-	toColumn: dim_preguntas_orden.question_short
-
 relationship eb0f8cdc-1588-463a-9761-e753e2ff8884
 	fromColumn: fct_respuestas.fecha
 	toColumn: dim_dates.date
@@ -27,11 +23,6 @@ relationship 44d7584f-c39d-a3d5-9be6-b04472e5409c
 	crossFilteringBehavior: bothDirections
 	fromColumn: fct_respuestas.keytarget
 	toColumn: dim_target.Keytarget
-
-relationship c3cfd70d-bd2b-6cbc-7600-b4036ecd8c7a
-	toCardinality: many
-	fromColumn: fct_videos.key_video
-	toColumn: fct_respuestas.key_video
 
 relationship 19ecd4b9-460f-71d4-b21a-5df6394d7e64
 	fromColumn: fct_respuestas.question_id
@@ -76,54 +67,104 @@ relationship 5cf70ee6-1328-5a9b-b2f4-dd9fb21556ae
 	fromColumn: fct_respuestas.user_id
 	toColumn: dim_usuarios.user_id
 
-relationship AutoDetected_f2958e04-1fd1-4a45-aac2-bfb6cccbdd64
-	fromColumn: fct_antes.user_id
-	toColumn: dim_usuarios.user_id
-
-relationship 3b9d51ac-fcda-beeb-2012-3cbea2b6a284
-	fromColumn: fct_antes.branch_id
-	toColumn: dim_sucursales.id
-
-relationship 19c9a699-72dd-8358-57e4-35d7e9be00c7
-	fromColumn: fct_antes.question_id
-	toColumn: dim_preguntas.id
-
-relationship a9399f20-59d8-5bbb-4b68-092e713a1f8d
-	toCardinality: many
-	fromColumn: fct_despues.survey_response_id
-	toColumn: fct_antes.survey_response_id
-
-relationship e06f5d7c-400c-86e5-6fd2-219adb777b56
-	fromColumn: fct_antes.survey_response_review
-	toColumn: fct_review.survey_response_id
-
-relationship c99fa04c-cddb-118c-76b5-9e00cfbdda95
-	toCardinality: many
-	fromColumn: fct_pbi_comments.key_cta
-	toColumn: fct_respuestas.key_cta
-
 relationship 46982055-c1c0-bd30-c84b-f4fedbb5329a
 	crossFilteringBehavior: bothDirections
 	toCardinality: many
 	fromColumn: fct_fotos.key_foto
 	toColumn: fct_respuestas.key_foto
 
-relationship 216d879c-3dca-1b00-81a9-6209d34bb9ce
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: preguntas_ambas_aud.short_question
-	toColumn: dim_preguntas_orden.question_short
-
-relationship a6026fb8-84f5-a041-bac8-c6601eaea807
-	toCardinality: many
-	fromColumn: fct_comentario_general_ia.survey_response_id
-	toColumn: fct_respuestas.survey_response_id
-
 relationship 972e3698-7ddb-273a-8a51-2a39ce0e6502
+	crossFilteringBehavior: bothDirections
 	fromColumn: Marcaje.branch_id
 	toColumn: dim_sucursales.id
 
 relationship 220194f5-18fa-5349-1c36-650133f20f7d
 	fromColumn: Marcaje.user_id
 	toColumn: dim_usuarios.user_id
+
+relationship 6ace08b3-24e2-a2b2-4119-702e932552d5
+	fromColumn: Cumplimiento.Fecha
+	toColumn: dim_dates.date
+
+relationship 02b8aa08-8a48-b382-3f11-105a444387d5
+	fromColumn: in-out.user_id
+	toColumn: dim_usuarios.user_id
+
+relationship 71b5f4a8-8ddb-c431-1eb6-415e40229002
+	fromColumn: in-out.branch_id
+	toColumn: dim_sucursales.id
+
+relationship 99fb5ea1-32d9-3072-b1f8-ffb1c1233b8c
+	fromColumn: Marcaje.response_id
+	toColumn: Calendario_Dim.response_id
+
+relationship c939ec51-065c-6754-755a-d27c3f3da48e
+	fromColumn: in-out.response_id
+	toColumn: Calendario_Dim.response_id
+
+relationship 01d3d0e4-4b61-2a30-011b-17f12c1c4a95
+	fromColumn: Cumplimiento.response_id
+	toColumn: Calendario_Dim.response_id
+
+relationship 7bc4b1e3-cf3e-9201-c85c-b3874caf094a
+	fromColumn: Cumplimiento.branch_id
+	toColumn: dim_sucursales.id
+
+relationship 4ef83529-ef16-6efe-63be-bf1347f5894b
+	fromColumn: Exhibicion.response_id
+	toColumn: Calendario_Dim.response_id
+
+relationship 0dff7af3-762f-4526-1142-ffe60b1250db
+	fromColumn: Exhibicion.branch_id
+	toColumn: dim_sucursales.id
+
+relationship 0333a8b1-3272-c4b3-839f-4c7af9b6b992
+	fromColumn: Gap.response_id
+	toColumn: Gap_comentarios.response_id
+
+relationship bce7390a-cddb-af93-a26c-dd958052b41a
+	fromColumn: Gap.branch_id
+	toColumn: dim_sucursales.id
+
+relationship 20e63a26-43f2-a78c-fedc-73253961a669
+	fromColumn: Gap.user_id
+	toColumn: dim_usuarios.user_id
+
+relationship 682ee809-960b-2337-ae59-5a310baebbe5
+	fromColumn: Mantenimiento.user_id
+	toColumn: dim_usuarios.user_id
+
+relationship bb969437-50eb-f5f6-abb7-eee9bf8dc52a
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Mantenimiento.keyfoto
+	toColumn: 'Mantenimiento Fotos'.personalizado
+
+relationship 155ac118-5591-c297-1f1f-858386ab6281
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Mantenimiento tiempos'.alerta_id
+	toColumn: Mantenimiento.alerta_id
+
+relationship 8df729f9-8ded-9290-292d-a7b129c18e01
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Mantenimiento.keyfoto
+	toColumn: 'Mantenimiento Comentarios'.personalizado
+
+relationship cfcc502d-ee94-0da7-9d41-da3abda0215d
+	fromColumn: Mantenimiento.branch_id
+	toColumn: dim_sucursales.id
+
+relationship debcee25-e4e3-4d61-1cc8-2e58e8c032b4
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: RespuestasRecientes.'ID solicitud'
+	toColumn: Mantenimiento.alerta_id
+
+relationship 4af7c202-827a-6256-ce7f-644a3e543160
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Mantenimiento Status'.'ID solicitud'
+	toColumn: RespuestasRecientes.'ID solicitud'
 

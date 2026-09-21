@@ -1,0 +1,105 @@
+table in-out
+	lineageTag: d4e5f6a7-b8c9-0123-defa-456789012345
+
+	measure 'Tarea 1 (Check in)' =
+			
+			VAR cumplidas    = CALCULATE(COUNTROWS('in-out'), 'in-out'[Cumplimiento Check-In]  = 1, 'in-out'[branch_id])
+			VAR total_tareas = [cum_Tareas2] / 11
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012346
+
+	measure 'Tarea 10 (Check Out)' =
+			
+			VAR cumplidas    = CALCULATE(COUNTROWS('in-out'), 'in-out'[Cumplimiento Check-Out] = 1, 'in-out'[branch_id])
+			VAR total_tareas = [cum_Tareas2] / 10
+			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012347
+
+	column 'Cumplimiento Check-In' = IF(NOT(ISBLANK('in-out'[fecha_entrada])), 1, 0)
+		formatString: 0
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012355
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cumplimiento Check-Out' = IF(NOT(ISBLANK('in-out'[fecha_salida])), 1, 0)
+		formatString: 0
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012356
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012348
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [response_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012349
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012350
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [user_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012351
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [branch_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_entrada
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012352
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [fecha_entrada]
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_salida
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012353
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [fecha_salida]
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_
+		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012354
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [id_]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition in-out = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS(
+				    Marcaje,
+				    "response_id",   FORMAT(Marcaje[branch_id], "0") & "|" & FORMAT(Marcaje[fecha], "YYYY-MM-DD") & "|" & FORMAT(Marcaje[user_id], "0"),
+				    "id_",           Marcaje[survey_response_id],
+				    "name",          RELATED(dim_sucursales[name]),
+				    "user_id",       Marcaje[user_id],
+				    "branch_id",     Marcaje[branch_id],
+				    "fecha_entrada", Marcaje[entrada],
+				    "fecha_salida",  Marcaje[salida]
+				)
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,76 @@
+table 'Mantenimiento tiempos'
+	lineageTag: d0364c6e-f5e4-459f-baeb-4587a0ab15bd
+
+	column alerta_id
+		dataType: string
+		lineageTag: 90e77075-9d58-4043-ab02-3de04cb948e9
+		summarizeBy: none
+		sourceColumn: alerta_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_inicio
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4d655740-6504-4df6-95fb-7812667695b7
+		summarizeBy: none
+		sourceColumn: fecha_inicio
+
+		variation Variación
+			isDefault
+			relationship: b67308cc-6e26-4fe9-a660-1abd3f243de0
+			defaultHierarchy: LocalDateTable_e58c1ec0-1153-4cd9-82be-b95b674ab019.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DiasTranscurridos = ```
+			
+			VAR FechaFin =
+			    CALCULATE(
+			        MAX('Mantenimiento Status'[fecha]),
+			        FILTER(
+			            'Mantenimiento Status',
+			            'Mantenimiento Status'[ID solicitud] = 'Mantenimiento tiempos'[alerta_id] &&
+			            'Mantenimiento Status'[Status] = "Finalizado"
+			        )
+			    )
+			VAR FechaEvaluada =
+			    IF(
+			        ISBLANK(FechaFin),
+			        TODAY(), -- Si no hay una fecha asociada a "Finalizado", usa la fecha actual
+			        FechaFin -- Si existe una fecha asociada a "Finalizado", úsala
+			    )
+			RETURN
+			DATEDIFF('Mantenimiento tiempos'[fecha_inicio], FechaEvaluada, DAY)
+			
+			```
+		formatString: 0
+		lineageTag: 74ff8058-968a-48da-9ff5-f073d4f183b7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodo
+		dataType: string
+		lineageTag: c170d33b-32ca-4d5a-8890-a1f2a4663c60
+		summarizeBy: none
+		sourceColumn: periodo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento tiempos' = m
+		mode: import
+		source =
+				let
+				    Origen = Mantenimiento,
+				    #"Columnas quitadas" = Table.RemoveColumns(Origen,{"branch_id", "name", "response_id", "id", "quiz_response_id", "quiz_id", "user_id", "orden", "kpi", "value", "respuesta", "Ciudad", "Cadena", "Subcadena", "Sucursal", "keyfoto"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Columnas quitadas",{{"fecha", "fecha_inicio"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

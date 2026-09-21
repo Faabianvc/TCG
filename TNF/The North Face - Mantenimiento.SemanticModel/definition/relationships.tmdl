@@ -1,0 +1,222 @@
+relationship e801c41b-6a78-442c-b2d0-9df71ce3e56f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.entrada
+	toColumn: LocalDateTable_a0e49f19-3d57-438a-b949-a1c03d91540a.Date
+
+relationship 4a770e31-793e-41b6-88ff-68f870f3e35e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.salida
+	toColumn: LocalDateTable_3047f0ef-05eb-4f75-9613-7ca4462d8393.Date
+
+relationship 1460af90-b92e-410d-94d6-41585e87ee81
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.fecha
+	toColumn: LocalDateTable_2e799451-365b-4db5-9404-df2296b1f011.Date
+
+relationship d9f7a193-7d21-4cb6-9a93-6f1203bb07be
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Exhibicion.fecha
+	toColumn: LocalDateTable_5a8bf99b-3a52-48f5-a52c-c51792b7fbd7.Date
+
+relationship 96798ca7-459b-4afa-9a2a-1c1b697b9ae6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.ropa_depor_entrada
+	toColumn: LocalDateTable_5e2e5a9c-07ff-4570-b5c7-f562610445aa.Date
+
+relationship 37f93a8e-7724-4eac-ba49-f00d7cdd956c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.ropa_depor_salida
+	toColumn: LocalDateTable_18aff3f1-1ce7-4d0e-98ee-03e7adb123f9.Date
+
+relationship 4bd08298-1e31-421c-b6f0-fbb78490486a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.calzado_depor_entrada
+	toColumn: LocalDateTable_8fd91ffe-4da6-42ba-b4b3-2760826e5c99.Date
+
+relationship 868212f1-21d9-43e1-9f30-4190ca3b6a6e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.calzado_depor_salida
+	toColumn: LocalDateTable_2b51d6f3-c73a-4877-8179-055feff8a659.Date
+
+relationship 1b0a36fd-32a2-4e53-b60c-feec03855226
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.accesorio_depor_entrada
+	toColumn: LocalDateTable_1e515d63-f53a-4623-b569-26ee99f92779.Date
+
+relationship 27634cfa-6d2d-4443-80f3-a482c10b9b9e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.accesorio_depor_salida
+	toColumn: LocalDateTable_3c4b8781-05b8-40ab-8bd7-f4d5cbc81e47.Date
+
+relationship db5b0f73-c93d-431b-9bdf-80be342197bf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.calzado_dama_entrada
+	toColumn: LocalDateTable_4fdf9337-2efc-47eb-983d-ca365bdbe6bd.Date
+
+relationship 3f475ea8-fa40-41ee-b7b3-7583ed1ea8c6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.calzado_dama_salida
+	toColumn: LocalDateTable_ab56e143-2174-4c79-9517-4d98de53eaa3.Date
+
+relationship bd1fd020-13d5-461b-b74e-0e5a0404818c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.calzado_caballero_entrada
+	toColumn: LocalDateTable_2d0ccd18-2160-4fbf-be83-22dc5df97c09.Date
+
+relationship 0555b1d4-ed26-4ce0-b156-d7ea5ef4b546
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.calzado_caballero_salida
+	toColumn: LocalDateTable_ab2f4b60-8015-4ea6-8239-340a79d53373.Date
+
+relationship 32e71a2b-2fa8-43f5-872e-508711ed5438
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.dama_lifestyle_entrada
+	toColumn: LocalDateTable_6a0af671-f2e7-4271-8a39-43aa31868466.Date
+
+relationship b134f49c-2d89-4b8f-a760-db404564b7dd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.dama_lifestyle_salida
+	toColumn: LocalDateTable_2628dad6-2bb5-4408-a780-85732df89fa1.Date
+
+relationship 412227c4-2a2c-440d-894a-c925d19a777d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.caballero_lifestyle_entrada
+	toColumn: LocalDateTable_94bab29f-d31d-442a-840a-189fe60850d7.Date
+
+relationship a0cb13d7-3095-4732-96ff-1de56243ad96
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.caballero_lifestyle_salida
+	toColumn: LocalDateTable_304eaecd-fe8c-44b3-82ff-4fe4328eb832.Date
+
+relationship d790d879-ed43-4287-92aa-c165c8f6a4d1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.kids_entrada
+	toColumn: LocalDateTable_b7703a42-bc88-4d4f-805a-e0648ed2c130.Date
+
+relationship 13e607c9-ca55-40aa-820d-cef6ccd9db1f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.kids_salida
+	toColumn: LocalDateTable_d6f23bda-d774-40ca-a1be-3165b946af1c.Date
+
+relationship fb48e466-c6a7-4303-93b3-4a303984572e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario_Dim.fecha
+	toColumn: LocalDateTable_d30e1a2e-e346-4768-9b74-3314221aff9d.Date
+
+relationship 249305ab-4c2c-4f76-8547-e76e2a0b3158
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cumplimiento.fecha_entrada
+	toColumn: LocalDateTable_05f6d767-777b-4476-b8b9-adeea3bf21c0.Date
+
+relationship bd4dd629-3f1c-46c5-a763-5fa8f820f817
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cumplimiento.fecha_salida
+	toColumn: LocalDateTable_c3aa5f4d-5945-447e-9296-8996b45c92b5.Date
+
+relationship 7c843a41-716a-406f-ab2c-0e2295b3ffa3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cumplimiento.Fecha
+	toColumn: LocalDateTable_8c2f8a7e-6cf7-4311-bfb4-e8066f24ef8a.Date
+
+relationship fba09599-2f40-4c36-8177-2ed1bfdb47f2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: in-out.fecha_entrada
+	toColumn: LocalDateTable_e3e52ea9-c136-48d8-9aab-3c1faf5fc60e.Date
+
+relationship 83c13aed-4356-4a23-9ec8-8347b3689d4a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: in-out.fecha_salida
+	toColumn: LocalDateTable_784f0334-5b98-40bf-8b1a-e931276fd8d2.Date
+
+relationship d7584804-cdaf-4700-a72a-b73af71cdf7f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.almuerzo_entrada
+	toColumn: LocalDateTable_8bec6ab2-efc9-43e6-b834-3977fbcdc999.Date
+
+relationship 50ead1f3-1cbe-4f4d-9d24-2fac0fefbaa5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marcaje.almuerzo_salida
+	toColumn: LocalDateTable_6ac5e1ba-5022-4951-9da7-7e45621f06ed.Date
+
+relationship b82bc329-7a5b-4841-9836-34a2c17700c2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Gap.fecha
+	toColumn: LocalDateTable_b862f3a4-449f-4bb4-a11a-03616218b59f.Date
+
+relationship 0cab368f-684f-40d4-9fdc-a7fd676a0094
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Gap_comentarios.fecha
+	toColumn: LocalDateTable_da99caf6-a5da-4233-af85-5b7bc7ea843d.Date
+
+relationship 51280e1c-263a-e416-1273-416ed69c7acf
+	fromColumn: Gap.response_id
+	toColumn: Gap_comentarios.response_id
+
+relationship 25769aca-c605-47a2-9c08-2461a3179a39
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Mantenimiento.fecha
+	toColumn: LocalDateTable_718b3aa1-a948-40f7-82f8-d876c14aa015.Date
+
+relationship 31df1bac-7f11-4bf1-b310-567ecdc91d4a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Mantenimiento Fotos'.fecha
+	toColumn: LocalDateTable_62fc1bc2-0087-4184-9a37-908501748b9a.Date
+
+relationship bd430ca6-4943-ef1c-a221-81fdcbc4e25a
+	crossFilteringBehavior: bothDirections
+	fromColumn: Mantenimiento.user_id
+	toColumn: Usuarios_Dim.user_id
+
+relationship 863912df-53f9-456f-84c4-6bf34f2e3f04
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Mantenimiento Comentarios'.fecha
+	toColumn: LocalDateTable_0bab705e-f8e8-4c49-bc9f-55a6c4022c87.Date
+
+relationship 59c0f33a-7c5d-43eb-95dd-fd47e6cf6fcf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Mantenimiento Status'.fecha
+	toColumn: LocalDateTable_27a73e3e-2419-41f5-af46-8b6ad4af2a12.Date
+
+relationship e4cdc32f-f954-c1c0-768b-d32bd33e7c23
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Mantenimiento Comentarios'.Personalizado
+	toColumn: Mantenimiento.keyfoto
+
+relationship 1595e77f-cb04-71cd-31c5-125de1bf2a8a
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Mantenimiento Fotos'.Personalizado
+	toColumn: Mantenimiento.keyfoto
+
+relationship b67308cc-6e26-4fe9-a660-1abd3f243de0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Mantenimiento tiempos'.fecha_inicio
+	toColumn: LocalDateTable_e58c1ec0-1153-4cd9-82be-b95b674ab019.Date
+
+relationship c8f04e30-ac36-4f4f-00bc-217fd0db7a2a
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Mantenimiento tiempos'.alerta_id
+	toColumn: Mantenimiento.alerta_id
+
+relationship c2a79cb6-6568-4357-83f7-e67e2ed5c57e
+	fromColumn: Mantenimiento.branch_id
+	toColumn: Sucursales.branch_id
+
+relationship 519875df-ce8d-de7d-b9fd-bca13871a214
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: RespuestasRecientes.'ID solicitud'
+	toColumn: Mantenimiento.alerta_id
+
+relationship b2fb511a-e96a-4247-d546-7376695bf9ca
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Mantenimiento Status'.'ID solicitud'
+	toColumn: RespuestasRecientes.'ID solicitud'
+
+relationship 4017f4c0-0ba5-431f-850b-e8caa84873e3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: RespuestasRecientes.fecha
+	toColumn: LocalDateTable_fe0834bb-7cc5-4c65-9df0-4d713299539c.Date
+

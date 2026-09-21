@@ -304,20 +304,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "dd584fbe03c0b0860856",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_sucursales"
-              }
-            },
-            "Property": "chain_sub_category"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

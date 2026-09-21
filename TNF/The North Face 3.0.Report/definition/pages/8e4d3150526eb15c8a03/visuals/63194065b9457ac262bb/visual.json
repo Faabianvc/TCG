@@ -4,10 +4,10 @@
   "position": {
     "x": 1921.083977627982,
     "y": 237.52032400077823,
-    "z": 26006,
+    "z": 15000,
     "height": 235.72377158034527,
     "width": 235.72377158034527,
-    "tabOrder": 23007
+    "tabOrder": 13000
   },
   "visual": {
     "visualType": "PBI_CV_81BBAD08_3ADD_466C_8819_9FACA21A6B8F",
@@ -89,23 +89,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "5f1ec3cbe1daa9db905a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "1Medidas"
-              }
-            },
-            "Property": "fotourl Marcaje"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 401.14588360365,
-        "y": 3351.3453566887215
+        "x": 1557.1907717947479,
+        "y": 38279.81140751089
       },
       "nodes": [
         {
           "location": {
-            "x": 2371.1370366078281,
-            "y": 3696.4315339220802
+            "x": 2726.5669117365942,
+            "y": 38022.794907116142
           },
           "nodeIndex": "Actualización",
           "nodeLineageTag": "73f69459-55d2-4021-a84e-e15e3b7fbeec",
@@ -19,12 +19,12 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 13
         },
         {
           "location": {
             "x": 0,
-            "y": 4597.4021082239915
+            "y": 39085.975088859363
           },
           "nodeIndex": "dim_clasificacion",
           "nodeLineageTag": "d95ec8dd-bf35-46a8-838a-7bf0e2163923",
@@ -32,13 +32,13 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 8,
+          "zIndex": 14,
           "expandedHeight": 128
         },
         {
           "location": {
-            "x": 766.75190601980444,
-            "y": 3323.5901294973128
+            "x": 774.30026900192934,
+            "y": 37937.465935635963
           },
           "nodeIndex": "dim_dates",
           "nodeLineageTag": "7428518c-3f37-42ec-9e8e-f5059a86fc6b",
@@ -46,13 +46,13 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 18,
+          "zIndex": 22,
           "expandedHeight": 300
         },
         {
           "location": {
-            "x": 759.83443559250611,
-            "y": 4106.80114587897
+            "x": 749.26672741753123,
+            "y": 38759.928439524665
           },
           "nodeIndex": "dim_encuestas",
           "nodeLineageTag": "e2d2719c-1be7-4023-8b9d-2144719e707a",
@@ -60,13 +60,13 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 21,
+          "zIndex": 25,
           "expandedHeight": 253.2259970331454
         },
         {
           "location": {
-            "x": 766.67988173866422,
-            "y": 4436.3288429799813
+            "x": 741.01544759943954,
+            "y": 39104.552862589931
           },
           "nodeIndex": "dim_kpi",
           "nodeLineageTag": "f877887c-2c8f-488d-85b6-13dfbf221c90",
@@ -74,13 +74,13 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 23,
+          "zIndex": 27,
           "expandedHeight": 200
         },
         {
           "location": {
-            "x": 751.14021654639873,
-            "y": 3924.333380649553
+            "x": 746.6111987571237,
+            "y": 38545.757549770329
           },
           "nodeIndex": "dim_preguntas",
           "nodeLineageTag": "456648a1-48fc-41d1-8832-b5f14232bae7",
@@ -88,40 +88,27 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 9,
+          "zIndex": 15,
           "expandedHeight": 296
         },
         {
           "location": {
-            "x": 451.51434814464164,
-            "y": 4122.79460639231
-          },
-          "nodeIndex": "dim_preguntas_orden",
-          "nodeLineageTag": "3ac4c28e-a8b9-48bb-9df9-d50d8acbf9e0",
-          "size": {
-            "height": 128,
-            "width": 234
-          },
-          "zIndex": 10
-        },
-        {
-          "location": {
-            "x": 750.2348451264761,
-            "y": 4257.2968273121405
+            "x": 1819.2399846330622,
+            "y": 39191.505040944285
           },
           "nodeIndex": "dim_sucursales",
           "nodeLineageTag": "014481eb-007f-4b40-be44-bab5496c1a0c",
           "size": {
-            "height": 128,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 11,
+          "zIndex": 16,
           "expandedHeight": 300
         },
         {
           "location": {
-            "x": 763.51823354177645,
-            "y": 3729.0074214425113
+            "x": 752.95052536680146,
+            "y": 38398.741113648888
           },
           "nodeIndex": "dim_target",
           "nodeLineageTag": "888d21cc-8de8-47df-a66b-65580704c715",
@@ -129,13 +116,13 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 20,
+          "zIndex": 24,
           "expandedHeight": 200
         },
         {
           "location": {
-            "x": 772.1891445385703,
-            "y": 3502.4144350128472
+            "x": 2013.9047538265102,
+            "y": 38174.479063393745
           },
           "nodeIndex": "dim_usuarios",
           "nodeLineageTag": "30c7a5c6-7539-45cb-a457-55ac9543d3f0",
@@ -143,12 +130,12 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 12
+          "zIndex": 17
         },
         {
           "location": {
             "x": 17.169572037860746,
-            "y": 3666.7392793577642
+            "y": 38155.312259993138
           },
           "nodeIndex": "fct_fotos",
           "nodeLineageTag": "e07619eb-edac-4f08-8810-5880f6fbfbe8",
@@ -156,13 +143,13 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 16,
+          "zIndex": 20,
           "expandedHeight": 272
         },
         {
           "location": {
             "x": 175.39114568061359,
-            "y": 3923.9327465038364
+            "y": 38412.505727139207
           },
           "nodeIndex": "fct_respuestas",
           "nodeLineageTag": "f1b504c1-6218-4850-9ee8-061ada214d8a",
@@ -170,26 +157,12 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 19
-        },
-        {
-          "location": {
-            "x": 203.81379978149721,
-            "y": 3453.2036196162549
-          },
-          "nodeIndex": "fct_videos",
-          "nodeLineageTag": "813f1381-94ad-4e96-aca0-596f5ad3458c",
-          "size": {
-            "height": 104,
-            "width": 234
-          },
-          "zIndex": 15,
-          "expandedHeight": 300
+          "zIndex": 23
         },
         {
           "location": {
             "x": 0,
-            "y": 4278.9207306052358
+            "y": 38767.493711240611
           },
           "nodeIndex": "Perfect Stores",
           "nodeLineageTag": "decd659b-766f-42a1-913b-c4c2e306bf21",
@@ -197,38 +170,40 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 13,
+          "zIndex": 18,
           "expandedHeight": 200
         },
         {
           "location": {
-            "x": 759.77149979207115,
-            "y": 4616.6736636531086
+            "x": 744.67477382782124,
+            "y": 39257.723576527409
           },
           "nodeIndex": "dimMedicion",
           "nodeLineageTag": "9d66f7a8-6afd-4410-acb6-5fec3739482c",
           "size": {
-            "height": 193.267419514347,
+            "height": 104,
             "width": 234
           },
-          "zIndex": 22
+          "zIndex": 26,
+          "expandedHeight": 193.267419514347
         },
         {
           "location": {
-            "x": 2370.3527779099081,
-            "y": 3468.1639853276765
+            "x": 2763.9496194954545,
+            "y": 37889.944774663687
           },
           "nodeIndex": "1Medidas",
+          "nodeLineageTag": "9f6d79bb-4138-4e81-bc12-a7f250094933",
           "size": {
             "height": 104,
             "width": 234
           },
-          "zIndex": 14
+          "zIndex": 19
         },
         {
           "location": {
             "x": 385.65831806256756,
-            "y": 4832.1934124870531
+            "y": 39320.766393122431
           },
           "nodeIndex": "fct_comentarios",
           "nodeLineageTag": "f50c20e9-6396-4aca-a5f6-cd4318277b21",
@@ -236,27 +211,13 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 17,
-          "expandedHeight": 300
-        },
-        {
-          "location": {
-            "x": 99.098092678738311,
-            "y": 3112.3214683806477
-          },
-          "nodeIndex": "fct_pbi_comments",
-          "nodeLineageTag": "024b3442-c627-45bc-903a-01c1bc146a18",
-          "size": {
-            "height": 104,
-            "width": 234
-          },
-          "zIndex": 26,
+          "zIndex": 21,
           "expandedHeight": 300
         },
         {
           "location": {
             "x": 1632.0830952157069,
-            "y": 3331.4256869116875
+            "y": 37819.998667547065
           },
           "nodeIndex": "fct_asignaciones",
           "nodeLineageTag": "5e136de1-bab0-460a-93b8-afa931157719",
@@ -264,15 +225,68 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 24
+          "zIndex": 28
         },
         {
           "location": {
             "x": 1161.9945591257519,
-            "y": 3319.2010086626524
+            "y": 37807.773989298024
           },
           "nodeIndex": "dimFotosUsuario",
           "nodeLineageTag": "d98b2bc6-093a-4a57-a3bf-ae03918f6136",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 1692.4913544682163,
+            "y": 38395.48113168501
+          },
+          "nodeIndex": "Marcaje",
+          "nodeLineageTag": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1220.5544085557128,
+            "y": 39264.940531516921
+          },
+          "nodeIndex": "Cumplimiento",
+          "nodeLineageTag": "c7e3a1f2-4b8d-4e9a-a1c3-d2f5e6a7b8c9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 2026.2598487826208,
+            "y": 39377.077414869149
+          },
+          "nodeIndex": "in-out",
+          "nodeLineageTag": "d4e5f6a7-b8c9-0123-defa-456789012345",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 1471.4355721447168,
+            "y": 38910.841547755466
+          },
+          "nodeIndex": "Calendario_Dim",
+          "nodeLineageTag": "e5f6a7b8-c9d0-1234-efab-567890123456",
           "size": {
             "height": 200,
             "width": 234
@@ -281,24 +295,11 @@
         },
         {
           "location": {
-            "x": 1564.5389006931005,
-            "y": 3781.9463997993989
+            "x": 1220.0641828847774,
+            "y": 38353.665652504344
           },
-          "nodeIndex": "fct_antes",
-          "nodeLineageTag": "d4e7e63e-b7ca-40a2-a8f8-698bb06b503d",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 25
-        },
-        {
-          "location": {
-            "x": 1975.7903952964712,
-            "y": 4155.3087310047067
-          },
-          "nodeIndex": "fct_despues",
-          "nodeLineageTag": "05a92689-25ef-420b-89b0-55ccf8232e36",
+          "nodeIndex": "Exhibicion",
+          "nodeLineageTag": "f6a7b8c9-d0e1-2345-fabc-678901234567",
           "size": {
             "height": 300,
             "width": 234
@@ -307,24 +308,24 @@
         },
         {
           "location": {
-            "x": 346.09275430424691,
-            "y": 4338.2430286003992
+            "x": 2298.7825697589838,
+            "y": 38846.17926770472
           },
-          "nodeIndex": "preguntas_ambas_aud",
-          "nodeLineageTag": "5e2ce128-a928-4cca-8ab5-cd237e0c1b56",
+          "nodeIndex": "Gap",
+          "nodeLineageTag": "a1b2c3d4-e5f6-7890-abcd-ef1234560001",
           "size": {
-            "height": 200,
+            "height": 300,
             "width": 234
           },
           "zIndex": 5
         },
         {
           "location": {
-            "x": 1967.1774443850479,
-            "y": 3786.1947990233712
+            "x": 2243.2519784468445,
+            "y": 38434.143549916393
           },
-          "nodeIndex": "fct_review",
-          "nodeLineageTag": "be32e4ea-7477-4a0b-996a-3a700e8201c1",
+          "nodeIndex": "Gap_comentarios",
+          "nodeLineageTag": "b2c3d4e5-f6a7-8901-bcde-f12345670001",
           "size": {
             "height": 300,
             "width": 234
@@ -333,33 +334,85 @@
         },
         {
           "location": {
-            "x": 455.31316916667,
-            "y": 3658.0994209329965
+            "x": 3196.8485050613622,
+            "y": 38748.730296543006
           },
-          "nodeIndex": "fct_comentario_general_ia",
-          "nodeLineageTag": "728e0abd-acac-4e73-b545-aa1c0380196c",
-          "size": {
-            "height": 176,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 1490.8197956818833,
-            "y": 4319.0653065143415
-          },
-          "nodeIndex": "Marcaje",
-          "nodeLineageTag": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "nodeIndex": "Mantenimiento",
+          "nodeLineageTag": "c1d2e3f4-a5b6-7890-cdef-123456789001",
           "size": {
             "height": 300,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 3376.3942152474747,
+            "y": 38303.814911076268
+          },
+          "nodeIndex": "Mantenimiento Comentarios",
+          "nodeLineageTag": "e3f4a5b6-c7d8-9012-efab-345678900001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 30
+        },
+        {
+          "location": {
+            "x": 2862.6626800653462,
+            "y": 38302.890240508896
+          },
+          "nodeIndex": "Mantenimiento Fotos",
+          "nodeLineageTag": "d2e3f4a5-b6c7-8901-defa-234567890001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 29
+        },
+        {
+          "location": {
+            "x": 2848.2920369931289,
+            "y": 39337.877896240665
+          },
+          "nodeIndex": "Mantenimiento Status",
+          "nodeLineageTag": "f4a5b6c7-d8e9-0123-fabc-456789000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 2729.3674166794863,
+            "y": 38761.649117467241
+          },
+          "nodeIndex": "Mantenimiento tiempos",
+          "nodeLineageTag": "a5b6c7d8-e9f0-1234-abcd-567890100001",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 2772.8833255382306,
+            "y": 39020.377474138804
+          },
+          "nodeIndex": "RespuestasRecientes",
+          "nodeLineageTag": "b6c7d8e9-f0a1-2345-bcde-678901200001",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 10
         }
       ],
       "name": "Todas las tablas",
-      "zoomValue": 59.080750840800491,
+      "zoomValue": 59.080750840800931,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

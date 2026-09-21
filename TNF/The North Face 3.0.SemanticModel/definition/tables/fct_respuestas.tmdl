@@ -5,7 +5,7 @@ table fct_respuestas
 		dataType: int64
 		formatString: 0
 		lineageTag: c6e8e9b6-ce6e-4167-82d9-8d8be6dd2dc2
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: survey_response_id
 
 		annotation SummarizationSetBy = Automatic

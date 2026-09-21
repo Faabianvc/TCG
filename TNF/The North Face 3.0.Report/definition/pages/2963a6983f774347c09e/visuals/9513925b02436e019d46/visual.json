@@ -328,20 +328,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "db9dc09414d49232404b",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_sucursales"
-              }
-            },
-            "Property": "city"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

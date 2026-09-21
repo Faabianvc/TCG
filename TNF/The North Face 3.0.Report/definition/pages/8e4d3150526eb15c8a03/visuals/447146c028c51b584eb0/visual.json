@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "447146c028c51b584eb0",
   "position": {
-    "x": 483.10030395136778,
-    "y": 18,
-    "z": 10000,
+    "x": 338,
+    "y": 38,
+    "z": 5000,
     "height": 85,
     "width": 170,
-    "tabOrder": 8000
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "slicer",
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_dates"
+                      "Entity": "Calendario_Dim"
                     }
                   },
-                  "Property": "periodo"
+                  "Property": "añomes"
                 }
               },
-              "queryRef": "dim_dates.periodo",
+              "queryRef": "Calendario_Dim.añomes",
               "nativeQueryRef": "Periodo",
               "active": true,
               "displayName": "Periodo"
@@ -217,18 +217,56 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "df3c25f1eae7d6e7737b",
+        "name": "cb26516570b9293619dd",
         "field": {
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "dim_dates"
+                "Entity": "Calendario_Dim"
               }
             },
-            "Property": "periodo"
+            "Property": "añomes"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "c",
+              "Entity": "Calendario_Dim",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "c"
+                            }
+                          },
+                          "Property": "añomes"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
       }
     ]
   }

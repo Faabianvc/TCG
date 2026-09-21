@@ -1,0 +1,65 @@
+table Calendario_Dim
+	lineageTag: e5f6a7b8-c9d0-1234-efab-567890123456
+
+	column response_id
+		lineageTag: e5f6a7b8-c9d0-1234-efab-567890123457
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [response_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column añomes
+		lineageTag: e5f6a7b8-c9d0-1234-efab-567890123458
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [añomes]
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: e5f6a7b8-c9d0-1234-efab-567890123459
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [fecha]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column departamento
+		lineageTag: e5f6a7b8-c9d0-1234-efab-567890123460
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [departamento]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semana
+		lineageTag: e5f6a7b8-c9d0-1234-efab-567890123461
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Semana]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendario_Dim = calculated
+		mode: import
+		source =
+				DISTINCT(
+				    SELECTCOLUMNS(
+				        Cumplimiento,
+				        "response_id",  Cumplimiento[response_id],
+				        "añomes",       FORMAT(Cumplimiento[fecha], "YYYY-MM"),
+				        "fecha",        Cumplimiento[fecha],
+				        "departamento", Cumplimiento[departamento],
+				        "Semana",       WEEKNUM(Cumplimiento[fecha], 2)
+				    )
+				)
+
+	annotation PBI_ResultType = Table
+

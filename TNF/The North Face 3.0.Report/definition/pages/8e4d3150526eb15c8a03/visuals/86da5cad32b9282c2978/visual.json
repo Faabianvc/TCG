@@ -4,10 +4,10 @@
   "position": {
     "x": 47.492401215805472,
     "y": 273.5562310030395,
-    "z": 26004,
+    "z": 13000,
     "height": 602.20364741641345,
     "width": 1789.5136778115502,
-    "tabOrder": 23005
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "tableEx",
@@ -104180,20 +104180,6 @@
               }
             },
             "Property": "sucursal"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "65a7c8c42be029d84021",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Marcaje"
-              }
-            },
-            "Property": "Usuario"
           }
         },
         "type": "Categorical"

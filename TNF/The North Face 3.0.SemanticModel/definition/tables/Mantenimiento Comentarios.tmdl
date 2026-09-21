@@ -1,0 +1,153 @@
+table 'Mantenimiento Comentarios'
+	lineageTag: e3f4a5b6-c7d8-9012-efab-345678900001
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900002
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900003
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900004
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column response_id
+		dataType: string
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900005
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900006
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900007
+		summarizeBy: sum
+		sourceColumn: survey_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900008
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900009
+		summarizeBy: sum
+		sourceColumn: question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: string
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900010
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900011
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column respuesta
+		dataType: string
+		lineageTag: e3f4a5b6-c7d8-9012-efab-345678900012
+		summarizeBy: none
+		sourceColumn: respuesta
+
+		annotation SummarizationSetBy = Automatic
+
+	column personalizado
+		dataType: string
+		lineageTag: 507105db-43ac-4dd9-b477-fc86309a5c56
+		summarizeBy: none
+		sourceColumn: personalizado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento Comentarios' = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				        SELECT DISTINCT
+				            a.branch_id,
+				            b.name,
+				            CAST(a.response_started_at AS DATE)                                                             AS fecha,
+				            CAST(a.branch_id AS VARCHAR) || '|' || CAST(a.response_started_at AS DATE) || '|' || CAST(a.survey_response_id AS VARCHAR) AS response_id,
+				            a.survey_response_id                                                                            AS id,
+				            a.survey_id,
+				            a.user_id,
+				            a.question_id,
+				            '1'                                                                                             AS orden,
+				            'Comentario'                                                                                    AS kpi,
+				            a.answer                                                                                        AS respuesta,
+				            CAST(a.branch_id AS VARCHAR) || '|' || CAST(a.response_started_at AS DATE) || '|' || CAST(a.survey_response_id AS VARCHAR) || '|1' AS Personalizado
+				        FROM tcg_l1_v3.answers a
+				        JOIN northface.vw_branches b ON b.id = a.branch_id
+				        WHERE a.survey_id   = 1615
+				          AND a.question_id = 52440
+				          AND a.answer IS NOT NULL
+				          AND a.response_is_approved = 1
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha",       type date},
+				        {"branch_id",   Int64.Type},
+				        {"user_id",     Int64.Type},
+				        {"id",          Int64.Type},
+				        {"survey_id",   Int64.Type},
+				        {"question_id", Int64.Type}
+				    })
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

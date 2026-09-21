@@ -1,0 +1,40 @@
+expression Salida =
+		let
+		    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)qr.branch_id,#(lf)br.name,#(lf)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id  as response_id,#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id,#(lf)CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at) as salida,#(lf)qr.quiz_id,#(lf)qr.user_id#(lf)from tcg_scout_v2.quiz_responses qr #(lf)LEFT JOIN tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id =qr.id #(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.question_choices qc on qc.question_id ||qc.value = qra.question_id ||qra.value #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)where qr.quiz_id in (6262,6263)#(lf)and qr.approved is not false#(lf)and qr.deleted_at is null#(lf)order by qr.id desc", null, [EnableFolding=true])
+		in
+		    Origen
+	lineageTag: 0028f98c-5938-44ac-a587-8e6ffd29e8a7
+	queryGroup: Marcaje
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
+expression 'Exhibicion antiguo' =
+		let
+		    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select#(lf)#(tab)left(CONVERT_TIMEZONE('GMT','GMT+5',qr.started_at),7) as añomes,#(lf)#(tab)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+5',qr.started_at)) as response_id,#(lf)#(tab)qr.branch_id||'|'||left(CONVERT_TIMEZONE('GMT','GMT+5',qr.started_at),7) as response_id_2,#(lf)#(tab)qr.branch_id,#(lf)#(tab)trunc(CONVERT_TIMEZONE('GMT','GMT+5',qr.started_at)) as fecha,#(lf)#(tab)initcap(c.""name"") as categoria,#(lf)#(tab)'SOD' as kpi,#(lf)#(tab)case#(lf)#(tab)#(tab)when b.province is null then initcap(b.zone)#(lf)#(tab)#(tab)else initcap(b.province)#(lf)#(tab)end as ciudad,#(lf)#(tab)initcap(b.chain_name) as cadena,#(lf)#(tab)initcap(b.chain_store) as subcadena,#(lf)#(tab)initcap(b.""name"") as sucursal,#(lf)#(tab)initcap(u.""name"") as usuario,#(lf)#(tab)initcap(b2.""name"") as marca,#(lf)    case#(lf)    #(tab)when q.title like '%Captura foto del espacio como lo encontraste%' then 'antes_impl'#(lf)    #(tab)when q.title like '%Captura foto del espacio implementado%' then 'despues_impl' #(lf)    #(tab)else null#(lf)    end as pregunta_corta,#(lf)    q.depends_on_value, #(lf)    case#(lf)#(tab)when q.""type"" = 'photo' then 'https://tcgscout.com/storage/'||qra.value#(lf)#(tab)else qra.value end as value#(lf)from tcg_scout_v2.quiz_responses qr #(lf)#(tab)left join tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id = qr.id #(lf)#(tab)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)#(tab)left join tcg_scout_v2.products p on p.id = qra.product_id #(lf)#(tab)left join tcg_scout_v2.branches b on b.id = qr.branch_id #(lf)#(tab)left join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id #(lf)#(tab)left join tcg_scout_v2.categories c on c.id = bq.category_id #(lf)#(tab)left join tcg_scout_v2.brands b2 on b2.id = bq.brand_id #(lf)#(tab)left join tcg_scout_v2.users u on u.id = qr.user_id #(lf)#(tab)left join tcg_scout_v2.question_choices qc on qc.question_id ||qc.value = q.id ||qra.value #(lf)where qr.quiz_id in (6264, 6265)#(lf)#(tab)and qr.deleted_at is null#(lf)#(tab)and qr.approved is not false#(lf)#(tab)and qra.deleted_at is null#(lf)#(tab)and q.deleted_at is null #(lf)#(tab)and b.deleted_at is null#(lf)#(tab)and q.""type"" = 'photo' #(lf)#(tab)and (qr.approved is null or qr.approved = 1)", null, [EnableFolding=true]),
+		    #"Columna dinamizada" = Table.Pivot(Origen, List.Distinct(Origen[pregunta_corta]), "pregunta_corta", "value"),
+		    #"Valor reemplazado" = Table.ReplaceValue(#"Columna dinamizada","Calzado Calleros Lifestyle","Calzado Caballeros",Replacer.ReplaceText,{"marca"}),
+		    #"Valor reemplazado1" = Table.ReplaceValue(#"Valor reemplazado","Calzado Damas Lifestyle","Calzado Damas",Replacer.ReplaceText,{"marca"}),
+		    #"Texto en minúsculas" = Table.TransformColumns(#"Valor reemplazado1",{{"marca", Text.Upper, type text}})
+		in
+		    #"Texto en minúsculas"
+	lineageTag: 99b88cf6-1b81-4267-91fe-532f8ae15ff0
+	queryGroup: Exhibiciones
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
+expression Tabla =
+		let
+		    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("PYw7CoAwDECvEjI7+DmC4CjuxSHEiEJtRFPB2xsUnN8nBCyxwI6iEUwC+6FTZlMci4CVk0GZgOaYJfH6KhxXSSbnq9Su9AoL3X8KKcv1DRqnrW672FezJj+c7DNTH4wP", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [qc_id = _t, qc_value = _t]),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"qc_id", Int64.Type}, {"qc_value", type text}})
+		in
+		    #"Tipo cambiado"
+	lineageTag: 9667a94d-5202-44b4-aaa6-9d19141cc4f6
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

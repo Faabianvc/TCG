@@ -1,0 +1,167 @@
+table 'Mantenimiento Status'
+	lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000001
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000002
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000003
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000004
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column response_id
+		dataType: string
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000005
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000006
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column survey_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000007
+		summarizeBy: sum
+		sourceColumn: survey_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000008
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000009
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column respuesta
+		dataType: string
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000010
+		summarizeBy: none
+		sourceColumn: respuesta
+
+		annotation SummarizationSetBy = Automatic
+
+	column response_id_2
+		dataType: int64
+		formatString: 0
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000013
+		summarizeBy: sum
+		sourceColumn: response_id_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID solicitud' = ""
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000014
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status = ""
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000015
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Foto = ""
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000016
+		dataCategory: WebUrl
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column mantenimiento = ""
+		lineageTag: f4a5b6c7-d8e9-0123-fabc-456789000017
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento Status' = m
+		mode: import
+		queryGroup: Fcts
+		source =
+				let
+				    /*
+				      survey_id = 1616 (Status Mantenimiento) — sin datos por ahora.
+				      La estructura replica el pivot del v2:
+				      kpi IN ('ID solicitud', 'mantenimiento', 'Status', 'Foto')
+				      pivotados como columnas.
+				    */
+				    Origen = Value.NativeQuery(
+				        AmazonRedshift.Database("redshift.infra.tcgscout.com", "prod"),
+				        "
+				        SELECT DISTINCT
+				            a.branch_id,
+				            b.name,
+				            CAST(a.response_started_at AS DATE)                                                             AS fecha,
+				            CAST(a.branch_id AS VARCHAR) || '|' || CAST(a.response_started_at AS DATE) || '|' || CAST(a.survey_response_id AS VARCHAR) AS response_id,
+				            a.survey_response_id                                                                            AS id,
+				            a.survey_response_id                                                                            AS response_id_2,
+				            a.survey_id,
+				            a.user_id,
+				            a.task_category_name                                                                            AS kpi,
+				            a.answer                                                                                        AS respuesta
+				        FROM tcg_l1_v3.answers a
+				        JOIN northface.vw_branches b ON b.id = a.branch_id
+				        WHERE a.survey_id = 1616
+				          AND a.response_is_approved = 1
+				          AND a.answer IS NOT NULL
+				        ",
+				        null,
+				        [EnableFolding = false]
+				    ),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen, {
+				        {"fecha",        type date},
+				        {"branch_id",    Int64.Type},
+				        {"user_id",      Int64.Type},
+				        {"id",           Int64.Type},
+				        {"survey_id",    Int64.Type},
+				        {"response_id_2", Int64.Type}
+				    })
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

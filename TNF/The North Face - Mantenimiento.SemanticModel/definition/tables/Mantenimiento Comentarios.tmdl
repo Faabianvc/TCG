@@ -1,0 +1,142 @@
+table 'Mantenimiento Comentarios'
+	lineageTag: b5de27f0-d64f-4e12-9b2f-cc65d4cf5f68
+
+	column branch_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ac998556-690e-448f-a399-4231b13d3fe1
+		summarizeBy: sum
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 1b40584c-2fb6-4d62-8009-35299eed1f97
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a68bf515-6da5-4ac6-b7c3-e72a9e3149d6
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: 863912df-53f9-456f-84c4-6bf34f2e3f04
+			defaultHierarchy: LocalDateTable_0bab705e-f8e8-4c49-bc9f-55a6c4022c87.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column response_id
+		dataType: string
+		lineageTag: 96be0c03-d5d6-4462-ac16-fcc72a27099f
+		summarizeBy: none
+		sourceColumn: response_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 45fed634-c808-49d0-9388-ea757538394a
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quiz_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e18f49a6-6065-4835-b1ff-8cd67ea4ccf2
+		summarizeBy: sum
+		sourceColumn: quiz_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 15c3d23f-d892-49f6-8e19-88d8d7671651
+		summarizeBy: sum
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: cc133460-4d21-4ccd-900f-b1ce99bdf0b5
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column question_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ee0dbb81-46ef-4818-8e2f-13ba13214e81
+		summarizeBy: sum
+		sourceColumn: question_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: string
+		lineageTag: 53210797-d41d-4f8b-bc46-734bf27a9c3a
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: a0a34f07-74ae-4de4-aaa4-76f3c77ab4ba
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column respuesta
+		dataType: string
+		lineageTag: e170b4b3-91c2-4301-a591-1d03deb5285b
+		summarizeBy: none
+		sourceColumn: respuesta
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: 034cd517-893f-4793-8911-a0fe0c7b8af1
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Personalizado
+		dataType: string
+		lineageTag: ecec18a9-7f78-4ac1-bbc5-c9c30bb5404e
+		summarizeBy: none
+		sourceColumn: Personalizado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Mantenimiento Comentarios' = m
+		mode: import
+		source =
+				let
+				    Origen = Value.NativeQuery(AmazonRedshift.Database("redshift.infra.tcgscout.com","prod"), "select distinct#(lf)qr.branch_id,#(lf)br.name,#(lf)trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)) as fecha,#(lf)qr.branch_id||'|'||trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at))||'|'||br.id||'|'||qr.user_id  as response_id,#(lf)cast(qr.branch_id||replace(trunc(CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at)),'-','')||qr.user_id as bigint) as id,#(lf)-- CONVERT_TIMEZONE('GMT','GMT+6',qr.started_at) as salida,#(lf)qr.quiz_id,#(lf)qr.user_id,#(lf)q.title,#(lf)q.id as question_id,#(lf)case #(lf)#(tab)when q.id in (304917,304922) then 1#(lf)#(tab)when q.id in (304918,304923) then 2#(lf)#(tab)when q.id in (304919,304924) then 3#(lf)#(tab)when q.id in (304920,304925) then 4#(lf)#(tab)when q.id in (304921,304926) then 5#(lf)end as orden,#(lf)case #(lf)#(tab)when q.title ilike '%detalle%' then 'Comentario'#(lf)#(tab)else qra.value#(lf)end as kpi,#(lf)qra.value as respuesta,#(lf)q.""type""#(lf)from tcg_scout_v2.quiz_responses qr #(lf)LEFT JOIN tcg_scout_v2.quiz_response_answers qra on qra.quiz_response_id =qr.id #(lf)left join tcg_scout_v2.questions q on q.id = qra.question_id #(lf)left join tcg_scout_v2.question_choices qc on qc.question_id ||qc.value = qra.question_id ||qra.value #(lf)join tcg_scout_v2.branch_quiz bq on bq.id = qr.branch_quiz_id#(lf)join tcg_scout_v2.brands br on br.id = bq.brand_id#(lf)where qr.quiz_id in (6371, 6381)#(lf)and qr.approved is not false#(lf)and qr.deleted_at is null#(lf)and q.id in (304922,304923,304924,304925,304926,304917,304918,304919,304920)#(lf)order by qr.id desc", null, [EnableFolding=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"orden", type text}}),
+				    #"Personalizada agregada" = Table.AddColumn(#"Tipo cambiado", "Personalizado", each [response_id]&"|"&[orden])
+				in
+				    #"Personalizada agregada"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
