@@ -74,7 +74,6 @@ relationship 46982055-c1c0-bd30-c84b-f4fedbb5329a
 	toColumn: fct_respuestas.key_foto
 
 relationship 972e3698-7ddb-273a-8a51-2a39ce0e6502
-	crossFilteringBehavior: bothDirections
 	fromColumn: Marcaje.branch_id
 	toColumn: dim_sucursales.id
 
@@ -93,10 +92,6 @@ relationship 02b8aa08-8a48-b382-3f11-105a444387d5
 relationship 71b5f4a8-8ddb-c431-1eb6-415e40229002
 	fromColumn: in-out.branch_id
 	toColumn: dim_sucursales.id
-
-relationship 99fb5ea1-32d9-3072-b1f8-ffb1c1233b8c
-	fromColumn: Marcaje.response_id
-	toColumn: Calendario_Dim.response_id
 
 relationship c939ec51-065c-6754-755a-d27c3f3da48e
 	fromColumn: in-out.response_id
@@ -167,4 +162,8 @@ relationship 4af7c202-827a-6256-ce7f-644a3e543160
 	fromCardinality: one
 	fromColumn: 'Mantenimiento Status'.'ID solicitud'
 	toColumn: RespuestasRecientes.'ID solicitud'
+
+relationship f0a1b2c3-d4e5-4678-9abc-de0123456789
+	fromColumn: Marcaje.fecha
+	toColumn: dim_dates.date
 

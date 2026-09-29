@@ -104183,6 +104183,20 @@
           }
         },
         "type": "Categorical"
+      },
+      {
+        "name": "a14b2830bb265cbb047c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Marcaje"
+              }
+            },
+            "Property": "Usuario"
+          }
+        },
+        "type": "Categorical"
       }
     ],
     "filterSortOrder": "Custom"

@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Calendario_Dim"
+                      "Entity": "dim_dates"
                     }
                   },
                   "Property": "fecha"
                 }
               },
-              "queryRef": "Calendario_Dim.fecha",
+              "queryRef": "dim_dates.fecha",
               "nativeQueryRef": "Fecha",
               "active": true,
               "displayName": "Fecha"
@@ -41,7 +41,7 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Calendario_Dim"
+                    "Entity": "dim_dates"
                   }
                 },
                 "Property": "fecha"
@@ -235,7 +235,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Calendario_Dim"
+                "Entity": "dim_dates"
               }
             },
             "Property": "fecha"
@@ -247,7 +247,7 @@
           "From": [
             {
               "Name": "c",
-              "Entity": "Calendario_Dim",
+              "Entity": "dim_dates",
               "Type": 0
             }
           ],
@@ -280,6 +280,59 @@
             }
           ]
         }
+      },
+      {
+        "name": "3aa3a0d0492be212a025",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "1Medidas"
+              }
+            },
+            "Property": "fechacondatos"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "1",
+              "Entity": "1Medidas",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "1"
+                            }
+                          },
+                          "Property": "fechacondatos"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
       }
     ]
   }

@@ -1090,5 +1090,252 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4ba4a0e415b861083561",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_sucursales"
+              }
+            },
+            "Property": "chain"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3450607b0b8904820317",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_sucursales"
+              }
+            },
+            "Property": "sucursal"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "d741065196275ab7aaa9",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_sucursales"
+                  }
+                },
+                "Property": "id"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "dcba2f6db67ad9c54de9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "1Medidas"
+              }
+            },
+            "Property": "% Avance"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1b84c1259d0594e5be77",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Marcaje"
+              }
+            },
+            "Property": "Tareas"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "41239aa1a409d176ba37",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tareas2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5c833986761aecee6e49",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "in-out"
+              }
+            },
+            "Property": "Tarea 1 (Check in)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ced83cd6606b5d316062",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 2 Caballeros Lifestyle"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1e68723cce94c57c6499",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 3 Calzado Caballeros"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4f99178cc348de1007de",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 4 Damas Lifestyle"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c003c182bdb78c03611e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 5 Calzado damas"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "eb9f74880dead29b87b0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 6 Ropa deportiva"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "37916f710d99e1098297",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 7 Calzado deportivo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "91f98b2be8a4d1a603aa",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 8 Kids"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "748dc6721bd8dd00a396",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 9 Accesorios deportivos"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5b08df00406088a46ba9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "in-out"
+              }
+            },
+            "Property": "Tarea 10 (Check Out)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "76bd63b0d88aa283557e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Cumplimiento"
+              }
+            },
+            "Property": "Tarea 11 Almuerzo"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

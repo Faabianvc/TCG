@@ -757,7 +757,7 @@ table 1Medidas
 			return IF(ISBLANK(foto),vacio,foto)
 		lineageTag: 7df48fef-2de5-4a04-b94d-27d256768099
 
-	measure cum_Tareas2 = DISTINCTCOUNT(dim_dates[fecha]) * 11
+	measure cum_Tareas2 = CALCULATE(DISTINCTCOUNT(dim_dates[fecha]), ALLSELECTED(dim_sucursales)) * 11
 		formatString: 0
 		lineageTag: cc001aaa-0001-4000-a000-000000000003
 
@@ -815,7 +815,7 @@ table 1Medidas
 			
 			VAR completadas = [cum_Tareas]
 			VAR total       = [cum_Tareas2]
-			RETURN IF(DIVIDE(completadas, total, 0) > 0, DIVIDE(completadas, total, 0), 0)
+			RETURN MIN(IF(DIVIDE(completadas, total, 0) > 0, DIVIDE(completadas, total, 0), 0), 1)
 		formatString: 0\ %;-0\ %;0\ %
 		lineageTag: cc001aaa-0001-4000-a000-000000000008
 
@@ -847,7 +847,7 @@ table 1Medidas
 			
 			VAR TotalTareas  = [cum_Tareas2] * DISTINCTCOUNT(dim_sucursales[id])
 			VAR TareasCumplidas = CALCULATE(COUNTROWS(Cumplimiento), Cumplimiento[Cumplimiento tarea] = 1)
-			RETURN CALCULATE(DIVIDE(TareasCumplidas, TotalTareas, 0), Cumplimiento[departamento])
+			RETURN MIN(CALCULATE(DIVIDE(TareasCumplidas, TotalTareas, 0), Cumplimiento[departamento]), 1)
 		formatString: 0.00\ %;-0.00\ %;0.00\ %
 		lineageTag: cc001aaa-0001-4000-a000-000000000012
 
@@ -872,7 +872,7 @@ table 1Medidas
 			
 			VAR completadas = [Tareas]
 			var total = [Tareas2]
-			 return IF(DIVIDE(completadas, total,0)>0, DIVIDE(completadas, total,0), 0)
+			 return MIN(IF(DIVIDE(completadas, total,0)>0, DIVIDE(completadas, total,0), 0), 1)
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: c66764f1-fcc9-475d-b5ca-477a4f90fb33
 
@@ -995,6 +995,14 @@ table 1Medidas
 			var vacio = "https://tcg-public.s3.sa-east-1.amazonaws.com/tcg-select-item-preview-2026.png"
 			return IF(ISBLANK(foto),vacio,foto)
 		lineageTag: da02b8c8-2102-4106-9ace-fa7b160f5c3d
+
+	measure fechacondatos =
+			
+			CALCULATE(
+			    COUNTROWS(marcaje), CROSSFILTER(Marcaje[fecha], dim_dates[date], Both)
+			)
+		formatString: 0
+		lineageTag: 61078f45-2910-43cf-99f7-b82836a960e4
 
 	partition 1Medidas = m
 		mode: import

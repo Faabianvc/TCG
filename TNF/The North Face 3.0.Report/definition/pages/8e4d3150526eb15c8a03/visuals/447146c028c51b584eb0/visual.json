@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Calendario_Dim"
+                      "Entity": "dim_dates"
                     }
                   },
-                  "Property": "añomes"
+                  "Property": "AñoMes"
                 }
               },
-              "queryRef": "Calendario_Dim.añomes",
+              "queryRef": "dim_dates.AñoMes",
               "nativeQueryRef": "Periodo",
               "active": true,
               "displayName": "Periodo"
@@ -222,10 +222,10 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Calendario_Dim"
+                "Entity": "dim_dates"
               }
             },
-            "Property": "añomes"
+            "Property": "AñoMes"
           }
         },
         "type": "Advanced",
@@ -234,7 +234,7 @@
           "From": [
             {
               "Name": "c",
-              "Entity": "Calendario_Dim",
+              "Entity": "dim_dates",
               "Type": 0
             }
           ],
@@ -252,7 +252,7 @@
                               "Source": "c"
                             }
                           },
-                          "Property": "añomes"
+                          "Property": "AñoMes"
                         }
                       },
                       "Right": {

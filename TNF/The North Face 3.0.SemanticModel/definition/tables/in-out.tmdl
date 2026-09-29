@@ -5,7 +5,7 @@ table in-out
 			
 			VAR cumplidas    = CALCULATE(COUNTROWS('in-out'), 'in-out'[Cumplimiento Check-In]  = 1, 'in-out'[branch_id])
 			VAR total_tareas = [cum_Tareas2] / 11
-			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+			RETURN MIN(IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0), 1)
 		formatString: 0\ %;-0\ %;0\ %
 		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012346
 
@@ -13,7 +13,7 @@ table in-out
 			
 			VAR cumplidas    = CALCULATE(COUNTROWS('in-out'), 'in-out'[Cumplimiento Check-Out] = 1, 'in-out'[branch_id])
 			VAR total_tareas = [cum_Tareas2] / 10
-			RETURN IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0)
+			RETURN MIN(IF(DIVIDE(cumplidas, total_tareas, 0) > 0, DIVIDE(cumplidas, total_tareas, 0), 0), 1)
 		formatString: 0\ %;-0\ %;0\ %
 		lineageTag: d4e5f6a7-b8c9-0123-defa-456789012347
 
